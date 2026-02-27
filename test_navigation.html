@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NavigationTest</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+<style>
+ body{
+ font-family:Arial, sans-serif;
+ padding:20px;
+ background: #1a1a1a;
+ color:white;
+ }
+
+ section{
+ min-height:100vh;
+ padding:100px20px;
+ border:2pxsolid#444;
+ margin:20px0;
+ }
+
+ #demo-reel{
+ background: #2a2a4a;
+ }
+
+ #cinematic{
+ background: #4a2a2a;
+ }
+
+ #illustration-visual-development{
+ background: #2a4a2a;
+ }
+
+ nav{
+ position:fixed;
+ top:0;
+ left:0;
+ right:0;
+ background:rgba(0,0,0,0.9);
+ padding:20px;
+ z-index:1000;
+ }
+
+ nava{
+ color:white;
+ margin:015px;
+ text-decoration:none;
+ padding:10px20px;
+ background: #333;
+ border-radius:5px;
+ display:inline-block;
+ }
+
+ nava:hover{
+ background: #555;
+ }
+
+ h1{
+ font-size:48px;
+ margin:0;
+ }
+
+ .info{
+ background: #333;
+ padding:20px;
+ border-radius:10px;
+ margin:20px0;
+ }
+</style>
+</head>
+
+<body>
+<nav>
+<a href="#demo-reel">DEMO REEL</a>
+<a href="#cinematic">SELECTED WORKS</a>
+<a href="#illustration-visual-development">ILLUSTRATION</a>
+</nav>
+
+<div class="demo-reel">
+<h1>DEMO REELSECTION</h1>
+<div class="info">
+<p><strong>SectionID:</strong>demo-reel</p>
+<p><strong>Thisis:</strong>TheherosectionwiththeDEMO REELvideo</p>
+<p><strong>Navigation:</strong>"DEMO REEL"shouldlinkhere</p>
+</div>
+</section>
+
+<div class="cinematic">
+<h1>CINEMATIC&REAL-TIME</h1>
+<div class="info">
+<p><strong>SectionID:</strong>cinematic</p>
+<p><strong>Thisis:</strong>TheportfoliosectionwithStarWars,ORC WARRIOR,HoverRabbid, etc.</p>
+<p><strong>Navigation:</strong>"SELECTED WORKS"shouldlinkhere?THISISWHEREYOUWANTTOGO!</p>
+</div>
+</section>
+
+<div class="ILLUSTRATION-visual-development">
+<h1>ILLUSTRATION&Visual Development</h1>
+<div class="info">
+<p><strong>SectionID:</strong>ILLUSTRATION-visual-development</p>
+<p><strong>Thisis:</strong>TheILLUSTRATIONprojectssection</p>
+<p><strong>Navigation:</strong>"ILLUSTRATION"shouldlinkhere</p>
+</div>
+</section>
+
+<script>
+ //Logwhichsectionisclicked
+ document.querySelectorAll('nava').forEach(link=>{
+ link.addEventListener('click',function(e) {
+ console.log('Clicked:',this.textContent, '?Target:',this.getAttribute('href'));
+ alert('Clicked: ' +this.textContent+ '\nTarget: ' +this.getAttribute('href'));
+ });
+ });
+</script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnchorPositionTest</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+<style>
+ body{
+ font-family:Arial;
+ padding:20px;
+ background: #1a1a1a;
+ color:white;
+ }
+
+ .info{
+ background: #333;
+ padding:20px;
+ margin:10px0;
+ border-radius:5px;
+ }
+
+ button{
+ padding:10px20px;
+ margin:5px;
+ cursor:pointer;
+ }
+</style>
+</head>
+
+<body>
+<h1>ILLUSTRATIONAnchorPositionTest</h1>
+
+<div class="info">
+<h2>TestResults:</h2>
+<div class="results"></div>
+</div>
+
+<buttononclic k="testAnchor()">Test#illustration-visual-developmentAnchor</button>
+<buttononclic k="openIndexPage()">Openindex.html</button>
+
+<script>
+ functiontestAnchor() {
+ constresults=document.getElementById('results');
+
+ //Trytoloadandcheckindex.html
+ fetch('index.html')
+ .then(response=>response.text())
+ .then(html=>{
+ constparser=newDOMParser();
+ constdoc=parser.parseFromString(html, 'text/html');
+
+ constanchor=doc.querySelector('#illustration-visual-development');
+ constnavLink=doc.querySelector('a[href="#illustration-visual-development"]');
+
+ letoutput= '<h3>AnchorCheck:</h3>';
+ output+= `<p><strong>Navigationlinkfound:</strong>${navLink '?YES' : '?NO'}</p>`;
+ output+= `<p><strong>Anchorelementfound:</strong>${anchor '?YES' : '?NO'}</p>`;
+
+ if(anchor) {
+ output+= `<p><strong>Anchortag:</strong>${anchor.tagName}</p>`;
+ output+= `<p><strong>Anchorstyle:</strong>${anchor.getAttribute('style')}</p>`;
+ output+= `<p><strong>Parentelement:</strong>${anchor.parentElement.tagName}</p>`;
+ }
+
+ if(navLink) {
+ output+= `<p><strong>Navlinkhref:</strong>${navLink.getAttribute('href')}</p>`;
+ output+= `<p><strong>Navlinktext:</strong>${navLink.textContent}</p>`;
+ }
+
+ results.innerHTML=output;
+ })
+ .catch(err=>{
+ results.innerHTML= `<pstyl e="color:red;">Error: ${err.message}</p>`;
+ });
+ }
+
+ functionopenIndexPage() {
+ window.open('index.html', '_blank');
+ }
+
+ //Auto-runtestonload
+ window.onload=testAnchor;
+</script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
