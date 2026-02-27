@@ -1,6 +1,6 @@
 # Nat Gatto Portfolio
 
-A pixel-perfect recreation of the evekayser.com.br portfolio website with modern animations and interactions, customized for Nat Gatto.
+A professional portfolio website showcasing 3D Art and Art Direction, featuring modern animations and interactions.
 
 ## Features
 
@@ -100,9 +100,5 @@ Modify timing and effects in `js/main.js`
 
 ## Credits
 
-Original website design: **Eve Kayser** (evekayser.com.br)
-Clone recreation: Educational purposes
+Made by **Nat Gatto**
 
----
-
-Made with ❤️ using modern web technologies
