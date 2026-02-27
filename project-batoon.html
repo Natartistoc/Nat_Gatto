@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batoon | Nat Gatto - 3D Artist</title>
+  <meta name="description" content="Batoon Character Design and Visual Development by Nat Gatto.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=15.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    .project-narrative-box {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 40px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .media-container {
+      margin: 60px 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .media-container img,
+    .media-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+
+<body id="top" class="project-detail-no-navbar">
+  <video class="global-bg-video" autoplay loop muted playsinline>
+    <source src="https://nat-gatto-demo.b-cdn.net/1.mp4" type="video/mp4">
+  </video>
+  <div class="global-overlay"></div>
+
+  <!-- Hero Section (Full Viewport) -->
+  <section class="project-hero-full-width"
+    style="height: 100vh; width: 100%; position: relative; overflow: hidden; background: #000;">
+    <img src="images/projects/batoon/nat-gatto-batoon2.jpg" alt="Batoon Hero"
+      style="width: 100%; height: 100%; object-fit: cover;">
+    <div class="hero-bottom-vignette"
+      style="position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); pointer-events: none;">
+    </div>
+  </section>
+
+  <!-- Return Button -->
+  <a href="index.html#projects" class="return-btn">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    Return to Portfolio
+  </a>
+
+  <!-- Logo Top Right -->
+  <a href="index.html" class="project-top-logo">
+    <img src="images/logo.png" alt="Nat Gatto Logo">
+  </a>
+
+  <!-- Project Header -->
+  <section class="project-header" style="padding: 60px 0 40px; text-align: center; position: relative; z-index: 5;">
+    <div class="container slide-up">
+      <h2 class="section-title"
+        style="margin-bottom: 20px; letter-spacing: 0.15em; font-size: 3.5rem; font-family: 'Roboto Condensed', sans-serif;">
+        Batoon</h2>
+      <p class="project-subtitle"
+        style="color:var(--accent-orange, #ff7b00); font-family: 'Roboto Condensed', sans-serif; font-size: 1.4rem; font-weight: 500; line-height: 1.4; max-width: 1100px; margin: 0 auto; letter-spacing: 0.05em; text-transform: uppercase;">
+        Cartoon Character Design &bull; Visual Development &bull; Teaching-Oriented Character Creation
+      </p>
+    </div>
+  </section>
+
+  <section class="project-content" style="padding-bottom: 100px;">
+    <div class="container">
+      <!-- Second Image -->
+      <div class="media-container reveal-item">
+        <img src="images/projects/batoon/nat-gatto-batoon3.jpg" alt="Batoon Illustration">
+      </div>
+
+      <!-- Project Narrative & Meta -->
+      <div class="project-grid"
+        style="display: grid; grid-template-columns: 1.8fr 1fr; gap: 60px; align-items: start; margin-bottom: 60px;">
+        <div class="project-narrative reveal-item">
+          <h2 class="section-title"
+            style="font-size: 1.8rem; margin-bottom: 25px; font-family: 'Roboto Condensed', sans-serif; color: #ff7b00; letter-spacing: 0.1em;">
+            THE PROJECT</h2>
+          <p
+            style="color: rgba(255, 255, 255, 0.9); font-size: 1.25rem; line-height: 1.65; font-family: 'Roboto Condensed', sans-serif; font-weight: 300;">
+            A Teaching-Oriented Character Design project focusing on the fundamentals of cartoon character creation.
+            This project emphasizes shape language, color theory, and visual readability, core principles essential
+            for effective Character Design. Created using a combined Photoshop and Illustrator workflow to demonstrate
+            professional industry techniques and best practices for aspiring Character Artists.</p>
+        </div>
+
+        <div class="project-meta glass-card reveal-item"
+          style="padding: 40px; border-radius: 20px; background: rgba(255,255,255,0.012); border: 1px solid rgba(255,123,0,0.12); box-shadow: 0 30px 60px rgba(0,0,0,0.5); font-family: 'Roboto Condensed', sans-serif;">
+          <div class="meta-item" style="margin-bottom: 35px;">
+            <span class="meta-label"
+              style="display: block; color: #ff7b00; text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.15em; margin-bottom: 12px; opacity: 1;">ROLE:</span>
+            <span class="meta-value"
+              style="font-size: 1.25rem; font-weight: 700; color: #ffffff; letter-spacing: 0.02em;">Cartoon Character
+              Designer &bull; Digital Painter &bull; Art Teacher</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label"
+              style="display: block; color: #ff7b00; text-transform: uppercase; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.15em; margin-bottom: 18px; opacity: 1;">SOFTWARE:</span>
+            <div class="software-icons-row" style="display: flex; gap: 12px;">
+              <div class="software-icon" title="Adobe Photoshop"
+                style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+                <img src="images/icons/software/Ps-icon.png" alt="PS"
+                  style="width: 100%; height: 100%; object-fit: contain;">
+              </div>
+              <div class="software-icon" title="Adobe Illustrator"
+                style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+                <img src="images/icons/software/Ai-icon.png" alt="AI"
+                  style="width: 100%; height: 100%; object-fit: contain;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third Image -->
+      <div class="media-container reveal-item">
+        <img src="images/projects/batoon/nat-gatto-batoon4.jpg" alt="Batoon Details 1">
+      </div>
+
+      <!-- Fourth Image -->
+      <div class="media-container reveal-item">
+        <img src="images/projects/batoon/nat-gatto-batoon5.jpg" alt="Batoon Details 2">
+      </div>
+
+      <!-- Process Section -->
+      <div style="text-align: center; margin: 80px 0 40px;">
+        <h2 class="section-title reveal-item"
+          style="font-size: 2.2rem; letter-spacing: 0.15em; font-family: 'Roboto Condensed', sans-serif;">BATOON
+          CREATIVE PROCESS</h2>
+      </div>
+
+      <div class="media-container reveal-item">
+        <video autoplay loop muted playsinline controls style="width: 100%; border-radius: 15px;">
+          <source src="https://nat-gatto-demo.b-cdn.net/batoon5.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- Smooth Footer Transition -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-copyright">
+        <p>&copy; 2026 Nat Gatto. All rights reserved.</p>
+      </div>
+
+      <div class="back-to-top-container">
+        <a href="#top" class="back-to-top-btn">
+          <div class="arrow-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+          </div>
+          <span>Back to Top</span>
+        </a>
+      </div>
+
+      <div class="footer-spacer"></div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=15.0"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof gsap !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Sequence
+        gsap.timeline({ defaults: { ease: "power4.out", duration: 1.5 } })
+          .from('.project-hero-full-width img', { scale: 1.1, filter: 'blur(10px)', duration: 3 })
+          .from('.slide-up', { opacity: 0, y: 50 }, "-=2");
+
+        // Reveal animations
+        gsap.utils.toArray('.reveal-item').forEach((item) => {
+          gsap.from(item, {
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+              toggleActions: "play none none none"
+            },
+            opacity: 0,
+            y: 40,
+            duration: 1.2,
+            ease: "power3.out"
+          });
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
+

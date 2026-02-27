@@ -1,82 +1,95 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webflow Expert and Developer - Nathalie Gatto</title>
-    <meta name="description"
-        content="Agency-level web development services at freelancer rates. My mission is to design and develop a website that you and your audience love.">
+    <title>Nat Gatto | Senior 3D Artist & Art Director</title>
+    <!--Updated:2026-02-10-->
+    <meta name="description" content="Portfolio of Nat Gatto, Senior 3D Artist and Art Director based in France.">
 
-    <!-- Fonts -->
+    <!--Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Roboto+Condensed:wght@300;400;700&display=swap"
+        rel="stylesheet">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/style.css">
+    <!--Styles-->
+    <link rel="stylesheet" href="css/style.css?v=15.0">
 </head>
 
-<body>
-    <!-- Global Background Video & Overlay -->
+<body id="top" class="loading">
+    <!--Global Background Video & Overlay-->
     <video class="global-bg-video" autoplay loop muted playsinline>
-        <source src="https://res.cloudinary.com/dsswiavub/video/upload/v1770374667/215695_txry1i.mp4" type="video/mp4">
+        <source src="https://nat-gatto-demo.b-cdn.net/1.mp4" type="video/mp4">
     </video>
     <div class="global-overlay"></div>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar island-nav">
         <div class="container">
-            <div class="nav-glass-container">
-                <div class="nav-content">
-                    <a href="index.html" class="logo">
-                        <img src="images/logo.png" alt="Nat Gatto Logo">
-                    </a>
-                    <div class="nav-links">
-                        <a href="#cinematic">DEMO REEL</a>
-                        <a href="#game-assets">GAME ASSETS</a>
-                        <a href="#visual-dev">CONCEPT ART</a>
-                        <a href="about.html">ABOUT</a>
-                        <a href="#contact">CONTACT</a>
-                    </div>
-                    <div class="nav-cta">
-                        <a href="https://api.whatsapp.com/send?1=pt_BR&phone=0033665151439" target="_blank"
-                            class="btn-primary">Happy to chat on Whatsapp</a>
-                    </div>
-                    <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
+            <a href="index.html" class="island-logo">
+                <img src="images/logo.png" alt="Nat Gatto Logo">
+            </a>
+            <div class="island-links">
+                <a href="#demo-reel">DEMO REEL</a>
+                <a href="#cinematic">SELECTED WORKS</a>
+                <a href="#illustration-visual-development">ILLUSTRATION</a>
+                <a href="#clients">CLIENTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="#contact">CONTACT</a>
             </div>
+            <div class="island-cta">
+                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank"
+                    class="btn-primary">Happy to chat on Whatsapp</a>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section id="demo-reel" class="hero">
+        <video id="hero-video" autoplay loop muted playsinline preload="auto" class="hero-video"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0;">
+            <source src="https://nat-gatto-demo.b-cdn.net/Demoreel%20Roar.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay"></div>
+        <!-- Sound Toggle -->
+        <div class="sound-control-container">
+            <button class="sound-toggle-btn" aria-label="Toggle Sound">
+                <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
+                </svg>
+                <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+                <span class="sound-text">SOUND OFF</span>
+            </button>
+        </div>
         <div class="container">
             <div class="hero-content">
-                <h1 class="cinematic-title">NAT GATTO</h1>
-                <h2 class="cinematic-subtitle">SENIOR 3D • LEAD 3D • ART DIRECTOR</h2>
-                <div class="hero-video-container">
-                    <iframe loading="lazy"
-                        style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-                        src="https://player.vimeo.com/video/1162552472?h=ci&badge=0&autopause=0&player_id=0&app_id=58479"
-                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-
+                <h1 class="cinematic-title">Nat Gatto</h1>
+                <h2 class="cinematic-subtitle">Senior 3D Artist &middot; Art Director</h2>
                 <p class="hero-subtitle">Creating worlds and high-quality 3D assets</p>
                 <div class="hero-cta">
-                    <a href="#projects" class="btn-secondary">View My Work</a>
+                    <a href="#projects" class="btn-glass">View My Work</a>
                     <a href="#contact" class="btn-primary">Get in Touch</a>
                 </div>
+                <div class="scroll-indicator">
+                    <div class="mouse"></div>
+                </div>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse"></div>
         </div>
     </section>
 
@@ -84,143 +97,489 @@
     <section id="projects" class="portfolio">
         <div class="container">
             <!-- Category 1: Cinematic & Real-Time Experiences -->
-            <h2 id="cinematic" class="section-title">Demo Reel & Real-Time Experiences</h2>
+            <h2 id="cinematic" class="section-title">CINEMATIC & REAL-TIME</h2>
             <div class="portfolio-grid">
                 <div class="portfolio-item">
                     <a href="project-starwars.html" class="portfolio-link">
                         <div class="portfolio-image">
-                            <div class="portfolio-placeholder"
-                                style="background: url('https://res.cloudinary.com/dsswiavub/image/upload/Screenshot_CouvertureTeaser01_oq6iqr.png') center/cover no-repeat;">
-                            </div>
-
+                            <img src="images/thumbnails/swsuperteams-thumb.png" alt="Star Wars Super Teams"
+                                class="portfolio-img-content">
                         </div>
                         <div class="portfolio-info">
                             <h3 class="portfolio-title">Star Wars Super Teams</h3>
-                            <p class="portfolio-location">Real-time Cinematic</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="portfolio-item">
-                    <a href="project-orc.html" class="portfolio-link">
-                        <div class="portfolio-image">
-                            <div class="portfolio-placeholder"
-                                style="background: url('https://res.cloudinary.com/dsswiavub/image/upload/Orc_Textured_Front_TanedBG_zlpjvo.jpg') center/cover no-repeat;">
-                            </div>
-                        </div>
-                        <div class="portfolio-info">
-                            <h3 class="portfolio-title">Orc Warrior</h3>
-                            <p class="portfolio-location">Character Sculpting</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="portfolio-item">
-                    <a href="project-rabbid.html" class="portfolio-link">
-                        <div class="portfolio-image">
-                            <div class="portfolio-placeholder"
-                                style="background: linear-gradient(135deg, #a770ef 0%, #cf8bf3 100%);"></div>
-                        </div>
-                        <div class="portfolio-info">
-                            <h3 class="portfolio-title">Hover Rabbid</h3>
-                            <p class="portfolio-location">Character Animation</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="portfolio-item">
-                    <a href="project-bluemoon.html" class="portfolio-link">
-                        <div class="portfolio-image">
-                            <div class="portfolio-placeholder"
-                                style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);"></div>
-                        </div>
-                        <div class="portfolio-info">
-                            <h3 class="portfolio-title">Blue Moon Cristal</h3>
-                            <p class="portfolio-location">Visual Effects</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="portfolio-item">
-                    <a href="project-carpediem.html" class="portfolio-link">
-                        <div class="portfolio-image">
-                            <div class="portfolio-placeholder"
-                                style="background: linear-gradient(135deg, #FDC830 0%, #F37335 100%);"></div>
-                        </div>
-                        <div class="portfolio-info">
-                            <h3 class="portfolio-title">Carpe Diem</h3>
-                            <p class="portfolio-location">Asset Creation</p>
+                            <p class="portfolio-location">
+                                Full Teaser Creation<br>Storyboarding & Layout<br>Cinematic Artist
+                            </p>
                         </div>
                     </a>
                 </div>
                 <div class="portfolio-item">
                     <a href="project-winter.html" class="portfolio-link">
                         <div class="portfolio-image">
-                            <div class="portfolio-placeholder"
-                                style="background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%);"></div>
+                            <img src="images/thumbnails/winteriscoming-thumb.png" alt="Winter Is Coming | Cinematic"
+                                class="portfolio-img-content">
                         </div>
                         <div class="portfolio-info">
-                            <h3 class="portfolio-title">Winter Is Coming</h3>
-                            <p class="portfolio-location">Environment Art</p>
+                            <h3 class="portfolio-title" style="letter-spacing: -0.01em;">Winter Is Coming | Cinematic
+                            </h3>
+                            <p class="portfolio-location">
+                                Digital Painter<br>AI-Driven Art Direction<br>AI-Driven Animation
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-orc.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/Orc-thumb.jpg" alt="ORC WARRIOR | CINEMATIC"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">ORC WARRIOR | CINEMATIC</h3>
+                            <p class="portfolio-location">
+                                Concept Creator<br>Advanced Digital pipeline<br>AI-Driven Animation
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-rabbid.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/hoverrabbid-thumb.png" alt="Hover Rabbid"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Hover Rabbid</h3>
+                            <p class="portfolio-location">
+                                Character Artist<br>Real-Time Artist<br>Cinematic Artist
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-bluemoon.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/bluemoon-thumb.jpg" alt="Blue Moon Crystal"
+                                class="portfolio-img-content zoom-extra">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Blue Moon Crystal</h3>
+                            <p class="portfolio-location">
+                                Concept Artist &middot; Lookdev Artist<br>FX Artist<br>Cinematic Artist
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-carpediem.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/carpediem-thumb.jpg" alt="Carpe Diem"
+                                class="portfolio-img-content zoom-extra">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Carpe Diem</h3>
+                            <p class="portfolio-location">
+                                Merch Replica Artist<br>Lookdev Artist<br>Cinematic Artist
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <!--BEACH BUGGYProject-->
+                <div class="portfolio-item">
+                    <a href="project-beachbuggy.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/Buggy-thumb.jpeg" alt="Beach Buggy"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Beach Buggy</h3>
+                            <p class="portfolio-location">
+                                Hard Surface Modeling<br>PBR Texturing<br>AI-Driven Animation
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <!--FLASHLIGHT 1950Project-->
+                <div class="portfolio-item">
+                    <a href="project-flashlight.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/flashlight-thumb.jpeg" alt="Flashlight 1950"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">FLASHLIGHT 1950</h3>
+                            <p class="portfolio-location">
+                                Hard Surface Modeling<br>PBR Texturing<br>Real-Time Loodev
+                            </p>
                         </div>
                     </a>
                 </div>
             </div>
 
-            <!-- Category 2: Figurines & Game Assets -->
-            <h2 id="game-assets" class="section-title" style="margin-top: var(--spacing-xxl);">Figurines & Game Assets
-            </h2>
+            <h2 id="products-manufacturing" class="section-title" style="margin-top: var(--spacing-xxl);">
+                PRODUCTS &
+                MANUFACTURING</h2>
             <div class="portfolio-grid">
+                <!--1.Sonic Super Teams-->
                 <div class="portfolio-item">
                     <a href="project-sonic.html" class="portfolio-link">
                         <div class="portfolio-image">
-                            <div class="portfolio-placeholder"
-                                style="background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);"></div>
+                            <img src="images/thumbnails/sonic-thumb.jpg" alt="Sonic Super Teams"
+                                class="portfolio-img-content">
                         </div>
                         <div class="portfolio-info">
                             <h3 class="portfolio-title">Sonic Super Teams</h3>
-                            <p class="portfolio-location">Game Readiness</p>
+                            <p class="portfolio-location">
+                                3D Design Creation from 2D Concepts<br>Figurine Sculptor for Molding
+                                Production<br>Figurine Adaptation and Rework for the Teaser
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <!--2.Jungle Speed|LimitedEdition-->
+                <div class="portfolio-item">
+                    <a href="project-junglespeed.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/junglespeed-thumb.jpg" alt="Jungle Speed | Limited Edition"
+                                class="portfolio-img-content zoom-extra">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title condensed">
+                                Jungle Speed | Limited Edition</h3>
+                            <p class="portfolio-location">
+                                Product Design<br>PBR Texturing<br>Rendering for Marketing
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <!--3.Planet of the Apes-->
+                <div class="portfolio-item">
+                    <a href="project-apes.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/pota-thumb.jpg" alt="Planet of the Apes"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Planet of the Apes</h3>
+                            <p class="portfolio-location">
+                                Figurine Sculptor for molding production<br>Character Designer<br>Boardgame Miniatures
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <!--4.Dark Tarot-->
+                <div class="portfolio-item">
+                    <a href="project-tarot.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/darktarot-thumb.jpg" alt="Dark Tarot"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Dark Tarot</h3>
+                            <p class="portfolio-location">
+                                Figurine Artist<br>Previsualization Artist<br>Lookdev Artist
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <!--5.Duplik: the new editions-->
+                <div class="portfolio-item">
+                    <a href="project-duplik.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/duplik-thumb.png" alt="Duplik" class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">
+                                Duplik | the new editions</h3>
+                            <p class="portfolio-location">
+                                Game Assets Recreation<br>PBR Texturing<br>Marketing Renders
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <!--6.Perudo-->
+                <div class="portfolio-item">
+                    <a href="project-perudo.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/perudo-thumb.jpg" alt="Perudo" class="portfolio-img-content"
+                                style="object-fit:cover;width:100%;height:100%;transform:scale(1.3);transform-origin:center;">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Perudo</h3>
+                            <p class="portfolio-location">
+                                Product Design<br>PBR Texturing<br>Rendering for Packaging
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
+
+                <!--9.ORC WARRIOR|Print-->
+                <div class="portfolio-item">
+                    <a href="project-orc-print.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/projects/orcprint/Orc_Print-1.jpeg" alt="ORC WARRIOR | PRINT"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">ORC WARRIOR | PRINT
+                            </h3>
+                            <p class="portfolio-location">
+                                Concept Creation<br>Figurine Sculpting(1/6)<br>3D Printing Preparation
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <!--OtherProducts-->
+                <div class="portfolio-item">
+                    <a href="project-magnus.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/magnumopus-thumb.jpg" alt="Magnum Opus"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Magnum Opus</h3>
+                            <p class="portfolio-location">
+                                3D Design Creation<br>Sculptor for Molding Production<br>Product Preview | Print
+                                Preparation
+                            </p>
                         </div>
                     </a>
                 </div>
                 <div class="portfolio-item">
-                    <a href="project-tarot.html" class="portfolio-link">
+                    <a href="project-goku.html" class="portfolio-link">
                         <div class="portfolio-image">
-                            <div class="portfolio-placeholder"
-                                style="background: linear-gradient(135deg, #4568dc 0%, #b06ab3 100%);"></div>
+                            <img src="images/thumbnails/goku-thumb.jpg" alt="Son Goku" class="portfolio-img-content"
+                                style="transform: scale(1.3) translateY(8%); transform-origin: center;">
                         </div>
                         <div class="portfolio-info">
-                            <h3 class="portfolio-title">Dark Tarot</h3>
-                            <p class="portfolio-location">Collectibles</p>
+                            <h3 class="portfolio-title">Son Goku</h3>
+                            <p class="portfolio-location">
+                                Fan Art Based Illustration<br>My First Figurine for 3D Printing<br>Dynamic Posing &
+                                Gesture
+                            </p>
                         </div>
                     </a>
                 </div>
             </div>
 
-            <!-- Category 3: Concept Art & Visual Development -->
-            <h2 id="visual-dev" class="section-title" style="margin-top: var(--spacing-xxl);">Concept Art & Visual
-                Development</h2>
+            <!--Category3:ILLUSTRATION&Visual Development-->
+            <h2 id="illustration-visual-development" class="section-title" style="margin-top: var(--spacing-xxl);">
+                Illustration & Visual Development</h2>
             <div class="portfolio-grid">
                 <div class="portfolio-item">
-                    <a href="project-winter-process.html" class="portfolio-link">
+                    <a href="project-orc-painting.html" class="portfolio-link">
                         <div class="portfolio-image">
-                            <div class="portfolio-placeholder"
-                                style="background: linear-gradient(135deg, #3a1c71 0%, #d76d77 50%, #ffaf7b 100%);">
-                            </div>
+                            <img src="images/projects/orcpainting/orcpainting-render13.jpg" alt="ORC WARRIOR | PAINTING"
+                                class="portfolio-img-content">
                         </div>
                         <div class="portfolio-info">
-                            <h3 class="portfolio-title">Winter Is Coming (Process)</h3>
-                            <p class="portfolio-location">Concept Art</p>
+                            <h3 class="portfolio-title">
+                                ORC WARRIOR | PAINTING</h3>
+                            <p class="portfolio-location">
+                                Digital Painting<br>Illustration<br>Visual Development
+                            </p>
                         </div>
                     </a>
                 </div>
                 <div class="portfolio-item">
-                    <a href="project-bluemoon-concept.html" class="portfolio-link">
+                    <a href="project-winter-painting.html" class="portfolio-link">
                         <div class="portfolio-image">
-                            <div class="portfolio-placeholder"
-                                style="background: linear-gradient(135deg, #D3CCE3 0%, #E9E4F0 100%);"></div>
+                            <img src="images/thumbnails/winterpaint-thumb.jpg" alt="Winter Is Coming | Painting"
+                                class="portfolio-img-content">
                         </div>
                         <div class="portfolio-info">
-                            <h3 class="portfolio-title">Blue Moon Cristal (Concept)</h3>
-                            <p class="portfolio-location">Visual Development</p>
+                            <h3 class="portfolio-title">
+                                WINTER IS COMING | PAINTING</h3>
+                            <p class="portfolio-location">
+                                Light-Driven Composition<br>Material Readability & Contrast<br>Atmospheric Depth &
+                                Environment
+                            </p>
                         </div>
                     </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-link.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/link-thumb.jpg" alt="Link | Tears of the Kingdom"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">
+                                LINK | TEARS OF THE KINGDOM</h3>
+                            <p class="portfolio-location">Illustration<br>Composition<br>Fan Art
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-spider-infinity.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/spidey-thumb.jpg" alt="Spiderman Infinity"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">
+                                Spiderman Infinity</h3>
+                            <p class="portfolio-location">
+                                Fan Art Based Illustration<br>Digital Painting<br>Dynamic Pose & Action Lines
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-saint-seiya.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/stseiya-thumb.jpg" alt="Saint Seiya"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Saint Seiya
+                            </h3>
+                            <p class="portfolio-location">
+                                Fan Art Based Illustration<br>Digital Painting<br>Poster-Size Artwork
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-warhammer.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/warhammer-thumb.jpg" alt="Warhammer 40000"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">
+                                Warhammer 40000</h3>
+                            <p class="portfolio-location">
+                                Dynamic Composition & Posing<br>High-Fidelity Detail Rendering<br>Perspective & Dramatic
+                                Narrative
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-batoon.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/batoon-thumb.jpg" alt="Batoon" class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Batoon</h3>
+                            <p class="portfolio-location">
+                                Character Design & Development<br>Illustration<br>Cartoon
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-squirella.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/squirella-thumb.jpg" alt="Squirella"
+                                class="portfolio-img-content">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Squirella
+                            </h3>
+                            <p class="portfolio-location">Story telling<br>Illustration<br>Composition</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-bubbleboy.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/bubbleblower-thumb.jpg" alt="Bubble Blower"
+                                class="portfolio-img-content zoom-bubble">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">Bubble Blower</h3>
+                            <p class="portfolio-location">
+                                ...This Project<br>Is Coming<br>Soon...
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="project-traditional-art.html" class="portfolio-link">
+                        <div class="portfolio-image">
+                            <img src="images/thumbnails/traditionalart-thumb.jpg" alt="Traditional Art"
+                                class="portfolio-img-content zoom-ultra">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3 class="portfolio-title">
+                                Traditional Art</h3>
+                            <p class="portfolio-location">
+                                Portrait<br>Traditional Media<br>Illustration
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENTS Section -->
+    <section id="clients" class="clients">
+        <div class="container">
+            <h2 class="section-title">Trusted By</h2>
+            <div class="clients-grid">
+                <div class="client-logo"><img src="images/icons/logos/Ubi-icon.png" alt="Ubisoft"></div>
+                <div class="client-logo"><img src="images/icons/logos/Disney-icon.png" alt="Disney"></div>
+                <div class="client-logo"><img src="images/icons/logos/Asmodee-icon.png" alt="Asmodee"></div>
+                <div class="client-logo"><img src="images/icons/logos/20century-icon.png" alt="20th Century Studios">
+                </div>
+                <div class="client-logo"><img src="images/icons/logos/Z-icon.png" alt="Z-icon"></div>
+                <div class="client-logo"><img src="images/icons/logos/EdenGames-icon.png" alt="EdenGames"></div>
+                <div class="client-logo"><img src="images/icons/logos/Zygo-icon.png" alt="Zygo"></div>
+                <div class="client-logo"><img src="images/icons/logos/Eddy-icon.png" alt="Eddy"></div>
+                <div class="client-logo"><img src="images/icons/logos/Esra-icon.png" alt="Esra"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Directors Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "I had the opportunity to work with Nathalie on a project with very tight deadlines, during
+                        which she
+                        was working remotely.
+                        She was fully committed and met all deadlines without any issues, despite difficult conditions.
+                        She remained positive and motivated from start to finish."</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">Stéphane D.</span>
+                        <span class="author-role">Character Modeling Supervisor at Jungler</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "I can only highly recommend Nathalie for her skills as a 3D instructor,
+                        both in terms of technical expertise, mastery of tools, and adaptability to evolving
+                        technologies, and
+                        in her pedagogical and human qualities. She excels in team management,
+                        kindness, patience, motivating others, always envisioning positive perspectives for our
+                        learners, active
+                        listening, communication, and empathy. Naturally, her artistic skills complement all of this
+                        (both traditional and digital) showcasing great creativity, versatility across styles, and a
+                        passion for taking on creative challenges in concept art, 3D environments,
+                        and more."</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">Laurent B.</span>
+                        <span class="author-role">Director at E-tribart</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Nathalie's technical proficiency in the 3D production pipeline is
+                        coupled with an extraordinary eye for detail. Her ability to translate complex art direction
+                        into high-fidelity assets while maintaining optimal performance for our real-time requirements
+                        was a key factor in our project's success. She is a dedicated artist who brings both creative
+                        spark and rigorous professionalism to the team."</p>
+                    <div class="testimonial-author">
+                        <span class="author-name">Sarah L.</span>
+                        <span class="author-role">Senior Producer at Disney</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -233,17 +592,25 @@
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p class="large-text">Senior 3D Artist & Art Director with 10+ years of experience across games,
-                        cinematic, real-time rendering, advertising, board games, collectibles and merchandising.</p>
+                    <p class="large-text">
+                        Senior 3D Artist & Art Director with 10+ years of experience across games,
+                        cinematics, real-time rendering, advertising, board games, collectibles and merchandising.
+                    </p>
                     <p>I design, build and supervise high-quality 3D assets from concept to final render, covering the
-                        full production pipeline: sculpting, modeling, retopology, UVs, texturing, shaders, lighting,
+                        full
+                        production pipeline: sculpting, modeling, retopology, UVs, texturing, shaders,
+                        lighting,
                         rendering, animation and cinematic assembly.</p>
                     <p>My background combines strong artistic vision with solid technical expertise, and I actively
                         leverage the latest technologies, including AI-driven tools, to optimize workflows and explore
-                        new creative possibilities. I adapt assets for both real-time engines and physical production
-                        (3D printing, prototyping, molding, manufacturing).</p>
+                        new creative possibilities. I adapt assets for both real-time engines and physical
+                        production
+                        (3D printing, prototyping, molding, manufacturing).
+                    </p>
                     <p>I focus on delivering visually strong, readable and emotionally engaging visuals, and I am
-                        currently open to remote or in-house Senior / Lead 3D Artist opportunities.</p>
+                        currently open
+                        to remote or in-house Senior 3D Artist opportunities.
+                    </p>
                 </div>
                 <div class="about-stats">
                     <div class="stat-item">
@@ -268,36 +635,56 @@
         <div class="container">
             <h2 class="section-title">Workflow & Role</h2>
             <div class="workflow-table">
-                <!-- Using service-card style for now, adaptable to table later -->
                 <div class="services-grid">
                     <div class="service-card">
                         <h3 class="service-title">Project Overview</h3>
-                        <p class="service-description">Summary of roles and tools used across various projects.</p>
+                        <p class="service-description">
+                            Summary of roles and tools used across various projects.
+                        </p>
                         <ul class="workflow-list">
-                            <li>• <strong>Star Wars:</strong> Lead Artist, Lighting</li>
-                            <li>• <strong>Orc Warrior:</strong> Sculpting, Texturing</li>
-                            <li>• <strong>Blue Moon:</strong> VFX, Rendering</li>
-                            <li>• <strong>Dark Tarot:</strong> 3D Print Prep</li>
+                            <li><strong>Star Wars:</strong> Teaser Director &middot; Cinematic Artist &middot; 3D
+                                Generalist
+                            </li>
+                            <li><strong>ORC WARRIOR:</strong> Character Artist &middot; PBR Texturing & Lookdev &middot;
+                                AI Cinematic Animation
+                            </li>
+                            <li><strong>Blue Moon:</strong> Concept Artist &middot; Lookdev Artist &middot; FX Artist
+                                &middot;
+                                Cinematic Artist</li>
+                            <li><strong>Dark Tarot:</strong> Figurine Artist &middot; Previsualization Artist &middot;
+                                Lookdev Artist</li>
                         </ul>
                     </div>
                     <div class="service-card">
                         <h3 class="service-title">Tools & Pipeline</h3>
-                        <p class="service-description">Expertise in industry standard software.</p>
+                        <p class="service-description">
+                            Expertise in industry standard software.
+                        </p>
                         <ul class="workflow-list">
-                            <li>• Maya / Blender / ZBrush</li>
-                            <li>• Substance Painter / Designer</li>
-                            <li>• Unreal Engine 5 / Unity</li>
-                            <li>• Arnold / Redshift / Marmoset</li>
+                            <li>ZBrush</li>
+                            <li>Blender | Maya</li>
+                            <li>Substance 3D</li>
+                            <li>Unreal Engine | Unity</li>
+                            <li>Redshift &middot; Keyshot &middot; Marmoset &middot; Sketchfab
+                            </li>
+                            <li>AI Tools & API Agents</li>
+                            <li>Adobe Creative Cloud</li>
                         </ul>
                     </div>
                     <div class="service-card">
                         <h3 class="service-title">Methodology</h3>
-                        <p class="service-description">From initial concept to final polish.</p>
+                        <p class="service-description">
+                            From initial concept to final polish.
+                        </p>
                         <ul class="workflow-list">
-                            <li>• Concept Adaptation</li>
-                            <li>• High/Low Poly Workflow</li>
-                            <li>• PBR Texturing</li>
-                            <li>• Optimization for Real-time</li>
+                            <li>Concept Adaptation</li>
+                            <li>High | Low Poly Workflow</li>
+                            <li>PBR Texturing</li>
+                            <li>Optimization for Real-time
+                            </li>
+                            <li>3D Printing & Prototyping</li>
+                            <li>3D Production for Physical Products
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -305,53 +692,116 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Arsenal</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="skill-cat-title">3D & Art</h3>
+                    <div class="skill-tags">
+                        <span>Traditional Pencil Tool</span>
+                        <span>ZBrush</span>
+                        <span>Blender</span>
+                        <span>Maya</span>
+                        <span>Photoshop</span>
+                        <span>Illustrator</span>
+                        <span>AI Software & API Integration</span>
+                        <span>GitHub</span>
+                        <span>Google AI Studio</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-cat-title">
+                        Texturing & Shading</h3>
+                    <div class="skill-tags">
+                        <span>Substance 3D Painter</span>
+                        <span>Substance 3D Stager</span>
+                        <span>Substance 3D Sampler</span>
+                        <span>Substance 3D Designer</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-cat-title">
+                        Real-Time & Rendering</h3>
+                    <div class="skill-tags">
+                        <span>Unreal Engine 5</span>
+                        <span>Unity</span>
+                        <span>Marmoset</span>
+                        <span>Sketchfab</span>
+                        <span>Redshift</span>
+                        <span>Iray</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="skill-cat-title">
+                        Post-Production</h3>
+                    <div class="skill-tags">
+                        <span>Adobe Premiere Pro</span>
+                        <span>AfterEffects</span>
+                        <span>AI Software & API Integration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT Section -->
     <section id="contact" class="partners">
         <div class="container">
-            <h2 class="section-title">Contact</h2>
+            <h2 class="section-title">CONTACT</h2>
             <div class="contact-container">
                 <div class="contact-text">
-                    <p class="partners-intro">Ready to collaborate on your next project? Feel free to reach out
-                        regarding freelance opportunities or full-time positions.</p>
-                    <a href="mailto:nat@example.com" class="btn-primary">Contact Me</a>
+                    <p class="partners-intro">Ready to collaborate on your next project. Feel free
+                        to reach out regarding freelance opportunities or full-time positions.
+                    </p>
+                    <a href="mailto:nat.gatto.3d@gmail.com" class="btn-primary">CONTACT Me</a>
                 </div>
                 <div class="contact-form-wrapper">
                     <form class="contact-form">
                         <input type="text" placeholder="Name" class="contact-input">
                         <input type="email" placeholder="Email" class="contact-input">
                         <textarea placeholder="Message" rows="4" class="contact-input"></textarea>
-                        <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+                        <button type="submit" class="btn-primary" style="width:100%;">Send
+                            Message</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-main">
-                    <h2 class="footer-title">Let's Create Together</h2>
-                    <p class="footer-subtitle">Demo Reel 2026 © Nat Gatto</p>
-                </div>
-                <div class="footer-bottom">
-                    <p>&copy; 2026 Nat Gatto. All rights reserved.</p>
-                    <div class="footer-links">
-                        <a href="#">Home</a>
-                        <a href="#projects">Projects</a>
-                        <a href="#about">About</a>
-                        <a href="#contact">Contact</a>
+            <div class="footer-copyright">
+                <p>&copy; 2026 Nat Gatto. All rights reserved.</p>
+            </div>
+
+            <div class="back-to-top-container">
+                <a href="#top" class="back-to-top-btn">
+                    <div class="arrow-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
                     </div>
-                </div>
+                    <span>Back to Top</span>
+                </a>
+            </div>
+
+            <div class="footer-links">
+                <a href="#demo-reel">Demo Reel</a>
+                <a href="#cinematic">Selected Works</a>
+                <a href="#illustration-visual-development">Illustration</a>
+                <a href="about.html">About</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!--Scripts-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    <script src="js/main.js?v=15.0"></script>
 </body>
 
 </html>

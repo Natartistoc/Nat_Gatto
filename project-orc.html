@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,82 +9,246 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Roboto+Condensed:wght@700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=15.0">
 </head>
 
-<body class="project-detail-page no-navbar">
+<body id="top" class="project-detail-no-navbar">
     <video class="global-bg-video" autoplay loop muted playsinline>
-        <source src="https://res.cloudinary.com/dsswiavub/video/upload/v1770374667/215695_txry1i.mp4" type="video/mp4">
+        <source src="https://nat-gatto-demo.b-cdn.net/Orc%20Texured%202_opt.mp4" type="video/mp4">
     </video>
     <div class="global-overlay"></div>
 
-    <!-- Return Button -->
+    <!--ReturnButton-->
     <a href="index.html#projects" class="return-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
         Return to Portfolio
     </a>
 
-    <!-- Top Right Logo -->
+    <!--Logotopright-->
     <a href="index.html" class="project-top-logo">
         <img src="images/logo.png" alt="Nat Gatto Logo">
     </a>
 
-    <section class="project-hero">
+    <section class="project-hero" style="padding-top:0;">
+        <!--HeroVideo(FullWidth) -->
+        <div class="hero-video-full-width"
+            style="width:100%;aspect-ratio:16/9;background: #000;position:relative;overflow:hidden;">
+            <video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;">
+                <source src="https://nat-gatto-demo.b-cdn.net/Zbrush%206_opt.mp4" type="video/mp4">
+            </video>
+
+            <!--SoundToggle-->
+            <div class="sound-control-container">
+                <button class="sound-toggle-btn" aria-label="ToggleSound">
+                    <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
+                    </svg>
+                    <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                    <span class="sound-text">SOUND OFF</span>
+                </button>
+            </div>
+        </div>
+
+        <!--ProjectTitleSection-->
+        <div class="container" style="margin-top:100px;margin-bottom:60px;text-align:center;">
+            <h2 class="section-title" style="margin-bottom: 25px; letter-spacing: 0.15em;">Orc Warrior | Cinematic</h2>
+            <p class="project-subtitle"
+                style="color:var(--accent-orange, #ff7b00); font-family: 'Roboto Condensed', sans-serif; font-size: 1.5rem; font-weight: 500; line-height: 1.4; max-width: 1100px; margin: 0 auto; letter-spacing: 0.02em; text-transform: uppercase;">
+                Concept Creation &bull; Figurine Sculpting (1/6) &bull; Retopology &bull; UVs &bull; PBR Texturing
+            </p>
+            <p class="project-subtitle"
+                style="color:var(--accent-orange, #ff7b00); font-family: 'Roboto Condensed', sans-serif; font-size: 1.5rem; font-weight: 500; line-height: 1.4; max-width: 1100px; margin: 8px auto 0; letter-spacing: 0.02em; text-transform: uppercase;">
+                AI-Assisted Animation &bull; Cinematic Adaptation &bull; Camera &bull; Lighting &bull; Rendering &bull;
+                Video Editing
+            </p>
+        </div>
+
+        <div class="premium-divider"></div>
+
         <div class="container">
             <div class="project-hero-content">
-                <h1 class="cinematic-title">Orc Warrior</h1>
-                <p class="cinematic-subtitle">CHARACTER SCULPTING • PBR TEXTURING • GAME ASSET</p>
-                <div class="project-main-media">
-                    <div class="cinematic-video-container v-720p">
-                        <video controls autoplay muted playsinline loop>
-                            <source
-                                src="https://res.cloudinary.com/dsswiavub/video/upload/v1770418749/Cinematic_ultrarealistic_closeup_2026010822_de7xej.mp4"
+
+
+                <!--Side-by-sideProcessVideos-->
+                <div class="video-grid" style="max-width:1800px;margin-bottom:var(--spacing-lg);">
+                    <div class="project-hero-featured-image" style="margin-top:0;">
+                        <video loop muted playsinline controls preload="auto">
+                            <source src="https://nat-gatto-demo.b-cdn.net/ZBrush_7_opt.mp4#t=0.001" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="project-hero-featured-image" style="margin-top:0;">
+                        <video loop muted playsinline controls preload="auto">
+                            <source src="https://nat-gatto-demo.b-cdn.net/Orc_Substance_opt.mp4#t=0.001"
                                 type="video/mp4">
-                            Your browser does not support the video tag.
                         </video>
                     </div>
                 </div>
+
+                <!--WorkflowProcessAnimation(Relocatedafter2ndvideo) -->
+                <div class="process-fader">
+                    <img src="images/projects/orccinematic/Orc-01.jpg" alt="SculptingProcess">
+                    <img src="images/projects/orccinematic/Orc-03.jpg" alt="Wireframe/Retopology">
+                    <img src="images/projects/orccinematic/Orc-02.jpg" alt="PBR Texturing">
+                </div>
+
+                <div class="project-grid" style="margin-top: 60px; margin-bottom: 60px;">
+                    <div class="project-description">
+                        <h2 class="section-title">The Project</h2>
+                        <p style="color: rgba(255, 255, 255, 0.75);">I designed and created this 1/6 scale figurine and
+                            all its accessories using Maxon One, ZBrush, and Substance 3D. Inspired by the World of
+                            Warcraft universe, this project explores semi-realistic character design with a strong focus
+                            on morphology and detail. I enjoy working across both stylized and more realistic
+                            approaches, and this piece reflects that balance. The videos showcase my workflow, from
+                            high-resolution sculpting to texturing and final rendering to visualize the character’s
+                            appearance. The lower image presents the retopologized low-poly version, optimized for
+                            real-time rendering and game engines. The model was originally sculpted in ZBrush, then
+                            retopologized, UV-unwrapped, and baked (normal map, ambient occlusion, curvature, etc.) to
+                            preserve visual quality while reducing complexity. I also explored an AI-assisted creative
+                            workflow to animate the character directly from the final 3D renders, resulting in a short
+                            edited clip. The model is currently being prepared for 3D printing, as shown in the Products
+                            & Manufacturing section of this website.</p>
+                    </div>
+                    <div class="project-meta glass-card"
+                        style="border-color: rgba(255, 123, 0, 0.15); box-shadow: 0 0 20px rgba(255, 123, 0, 0.05); height:auto; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:25px 35px; border-radius: var(--border-radius-lg);">
+                        <div class="meta-item" style="text-align:left; width:100%; margin-bottom: 25px;">
+                            <span class="meta-label" style="display:block; margin-bottom:10px;">Role:</span>
+                            <span class="meta-value">Character Artist &bull; Cinematic Artist &bull; AI-Assisted
+                                Workflow Explorer</span>
+                        </div>
+                        <div class="meta-item" style="text-align:left; width:100%;">
+                            <span class="meta-label" style="display:block; margin-bottom:15px;">Software:</span>
+                            <div class="software-meta"
+                                style="display:flex; gap:12px; flex-wrap:nowrap; justify-content:flex-start;">
+                                <div class="software-icon" title="Adobe Photoshop">
+                                    <img src="images/icons/software/Ps-icon.png" alt="Photoshop">
+                                </div>
+                                <div class="software-icon" title="ZBrush">
+                                    <img src="images/icons/software/ZB-icon.png" alt="ZBrush">
+                                </div>
+                                <div class="software-icon" title="Substance 3D Painter">
+                                    <img src="images/icons/software/Pt-icon.png" alt="Substance Painter">
+                                </div>
+                                <div class="software-icon" title="Substance 3D Stager">
+                                    <img src="images/icons/software/Sg-icon.png" alt="SubstanceStager">
+                                </div>
+                                <div class="software-icon" title="Adobe Premiere Pro">
+                                    <img src="images/icons/software/Pr-icon.png" alt="PremierePro">
+                                </div>
+                                <div class="software-icon" title="AdobeAfterEffects">
+                                    <img src="images/icons/software/Ae-icon.png" alt="AfterEffects">
+                                </div>
+                                <div class="software-icon" title="GenerativeAI(AdobeFirefly)">
+                                    <img src="images/icons/software/Firefly-icon.png" alt="Firefly">
+                                </div>
+                                <div class="software-icon" title="GenerativeAI(GPT-4)">
+                                    <img src="images/icons/software/GPT-icon.png" alt="ChatGPT">
+                                </div>
+                                <div class="software-icon" title="KlingAIAnimation">
+                                    <img src="images/icons/software/Kling-icon.png" alt="KlingAI">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="process-caption" style="font-style: italic;">Once retopology and PBR texturing were completed,
+                    the character was rendered
+                    in Substance Stager to achieve clean, production-ready stills with controlled lighting and
+                    materials. Below are the renders I created using Substance Stager.</p>
+
+                <div class="project-hero-featured-image">
+                    <video loop muted playsinline controls preload="auto"
+                        style="transform: scale(1.05); object-fit: cover;">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Orc%20Texured%202_opt.mp4#t=0.001"
+                            type="video/mp4">
+                    </video>
+                </div>
+
+                <p class="process-caption" style="font-style: italic;">Based on the original Substance Stager renders
+                    shown above, I created this
+                    short clip exploring AI-assisted animation, showcased below.</p>
+
+                <div class="project-hero-featured-image">
+                    <video loop muted playsinline controls preload="auto">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Part_1_ROar_AE.mp4#t=0.001" type="video/mp4">
+                    </video>
+                </div>
+
+                <!--NewTexturedImages-->
+                <p class="process-caption" style="font-style: italic;">Based on the original Substance Stager renders,
+                    AI upscaling was applied to
+                    enhance image sharpness, detail, and overall visual fidelity while preserving the original look.</p>
+
+                <div class="project-hero-featured-image">
+                    <img src="images/projects/orccinematic/Orc_Textured_Front.jpg" alt="OrcTexturedFrontView">
+                </div>
+                <div class="project-hero-featured-image">
+                    <img src="images/projects/orccinematic/Orc_Textured_Side.jpg" alt="OrcTexturedSideView">
+                </div>
             </div>
         </div>
     </section>
 
+    <!--ProjectDescription-->
     <section class="project-info">
         <div class="container">
-            <div class="project-grid">
-                <div class="project-description">
-                    <h2 class="section-title">The Project</h2>
-                    <p>A detailed character study focusing on anatomy, leather/metal texturing, and game-readiness. This
-                        character was sculpted in ZBrush and textured in Substance Painter with a focus on high-fidelity
-                        PBR materials.</p>
-                </div>
-                <div class="project-meta glass-card">
-                    <div class="meta-item">
-                        <span class="meta-label">Role:</span>
-                        <span class="meta-value">Character Artist</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Software:</span>
-                        <span class="meta-value">ZBrush, Substance Painter, Maya</span>
-                    </div>
-                </div>
+
+        </div>
+
+        <div class="container">
+            <p class="process-caption" style="font-style: italic;">This cinematic animation was produced from Substance
+                Stager renders and enhanced
+                through AI-assisted video animation to test motion, timing, and visual impact. The clip below presents
+                the render before post-effects were applied in After Effects.</p>
+            <div class="project-hero-featured-image">
+                <video muted playsinline loop controls preload="auto" style="width:100%; border-radius:14px;">
+                    <source
+                        src="https://nat-gatto-demo.b-cdn.net/Cinematic_ultrarealistic_closeup_2026010822_de7xej.mp4#t=0.001"
+                        type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </section>
+
+
 
     <footer class="footer">
         <div class="container">
-            <div class="footer-bottom">
+            <div class="footer-copyright">
                 <p>&copy; 2026 Nat Gatto. All rights reserved.</p>
             </div>
+
+            <div class="back-to-top-container">
+                <a href="#top" class="back-to-top-btn">
+                    <div class="arrow-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </div>
+                    <span>Back to Top</span>
+                </a>
+            </div>
+
+            <div class="footer-spacer"></div>
         </div>
     </footer>
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=15.0"></script>
 </body>
 
 </html>
+

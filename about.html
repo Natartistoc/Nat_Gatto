@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,34 +11,45 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Roboto+Condensed:wght@700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Roboto+Condensed:wght@300;400;700&display=swap"
         rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=15.0">
 </head>
 
-<body class="about-page no-navbar">
+<body id="top" class="about-page">
     <!-- Global Background Video & Overlay -->
     <video class="global-bg-video" autoplay loop muted playsinline>
-        <source src="https://res.cloudinary.com/dsswiavub/video/upload/v1770374667/215695_txry1i.mp4" type="video/mp4">
+        <source src="https://nat-gatto-demo.b-cdn.net/215695.mp4" type="video/mp4">
     </video>
     <div class="global-overlay"></div>
 
-    <!-- Return Button -->
-    <a href="index.html#about" class="return-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-        Return to Portfolio
-    </a>
-
-    <!-- Top Right Logo -->
-    <a href="index.html" class="project-top-logo">
-        <img src="images/logo.png" alt="Nat Gatto Logo">
-    </a>
+    <!-- Navigation -->
+    <nav class="navbar island-nav">
+        <div class="container">
+            <a href="index.html" class="island-logo">
+                <img src="images/logo.png" alt="Nat Gatto Logo">
+            </a>
+            <div class="island-links">
+                <a href="index.html#demo-reel">DEMO REEL</a>
+                <a href="index.html#cinematic">SELECTED WORKS</a>
+                <a href="index.html#illustration-visual-development">ILLUSTRATION</a>
+                <a href="index.html#clients">CLIENTS</a>
+                <a href="about.html">ABOUT</a>
+                <a href="index.html#contact">CONTACT</a>
+            </div>
+            <div class="island-cta">
+                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank"
+                    class="btn-primary">Happy to chat on Whatsapp</a>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
 
     <!-- Main Content -->
     <section class="about fullscreen-about">
@@ -57,9 +68,9 @@
                         new creative possibilities. I adapt assets for both real-time engines and physical production
                         (3D printing, prototyping, molding, manufacturing).</p>
                     <p>I focus on delivering visually strong, readable and emotionally engaging visuals, and I am
-                        currently open to remote or in-house Senior / Lead 3D Artist opportunities.</p>
+                        currently open to remote or in-house Senior 3D Artist opportunities.</p>
                 </div>
-                <!-- Optional: Side info or empty space for design balance -->
+
                 <div class="about-meta-sidebar glass-card">
                     <div class="meta-item">
                         <span class="meta-label">Expertise</span>
@@ -78,16 +89,28 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-bottom">
+            <div class="footer-copyright">
                 <p>&copy; 2026 Nat Gatto. All rights reserved.</p>
             </div>
+
+            <div class="back-to-top-container">
+                <a href="#top" class="back-to-top-btn">
+                    <div class="arrow-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </div>
+                    <span>Back to Top</span>
+                </a>
+            </div>
+
+            <div class="footer-spacer"></div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=15.0"></script>
 </body>
 
 </html>
