@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -523,16 +523,16 @@
         <div class="container">
             <h2 class="section-title">Trusted By</h2>
             <div class="clients-grid">
-                <div class="client-logo"><img src="images/logos/Ubi-icon.png" alt="Ubisoft"></div>
-                <div class="client-logo"><img src="images/logos/Disney-icon.png" alt="Disney"></div>
-                <div class="client-logo"><img src="images/logos/Asmodee-icon.png" alt="Asmodee"></div>
-                <div class="client-logo"><img src="images/logos/20century-icon.png" alt="20th Century Studios">
+                <div class="client-logo"><img src="images/icons/logos/Ubi-icon.png" alt="Ubisoft"></div>
+                <div class="client-logo"><img src="images/icons/logos/Disney-icon.png" alt="Disney"></div>
+                <div class="client-logo"><img src="images/icons/logos/Asmodee-icon.png" alt="Asmodee"></div>
+                <div class="client-logo"><img src="images/icons/logos/20century-icon.png" alt="20th Century Studios">
                 </div>
-                <div class="client-logo"><img src="images/logos/Z-icon.png" alt="Z-icon"></div>
-                <div class="client-logo"><img src="images/logos/EdenGames-icon.png" alt="EdenGames"></div>
-                <div class="client-logo"><img src="images/logos/Zygo-icon.png" alt="Zygo"></div>
-                <div class="client-logo"><img src="images/logos/Eddy-icon.png" alt="Eddy"></div>
-                <div class="client-logo"><img src="images/logos/Esra-icon.png" alt="Esra"></div>
+                <div class="client-logo"><img src="images/icons/logos/Z-icon.png" alt="Z-icon"></div>
+                <div class="client-logo"><img src="images/icons/logos/EdenGames-icon.png" alt="EdenGames"></div>
+                <div class="client-logo"><img src="images/icons/logos/Zygo-icon.png" alt="Zygo"></div>
+                <div class="client-logo"><img src="images/icons/logos/Eddy-icon.png" alt="Eddy"></div>
+                <div class="client-logo"><img src="images/icons/logos/Esra-icon.png" alt="Esra"></div>
             </div>
         </div>
     </section>
@@ -550,7 +550,7 @@
                         She was fully committed and met all deadlines without any issues, despite difficult conditions.
                         She remained positive and motivated from start to finish."</p>
                     <div class="testimonial-author">
-                        <span class="author-name">Stéphane D.</span>
+                        <span class="author-name">St�phane D.</span>
                         <span class="author-role">Character Modeling Supervisor at Jungler</span>
                     </div>
                 </div>
@@ -749,6 +749,7 @@
 
     <!-- CONTACT Section -->
     <section id="contact" class="partners">
+        <div id="form-status" style="display:none; text-align:center; padding:20px; font-family:'Roboto Condensed', sans-serif; color:#ff7e22; font-size:1.2rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:20px;">Sending...</div>
         <div class="container">
             <h2 class="section-title">CONTACT</h2>
             <div class="contact-container">
@@ -759,12 +760,12 @@
                     <a href="mailto:nat.gatto.3d@gmail.com" class="btn-primary">CONTACT Me</a>
                 </div>
                 <div class="contact-form-wrapper">
-                    <form class="contact-form">
-                        <input type="text" placeholder="Name" class="contact-input">
-                        <input type="email" placeholder="Email" class="contact-input">
-                        <textarea placeholder="Message" rows="4" class="contact-input"></textarea>
-                        <button type="submit" class="btn-primary" style="width:100%;">Send
-                            Message</button>
+                    <form id="contact-form" class="contact-form" action="https://formspree.io/f/xjgezavz" method="POST">
+                        <input type="hidden" name="_next" value="https://natgatto.com/thank-you.html">
+                        <input type="text" name="name" placeholder="Name" class="contact-input" required>
+                        <input type="email" name="email" placeholder="Email" class="contact-input" required>
+                        <textarea name="message" placeholder="Message" rows="4" class="contact-input" required></textarea>
+                        <button type="submit" class="btn-primary" style="width:100%;">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -803,6 +804,42 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
     <script src="js/main.js?v=15.0"></script>
+    <script>
+        const contactForm = document.getElementById("contact-form");
+        const formStatus = document.getElementById("form-status");
+        
+        if (contactForm) {
+            contactForm.addEventListener("submit", async function(event) {
+                event.preventDefault();
+                const data = new FormData(event.target);
+                
+                // Show sending status
+                contactForm.style.display = "none";
+                formStatus.style.display = "block";
+                
+                try {
+                    const response = await fetch(event.target.action, {
+                        method: contactForm.method,
+                        body: data,
+                        headers: { "Accept": "application/json" }
+                    });
+                    
+                    if (response.ok) {
+                        window.location.href = "thank-you.html";
+                    } else {
+                        const errorData = await response.json();
+                        alert("Oops! There was a problem: " + (errorData.errors ? errorData.errors.map(e => e.message).join(", ") : "Error sending message"));
+                        contactForm.style.display = "block";
+                        formStatus.style.display = "none";
+                    }
+                } catch (error) {
+                    alert("Oops! There was a problem. Please try again later.");
+                    contactForm.style.display = "block";
+                    formStatus.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

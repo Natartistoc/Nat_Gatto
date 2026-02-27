@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | Nat Gatto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Condensed:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=15.0">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+
+        /* Atmospheric Video Background */
+        .global-bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.6;
+        }
+
+        .global-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: -1;
+        }
+
+        .thank-you-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            z-index: 10;
+        }
+
+        .thank-you-title {
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        .thank-you-text {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1.5rem;
+            color: #ff7e22;
+            /* Specific Orange from your site */
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.3s forwards;
+        }
+
+        /* Matching Your Website Button Style */
+        .return-home-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.875rem;
+            border-radius: 30px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            border: none;
+            cursor: pointer;
+            transform: translateY(20px);
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) 0.6s forwards;
+        }
+
+        .return-home-btn:hover {
+            background-color: #ffffff;
+            color: #000000;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 0 35px rgba(255, 126, 34, 1.0), 0 0 15px rgba(255, 165, 0, 0.9);
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 0 8px rgba(255, 126, 34, 1.0);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .thank-you-logo {
+            width: 450px;
+            height: auto;
+            margin: 0 auto 4rem auto;
+            display: block;
+            opacity: 0;
+            filter: drop-shadow(0 0 30px rgba(255, 126, 34, 0.8));
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Atmospheric Background Video -->
+    <video class="global-bg-video" autoplay loop muted playsinline>
+        <source src="https://nat-gatto-demo.b-cdn.net/1.mp4" type="video/mp4">
+    </video>
+    <div class="global-overlay"></div>
+
+    <div class="thank-you-container">
+        <img src="images/logo.png" alt="Nat Gatto Logo" class="thank-you-logo">
+        <h1 class="thank-you-title">THANK YOU</h1>
+        <p class="thank-you-text">Your message has been received.<br>I'll get back to you as soon as possible.</p>
+        <a href="index.html" class="return-home-btn">Return to Portfolio</a>
+    </div>
+</body>
+
+</html>
