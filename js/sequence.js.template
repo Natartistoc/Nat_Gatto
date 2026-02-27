@@ -1,0 +1,44 @@
+# Sequence Component: GSAP Canvas
+
+```javascript
+/* 
+    sequence.js
+    Handles high-performance image sequence rendering on a Canvas
+*/
+
+function initImageSequence(config) {
+    const canvas = document.querySelector(config.canvasSelector);
+    if (!canvas) return;
+
+    const context = canvas.getContext("2d");
+    const frames = { frame: 1 };
+    const images = [];
+
+    // Preload Images
+    for (let i = 1; i <= config.frameCount; i++) {
+        const img = new Image();
+        img.src = `${config.baseUrl}${config.prefix}${i}${config.suffix}`;
+        images.push(img);
+    }
+
+    gsap.to(frames, {
+        frame: config.frameCount,
+        snap: "frame",
+        ease: "none",
+        scrollTrigger: {
+            trigger: config.triggerSelector,
+            start: "top center",
+            end: "bottom center",
+            scrub: 1,
+        },
+        onUpdate: render
+    });
+
+    images[0].onload = render;
+
+    function render() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(images[frames.frame - 1], 0, 0);
+    }
+}
+```
