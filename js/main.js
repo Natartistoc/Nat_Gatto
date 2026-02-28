@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbarScroll();
     initMagneticButtons();
     initVideoPreviews();
+    initAtmosphericMobileVideos(); forcePlayGlobalVideo();
 
     // 2. Initialize GSAP Animations
     if (typeof gsap !== 'undefined') {
@@ -64,6 +65,7 @@ function initHeroAnimations() {
     const title = document.querySelector('.cinematic-title');
     const subtitle = document.querySelector('.cinematic-subtitle');
     const heroSubtitle = document.querySelector('.hero-subtitle');
+    
     const heroCta = document.querySelector('.hero-cta');
     const scrollIndicator = document.querySelector('.scroll-indicator');
 
@@ -106,8 +108,8 @@ function initHeroAnimations() {
                     }
                 }, introCutoff);
 
-                // 3. Outro Fade Out (35s before the end)
-                const textOutroStart = duration > 35 ? duration - 35 : duration - 5;
+                // 3. Outro Fade Out (Disappear after 6 seconds of visibility)
+                const textOutroStart = 17; // 11s intro + 6s visibility
                 tl.to(allElements, {
                     opacity: 0,
                     y: -20,
@@ -398,7 +400,7 @@ function initSoundToggle() {
                     });
                 }
             } else {
-                video.muted = true;
+                video.muted = true; video.setAttribute("playsinline", ""); video.setAttribute("autoplay", "autoplay");
                 updateUI();
             }
         });
@@ -411,7 +413,7 @@ function initSoundToggle() {
         if (playPromise !== undefined) {
             playPromise.catch(() => {
                 // If unmuted autoplay fails, ensure it's muted and try again
-                video.muted = true;
+                video.muted = true; video.setAttribute("playsinline", ""); video.setAttribute("autoplay", "autoplay");
                 video.play();
                 updateUI();
             });
@@ -649,7 +651,7 @@ function initVideoPreviews() {
         if (video.dataset.previewed) return;
 
         try {
-            video.muted = true;
+            video.muted = true; video.setAttribute("playsinline", ""); video.setAttribute("autoplay", "autoplay");
             video.setAttribute('preload', 'auto');
             video.classList.add('loading-preview');
 
@@ -699,6 +701,49 @@ function initVideoPreviews() {
     videos.forEach(v => observer.observe(v));
 }
 
+// ================================
+// Atmospheric Mobile Video Logic
+// ================================
+function initAtmosphericMobileVideos() {
+    // Only target screens <= 1024px
+    if (window.innerWidth > 1024) return;
+
+    // Detect if we are on a project detail page
+    const isProjectDetail = document.body.classList.contains('project-detail-no-navbar') ||
+        document.body.classList.contains('project-detail-page');
+    if (!isProjectDetail) return;
+
+    console.log('📱 Premium Mobile Mode: Swapping project videos for atmospheric background.');
+
+    const atmosphericSrc = 'https://nat-gatto-demo.b-cdn.net/1.mp4';
+
+    // Find all videos that aren't already the atmospheric one
+    const projectVideos = document.querySelectorAll('video');
+
+    projectVideos.forEach(video => {
+        const source = video.querySelector('source');
+        if (source && !source.src.includes('1.mp4')) {
+            source.src = atmosphericSrc;
+            video.load(); // Reload video with new source
+
+            // Ensure silent atmospheric looping
+            video.muted = true; video.setAttribute("playsinline", ""); video.setAttribute("autoplay", "autoplay");
+            video.loop = true;
+
+            // Add premium class for potential styling hooks
+            video.classList.add('atmospheric-swapped');
+
+            // Re-attempt play
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Note: Video individual play caught:', error);
+                });
+            }
+        }
+    });
+}
+
 
 
 console.log('🚀 Nat Gatto Portfolio - Initialized');
@@ -706,3 +751,14 @@ console.log('📱 Responsive design active');
 console.log('✨ Animations loaded with GSAP');
 console.log('🎯 Scroll triggers active');
 console.log('🎬 2-Second Video Preview system active');
+
+function forcePlayGlobalVideo() {
+    const bgVideo = document.querySelector('.global-bg-video');
+    if (bgVideo) {
+        bgVideo.muted = true;
+        bgVideo.play().catch(e => console.log('Global bg play caught:', e));
+    }
+}
+
+
+

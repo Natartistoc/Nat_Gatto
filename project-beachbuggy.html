@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,26 +16,50 @@
 </head>
 
 <body id="top" class="project-detail-no-navbar">
-    <video class="global-bg-video" autoplay loop muted playsinline>
+
+    <nav class="navbar island-nav">
+        <div class="container">
+            <div class="return-btn-container">
+            <div class="sound-control-container">
+                <button class="sound-toggle-btn" aria-label="Toggle Sound">
+                    <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
+                    </svg>
+                    <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                </button>
+            </div>
+                <a href="index.html#projects" class="return-btn">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                  </svg>
+                  Return to Portfolio
+                </a>
+            </div>
+            <div class="island-cta">
+                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank" class="btn-primary">Happy to chat on WhatsApp</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    
+<video class="global-bg-video" autoplay loop muted playsinline>
         <source src="https://nat-gatto-demo.b-cdn.net/Buggy%20Ai%20Intro_opt.mp4" type="video/mp4">
     </video>
-    <div class="global-overlay"></div>
+    
+
+    
 
     <!--ReturnButton-->
-    <a href="index.html#projects" class="return-btn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-        Return to Portfolio
-    </a>
 
     <!--Logotopright-->
-    <a href="index.html" class="project-top-logo">
-        <img src="images/logo.png" alt="Nat Gatto Logo">
-    </a>
-
     <section class="project-hero" style="padding-top:0;">
         <!--HeroVideo/VisualPlaceholder(FullWidth) -->
         <div class="hero-video-full-width"
@@ -45,23 +69,7 @@
             </video>
 
             <!--SoundTogglePlaceholder(Matchesstructureofotherpages) -->
-            <div class="sound-control-container">
-                <button class="sound-toggle-btn" aria-label="ToggleSound">
-                    <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
-                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
-                    </svg>
-                    <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                        <line x1="23" y1="9" x2="17" y2="15"></line>
-                        <line x1="17" y1="9" x2="23" y2="15"></line>
-                    </svg>
-                    <span class="sound-text">SOUND OFF</span>
-                </button>
-            </div>
+            
         </div>
 
         <!--ProjectTitleSection-->
@@ -242,16 +250,19 @@
 
 
 
-    <footer class="footer">
-        <div class="container">
+        <footer class="footer">
+        <div class="container footer-row-master">
             <div class="footer-copyright">
+                <div class="island-logo footer-logo-corner">
+                    <img src="images/logo.png" alt="Nat Gatto Logo">
+                </div>
                 <p>&copy; 2026 Nat Gatto. All rights reserved.</p>
             </div>
 
             <div class="back-to-top-container">
                 <a href="#top" class="back-to-top-btn">
                     <div class="arrow-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="18 15 12 9 6 15"></polyline>
                         </svg>
                     </div>
@@ -259,12 +270,29 @@
                 </a>
             </div>
 
-            <div class="footer-spacer"></div>
+            <div class="footer-links">
+                <a href="index.html#demo-reel">Demo Reel</a>
+                <a href="index.html#works">Selected Works</a>
+                <a href="index.html#illustrations">Illustration</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
         </div>
     </footer>
     <script src="js/main.js?v=15.0"></script>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
 
 

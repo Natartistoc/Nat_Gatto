@@ -47,7 +47,7 @@ A professional portfolio website showcasing 3D Art and Art Direction, featuring 
 ## Project Structure
 
 ```
-evekayser-clone/
+nat-gatto-portfolio/
 ├── index.html          # Main HTML file
 ├── css/
 │   └── style.css       # Complete styling and animations
@@ -100,7 +100,5 @@ Modify timing and effects in `js/main.js`
 
 ## Credits
 
-
 Made by **Nat Gatto**
-
 

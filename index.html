@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -21,17 +21,28 @@
 </head>
 
 <body id="top" class="loading">
-    <!--Global Background Video & Overlay-->
+<!--Global Background Video & Overlay-->
     <video class="global-bg-video" autoplay loop muted playsinline>
         <source src="https://nat-gatto-demo.b-cdn.net/1.mp4" type="video/mp4">
     </video>
     <div class="global-overlay"></div>
-    <!-- Navigation -->
+
     <nav class="navbar island-nav">
         <div class="container">
-            <a href="index.html" class="island-logo">
-                <img src="images/logo.png" alt="Nat Gatto Logo">
-            </a>
+            <div class="sound-control-container">
+                <button class="sound-toggle-btn" aria-label="Toggle Sound">
+                    <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
+                    </svg>
+                    <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                </button>
+            </div>
             <div class="island-links">
                 <a href="#demo-reel">DEMO REEL</a>
                 <a href="#cinematic">SELECTED WORKS</a>
@@ -41,16 +52,19 @@
                 <a href="#contact">CONTACT</a>
             </div>
             <div class="island-cta">
-                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank"
-                    class="btn-primary"><span class="hide-mobile">Happy to chat on </span>Whatsapp</a>
+                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank" class="btn-primary">Happy to chat on WhatsApp</a>
             </div>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
         </div>
     </nav>
+
+    <!-- Navigation Overlay -->
+    
+    
+    
+            
 
     <!-- Hero Section -->
     <section id="demo-reel" class="hero">
@@ -60,26 +74,11 @@
             Your browser does not support the video tag.
         </video>
         <div class="hero-overlay"></div>
-        <!-- Sound Toggle -->
-        <div class="sound-control-container">
-            <button class="sound-toggle-btn" aria-label="Toggle Sound">
-                <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
-                </svg>
-                <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-                    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                    <line x1="23" y1="9" x2="17" y2="15"></line>
-                    <line x1="17" y1="9" x2="23" y2="15"></line>
-                </svg>
-                <span class="sound-text">SOUND OFF</span>
-            </button>
-        </div>
+        
         <div class="container">
+            
             <div class="hero-content">
+                
                 <h1 class="cinematic-title">Nat Gatto</h1>
                 <h2 class="cinematic-subtitle">Senior 3D Artist &middot; Art Director</h2>
                 <p class="hero-subtitle">Creating worlds and high-quality 3D assets</p>
@@ -97,6 +96,7 @@
     <!-- Projects Section -->
     <section id="projects" class="portfolio">
         <div class="container">
+            
             <!-- Category 1: Cinematic & Real-Time Experiences -->
             <h2 id="cinematic" class="section-title">CINEMATIC & REAL-TIME</h2>
             <div class="portfolio-grid">
@@ -521,6 +521,7 @@
     <!-- CLIENTS Section -->
     <section id="clients" class="clients">
         <div class="container">
+            
             <h2 class="section-title">Trusted By</h2>
             <div class="clients-grid">
                 <div class="client-logo"><img src="images/logos/Ubi-icon.png" alt="Ubisoft"></div>
@@ -540,6 +541,7 @@
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials">
         <div class="container">
+            
             <h2 class="section-title">What Directors Say</h2>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
@@ -550,7 +552,7 @@
                         She was fully committed and met all deadlines without any issues, despite difficult conditions.
                         She remained positive and motivated from start to finish."</p>
                     <div class="testimonial-author">
-                        <span class="author-name">Stéphane D.</span>
+                        <span class="author-name">Stï¿½phane D.</span>
                         <span class="author-role">Character Modeling Supervisor at Jungler</span>
                     </div>
                 </div>
@@ -590,6 +592,7 @@
     <section id="about" class="about">
         <div class="section-overlay"></div>
         <div class="container">
+            
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-text">
@@ -634,6 +637,7 @@
     <!-- Workflow & Role Section -->
     <section id="workflow" class="services">
         <div class="container">
+            
             <h2 class="section-title">Workflow & Role</h2>
             <div class="workflow-table">
                 <div class="services-grid">
@@ -696,6 +700,7 @@
     <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container">
+            
             <h2 class="section-title">Technical Arsenal</h2>
             <div class="skills-grid">
                 <div class="skill-category">
@@ -751,6 +756,7 @@
     <section id="contact" class="partners">
         <div id="form-status" style="display:none; text-align:center; padding:20px; font-family:'Roboto Condensed', sans-serif; color:#ff7e22; font-size:1.2rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:20px;">Sending...</div>
         <div class="container">
+            
             <h2 class="section-title">CONTACT</h2>
             <div class="contact-container">
                 <div class="contact-text">
@@ -773,15 +779,18 @@
     </section>
 
     <footer class="footer">
-        <div class="container">
+        <div class="container footer-row-master">
             <div class="footer-copyright">
+                <div class="island-logo footer-logo-corner">
+                    <img src="images/logo.png" alt="Nat Gatto Logo">
+                </div>
                 <p>&copy; 2026 Nat Gatto. All rights reserved.</p>
             </div>
 
             <div class="back-to-top-container">
                 <a href="#top" class="back-to-top-btn">
                     <div class="arrow-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="18 15 12 9 6 15"></polyline>
                         </svg>
                     </div>
@@ -843,4 +852,31 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
