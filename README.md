@@ -100,5 +100,7 @@ Modify timing and effects in `js/main.js`
 
 ## Credits
 
+
 Made by **Nat Gatto**
+
 
