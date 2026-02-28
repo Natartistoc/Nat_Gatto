@@ -294,12 +294,12 @@ function initSmoothScroll() {
 // ================================
 function initMobileMenu() {
     const menuToggle = document.querySelector('.mobile-menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    const islandLinks = document.querySelector('.island-links');
 
-    if (menuToggle) {
+    if (menuToggle && islandLinks) {
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
+            islandLinks.classList.toggle('active');
 
             // Animate toggle button
             const spans = menuToggle.querySelectorAll('span');
@@ -312,6 +312,20 @@ function initMobileMenu() {
                 gsap.to(spans[1], { opacity: 1, duration: 0.3 });
                 gsap.to(spans[2], { rotation: 0, y: 0, duration: 0.3 });
             }
+        });
+
+        // Close menu when a link is clicked
+        const links = islandLinks.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                islandLinks.classList.remove('active');
+
+                const spans = menuToggle.querySelectorAll('span');
+                gsap.to(spans[0], { rotation: 0, y: 0, duration: 0.3 });
+                gsap.to(spans[1], { opacity: 1, duration: 0.3 });
+                gsap.to(spans[2], { rotation: 0, y: 0, duration: 0.3 });
+            });
         });
     }
 }
