@@ -91,7 +91,7 @@
             font-family: 'Inter', sans-serif;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             font-size: 0.875rem;
             border-radius: 30px;
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -118,13 +118,27 @@
         }
 
         .thank-you-logo {
-            width: 450px;
+            width: 480px;
             height: auto;
             margin: 0 auto 4rem auto;
             display: block;
             opacity: 0;
-            filter: drop-shadow(0 0 30px rgba(255, 126, 34, 0.8));
-            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            filter: drop-shadow(0 0 35px rgba(255, 126, 34, 0.9));
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards, logoBreathingIntense 6s ease-in-out infinite 1s;
+        }
+
+        @keyframes logoBreathingIntense {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 30px rgba(255, 126, 34, 0.7)) brightness(1);
+                transform: scale(1);
+            }
+
+            50% {
+                filter: drop-shadow(0 0 60px rgba(255, 126, 34, 1.0)) brightness(1.2);
+                transform: scale(1.05);
+            }
         }
     </style>
 </head>
@@ -145,4 +159,11 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
 

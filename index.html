@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,11 +17,11 @@
         rel="stylesheet">
 
     <!--Styles-->
-    <link rel="stylesheet" href="css/style.css?v=15.0">
+    <link rel="stylesheet" href="css/style.css?v=29.0">
 </head>
 
-<body id="top" class="loading">
-<!--Global Background Video & Overlay-->
+<body id="top" class="loading home-page">
+    <!--Global Background Video & Overlay-->
     <video class="global-bg-video" autoplay loop muted playsinline>
         <source src="https://nat-gatto-demo.b-cdn.net/1.mp4" type="video/mp4">
     </video>
@@ -31,18 +31,23 @@
         <div class="container">
             <div class="sound-control-container">
                 <button class="sound-toggle-btn" aria-label="Toggle Sound">
-                    <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
                         <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
                         <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
                     </svg>
-                    <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                    <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" style="display:none;">
                         <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
                         <line x1="23" y1="9" x2="17" y2="15"></line>
                         <line x1="17" y1="9" x2="23" y2="15"></line>
                     </svg>
                 </button>
             </div>
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Nat Gatto Logo">
+            </a>
             <div class="island-links">
                 <a href="#demo-reel">DEMO REEL</a>
                 <a href="#cinematic">SELECTED WORKS</a>
@@ -52,7 +57,8 @@
                 <a href="#contact">CONTACT</a>
             </div>
             <div class="island-cta">
-                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank" class="btn-primary">Happy to chat on WhatsApp</a>
+                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank"
+                    class="btn-primary">Happy to chat on WhatsApp</a>
             </div>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
@@ -61,10 +67,10 @@
     </nav>
 
     <!-- Navigation Overlay -->
-    
-    
-    
-            
+
+
+
+
 
     <!-- Hero Section -->
     <section id="demo-reel" class="hero">
@@ -73,12 +79,20 @@
             <source src="https://nat-gatto-demo.b-cdn.net/Demoreel%20Roar.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <!-- Cinema Mode Button -->
+        <button id="cinema-mode-btn" class="cinema-mode-btn" aria-label="Enter Cinema Mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 3h6v6M9 21H3v-6M21 15v6h-6M3 9V3h6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Cinema Mode</span>
+        </button>
+
         <div class="hero-overlay"></div>
-        
+
         <div class="container">
-            
+
             <div class="hero-content">
-                
+
                 <h1 class="cinematic-title">Nat Gatto</h1>
                 <h2 class="cinematic-subtitle">Senior 3D Artist &middot; Art Director</h2>
                 <p class="hero-subtitle">Creating worlds and high-quality 3D assets</p>
@@ -96,7 +110,7 @@
     <!-- Projects Section -->
     <section id="projects" class="portfolio">
         <div class="container">
-            
+
             <!-- Category 1: Cinematic & Real-Time Experiences -->
             <h2 id="cinematic" class="section-title">CINEMATIC & REAL-TIME</h2>
             <div class="portfolio-grid">
@@ -494,7 +508,7 @@
                         <div class="portfolio-info">
                             <h3 class="portfolio-title">Bubble Blower</h3>
                             <p class="portfolio-location">
-                                ...This Project<br>Is Coming<br>Soon...
+                                this project is<br>coming soon on<br>June 2026...
                             </p>
                         </div>
                     </a>
@@ -521,7 +535,7 @@
     <!-- CLIENTS Section -->
     <section id="clients" class="clients">
         <div class="container">
-            
+
             <h2 class="section-title">Trusted By</h2>
             <div class="clients-grid">
                 <div class="client-logo"><img src="images/logos/Ubi-icon.png" alt="Ubisoft"></div>
@@ -541,7 +555,7 @@
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials">
         <div class="container">
-            
+
             <h2 class="section-title">What Directors Say</h2>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
@@ -552,7 +566,7 @@
                         She was fully committed and met all deadlines without any issues, despite difficult conditions.
                         She remained positive and motivated from start to finish."</p>
                     <div class="testimonial-author">
-                        <span class="author-name">St�phane D.</span>
+                        <span class="author-name">Stephane D.</span>
                         <span class="author-role">Character Modeling Supervisor at Jungler</span>
                     </div>
                 </div>
@@ -592,7 +606,7 @@
     <section id="about" class="about">
         <div class="section-overlay"></div>
         <div class="container">
-            
+
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-text">
@@ -637,7 +651,7 @@
     <!-- Workflow & Role Section -->
     <section id="workflow" class="services">
         <div class="container">
-            
+
             <h2 class="section-title">Workflow & Role</h2>
             <div class="workflow-table">
                 <div class="services-grid">
@@ -700,7 +714,7 @@
     <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container">
-            
+
             <h2 class="section-title">Technical Arsenal</h2>
             <div class="skills-grid">
                 <div class="skill-category">
@@ -754,9 +768,11 @@
 
     <!-- CONTACT Section -->
     <section id="contact" class="partners">
-        <div id="form-status" style="display:none; text-align:center; padding:20px; font-family:'Roboto Condensed', sans-serif; color:#ff7e22; font-size:1.2rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:20px;">Sending...</div>
+        <div id="form-status"
+            style="display:none; text-align:center; padding:20px; font-family:'Roboto Condensed', sans-serif; color:#ff7e22; font-size:1.2rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:20px;">
+            Sending...</div>
         <div class="container">
-            
+
             <h2 class="section-title">CONTACT</h2>
             <div class="contact-container">
                 <div class="contact-text">
@@ -770,7 +786,8 @@
                         <input type="hidden" name="_next" value="https://natgatto.com/thank-you.html">
                         <input type="text" name="name" placeholder="Name" class="contact-input" required>
                         <input type="email" name="email" placeholder="Email" class="contact-input" required>
-                        <textarea name="message" placeholder="Message" rows="4" class="contact-input" required></textarea>
+                        <textarea name="message" placeholder="Message" rows="4" class="contact-input"
+                            required></textarea>
                         <button type="submit" class="btn-primary" style="width:100%;">Send Message</button>
                     </form>
                 </div>
@@ -790,7 +807,8 @@
             <div class="back-to-top-container">
                 <a href="#top" class="back-to-top-btn">
                     <div class="arrow-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
                             <polyline points="18 15 12 9 6 15"></polyline>
                         </svg>
                     </div>
@@ -812,27 +830,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-    <script src="js/main.js?v=15.0"></script>
+    <script src="js/main.js?v=25.0"></script>
     <script>
         const contactForm = document.getElementById("contact-form");
         const formStatus = document.getElementById("form-status");
-        
+
         if (contactForm) {
-            contactForm.addEventListener("submit", async function(event) {
+            contactForm.addEventListener("submit", async function (event) {
                 event.preventDefault();
                 const data = new FormData(event.target);
-                
+
                 // Show sending status
                 contactForm.style.display = "none";
                 formStatus.style.display = "block";
-                
+
                 try {
                     const response = await fetch(event.target.action, {
                         method: contactForm.method,
                         body: data,
                         headers: { "Accept": "application/json" }
                     });
-                    
+
                     if (response.ok) {
                         window.location.href = "thank-you.html";
                     } else {
@@ -852,31 +870,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

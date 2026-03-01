@@ -1,7 +1,10 @@
 // Register ScrollTrigger plugin if GSAP is available
 if (typeof gsap !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-    console.log('✅ GSAP, ScrollTrigger & ScrollToPlugin registered');
+    const plugins = [];
+    if (typeof ScrollTrigger !== 'undefined') plugins.push(ScrollTrigger);
+    if (typeof ScrollToPlugin !== 'undefined') plugins.push(ScrollToPlugin);
+    if (plugins.length > 0) gsap.registerPlugin(...plugins);
+    console.log('✅ GSAP Plugins registered:', plugins.map(p => p.name || 'plugin'));
 } else {
     console.warn('⚠️ GSAP not detected. Some animations will be disabled.');
 }
@@ -18,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbarScroll();
     initMagneticButtons();
     initVideoPreviews();
+    initCinemaMode();
     forcePlayGlobalVideo();
 
     // 2. Initialize GSAP Animations
@@ -65,14 +69,14 @@ function initHeroAnimations() {
     const heroSubtitle = document.querySelector('.hero-subtitle');
 
     const heroCta = document.querySelector('.hero-cta');
+    const allCinemaBtns = Array.from(document.querySelectorAll('.cinema-mode-btn'));
+    const cinemaBtn = allCinemaBtns[0]; // For legacy single-button logic
     const scrollIndicator = document.querySelector('.scroll-indicator');
-
-    // Find the video even if ID is missing (flexibility for all pages)
     const heroVideo = document.getElementById('hero-video') ||
         document.querySelector('.hero video') ||
         document.querySelector('.hero-video-full-width video');
 
-    const allElements = [title, subtitle, heroSubtitle, heroCta, scrollIndicator].filter(el => el);
+    const allElements = [title, subtitle, heroSubtitle, heroCta, ...allCinemaBtns, scrollIndicator].filter(el => el);
     const isMobile = window.innerWidth <= 768;
     const isHomePage = !!document.getElementById('demo-reel');
 
@@ -82,7 +86,13 @@ function initHeroAnimations() {
             if (!duration || isNaN(duration)) duration = 10;
 
             if (isHomePage) {
-                const introWait = isMobile ? 3 : 11; // 3s for mobile, 11s sync for desktop
+                if (isMobile) {
+                    gsap.set(heroVideo, { opacity: 1 });
+                    gsap.set(allElements, { opacity: 1, y: 0, visibility: 'visible', pointerEvents: 'auto' });
+                    return;
+                }
+
+                const introWait = 11; // Desktop sync
                 const tl = gsap.timeline({ repeat: -1 });
 
                 // 1. Initial State
@@ -122,8 +132,14 @@ function initHeroAnimations() {
             } else {
                 // Project page: Instant reveal
                 const tl = gsap.timeline();
-                tl.set(allElements, { opacity: 0, y: 15 });
+                // Ensure all elements, including all cinema buttons, are revealed
+                tl.set(allElements, { opacity: 0, y: 15, visibility: 'visible' });
                 tl.to(allElements, { opacity: 1, y: 0, duration: 0.8 / (isMobile ? 2 : 1), stagger: 0.1, ease: 'power2.out' });
+
+                // Force all cinema buttons to be active and visible on project pages
+                allCinemaBtns.forEach(btn => {
+                    gsap.set(btn, { opacity: 1, visibility: 'visible', pointerEvents: 'auto' });
+                });
             }
         };
 
@@ -226,6 +242,26 @@ function initScrollAnimations() {
         ease: 'back.out(1.7)',
         clearProps: "opacity,transform"
     });
+
+    // Hide sound icon for specific sections on mobile/tablet
+    if (window.innerWidth <= 1024) {
+        const soundArea = document.querySelector('.sound-control-container');
+        const sectionsToHideSound = ['#clients', '#about', '#contact'].filter(id => document.querySelector(id));
+
+        if (soundArea && sectionsToHideSound.length > 0) {
+            sectionsToHideSound.forEach(id => {
+                ScrollTrigger.create({
+                    trigger: id,
+                    start: "top 40%",
+                    end: "bottom 10%",
+                    onEnter: () => gsap.to(soundArea, { opacity: 0, scale: 0.8, pointerEvents: 'none', duration: 0.4 }),
+                    onLeaveBack: () => gsap.to(soundArea, { opacity: 1, scale: 1, pointerEvents: 'auto', duration: 0.3 }),
+                    onEnterBack: () => gsap.to(soundArea, { opacity: 0, scale: 0.8, pointerEvents: 'none', duration: 0.4 }),
+                    onLeave: () => gsap.to(soundArea, { opacity: 1, scale: 1, pointerEvents: 'auto', duration: 0.3 }),
+                });
+            });
+        }
+    }
 }
 
 // ================================
@@ -322,8 +358,19 @@ function initSoundToggle() {
     const toggleButtons = document.querySelectorAll('.sound-toggle-btn');
 
     toggleButtons.forEach(btn => {
-        const container = btn.closest('section') || btn.closest('.hero-video-full-width') || btn.parentElement;
-        const video = container.querySelector('video') || document.getElementById('hero-video');
+        // Find the video: 
+        // 1. In the same section
+        // 2. The #hero-video
+        // 3. Any video in .hero or .hero-video-full-width
+        const container = btn.closest('section') || btn.closest('.hero-video-full-width') || btn.closest('.navbar') || btn.parentElement;
+        let video = container.querySelector('video') || document.getElementById('hero-video');
+
+        if (!video) {
+            // Fallback for project pages where button is in navbar
+            video = document.querySelector('.hero-video-full-width video') ||
+                document.querySelector('.media-fullscreen video') ||
+                document.querySelector('.project-hero video');
+        }
 
         if (!video) return;
 
@@ -400,7 +447,7 @@ if (statsSection) {
 // Magnetic Button Effect
 // ================================
 function initMagneticButtons() {
-    const buttons = document.querySelectorAll('.btn-primary, .btn-glass, .logo, .island-logo');
+    const buttons = document.querySelectorAll('.btn-primary, .btn-glass, .logo, .island-logo, .cinema-mode-btn');
 
     buttons.forEach((btn) => {
         btn.addEventListener('mousemove', (e) => {
@@ -501,6 +548,57 @@ function forcePlayGlobalVideo() {
         bgVideo.muted = true;
         bgVideo.play().catch(e => console.log('Global bg play caught:', e));
     }
+}
+
+// ================================
+// Cinema Mode Fullscreen Toggle
+// ================================
+function initCinemaMode() {
+    const cinemaButtons = document.querySelectorAll('.cinema-mode-btn');
+
+    cinemaButtons.forEach(btn => {
+        // Find the corresponding video
+        // 1. Check ID specified in data attribute if exists (future proofing)
+        // 2. Look in the same section/container
+        // 3. Look for #hero-video
+        // 4. Look for global hero video classes
+        const container = btn.closest('section') ||
+            btn.closest('.hero-video-full-width') ||
+            btn.closest('.media-fullscreen') ||
+            btn.closest('.project-hero-featured-image') ||
+            btn.parentElement;
+
+        const video = container.querySelector('video') ||
+            document.getElementById('hero-video') ||
+            document.querySelector('.hero-video-full-width video') ||
+            document.querySelector('.media-fullscreen video');
+
+        if (!video) return;
+
+        btn.addEventListener('click', () => {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                /* Safari */
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                /* IE11 */
+                video.msRequestFullscreen();
+            }
+        });
+
+        // Toggle pointer events based on visibility
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === "attributes" && mutation.attributeName === "style") {
+                    const opacity = parseFloat(window.getComputedStyle(btn).opacity);
+                    btn.style.pointerEvents = opacity > 0.1 ? "auto" : "none";
+                }
+            });
+        });
+
+        observer.observe(btn, { attributes: true });
+    });
 }
 
 console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
