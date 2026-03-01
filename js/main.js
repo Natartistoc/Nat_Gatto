@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbarScroll();
     initMagneticButtons();
     initVideoPreviews();
-    initAtmosphericMobileVideos(); forcePlayGlobalVideo();
+    forcePlayGlobalVideo();
 
     // 2. Initialize GSAP Animations
     if (typeof gsap !== 'undefined') {
@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. The "Ultimate Fallback": If anything is still invisible after 2 seconds, force its appearance.
-    // This solves the 'refresh' issue once and for all.
     setTimeout(() => {
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
@@ -43,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         testimonials.forEach((card, i) => {
             const opacity = window.getComputedStyle(card).opacity;
             if (opacity === "0" || opacity === "0.0") {
-                console.warn(`Card ${i + 1} fallback reveal triggered.`);
                 gsap.to(card, {
                     opacity: i === 0 ? 1 : i === 1 ? 0.85 : 0.75,
                     y: 0,
@@ -55,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Final Loading Class removal
         document.body.classList.remove('loading');
-    }, 2000); // Increased delay to ensure all assets are rendered
+    }, 2000);
 });
 
 // ================================
@@ -65,7 +63,7 @@ function initHeroAnimations() {
     const title = document.querySelector('.cinematic-title');
     const subtitle = document.querySelector('.cinematic-subtitle');
     const heroSubtitle = document.querySelector('.hero-subtitle');
-    
+
     const heroCta = document.querySelector('.hero-cta');
     const scrollIndicator = document.querySelector('.scroll-indicator');
 
@@ -74,12 +72,8 @@ function initHeroAnimations() {
         document.querySelector('.hero video') ||
         document.querySelector('.hero-video-full-width video');
 
-    // Group elements for sequence management
-    const textElements = [title, subtitle, heroSubtitle].filter(el => el);
-    const stickyElements = [heroCta, scrollIndicator].filter(el => el);
     const allElements = [title, subtitle, heroSubtitle, heroCta, scrollIndicator].filter(el => el);
-
-    // Detect if we are on the homepage
+    const isMobile = window.innerWidth <= 768;
     const isHomePage = !!document.getElementById('demo-reel');
 
     if (heroVideo) {
@@ -87,16 +81,14 @@ function initHeroAnimations() {
             let duration = heroVideo.duration || 10;
             if (!duration || isNaN(duration)) duration = 10;
 
-            // Homepage Intro/Outro Logic
             if (isHomePage) {
-                const introCutoff = 11; // Sync with demo reel intro (11s)
-
+                const introWait = isMobile ? 3 : 11; // 3s for mobile, 11s sync for desktop
                 const tl = gsap.timeline({ repeat: -1 });
 
                 // 1. Initial State
-                tl.set(allElements, { opacity: 0, y: 30 });
+                tl.set(allElements, { opacity: 0, y: isMobile ? 15 : 30 });
 
-                // 2. Intro Reveal
+                // 2. Reveal
                 tl.to(allElements, {
                     opacity: 1,
                     y: 0,
@@ -104,46 +96,43 @@ function initHeroAnimations() {
                     stagger: 0.15,
                     ease: "power4.out",
                     onStart: () => {
-                        if (title) gsap.to(title, { letterSpacing: '0.2em', duration: 1.5 });
+                        if (title) gsap.to(title, { letterSpacing: isMobile ? '0.1em' : '0.2em', duration: 1.5 });
                     }
-                }, introCutoff);
+                }, introWait);
 
-                // 3. Outro Fade Out (Disappear after 6 seconds of visibility)
-                const textOutroStart = 17; // 11s intro + 6s visibility
+                // 3. Outro
+                const textPersistence = isMobile ? 12 : 6;
                 tl.to(allElements, {
                     opacity: 0,
                     y: -20,
                     duration: 1.5,
                     stagger: 0.1,
                     ease: "power2.in"
-                }, textOutroStart);
+                }, introWait + textPersistence);
 
-                // 4. Initial Hero Video Reveal (Fade in once upon page load)
+                // 4. Video Reveal (Persistent)
                 gsap.to(heroVideo, {
                     opacity: 1,
-                    duration: 2.5,
-                    delay: 0.5,
+                    duration: 2,
+                    delay: 0.2,
                     ease: "power2.inOut"
                 });
 
-                // 5. Force timeline to match exactly with video duration for the loop
-                tl.set({}, {}, duration);
+                tl.set({}, {}, duration); // Match loop to video length
             } else {
-                // TURBO reveal for project pages - Instant appearance
-                const tl = gsap.timeline({ delay: 0 });
+                // Project page: Instant reveal
+                const tl = gsap.timeline();
                 tl.set(allElements, { opacity: 0, y: 15 });
-                tl.to(allElements, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: 'power2.out' });
+                tl.to(allElements, { opacity: 1, y: 0, duration: 0.8 / (isMobile ? 2 : 1), stagger: 0.1, ease: 'power2.out' });
             }
         };
 
-        // Safety timeout: If video takes too long to load metadata, reveal anyway
+        const safetyTimeoutValue = isMobile ? 2000 : 5000;
         const safetyTimeout = setTimeout(() => {
-            console.warn('Hero video taking too long... safety reveal triggered');
-            // If timeline hasn't started, force reveal
+            console.warn('Hero safety reveal triggered');
             gsap.to(allElements, { opacity: 1, y: 0, duration: 1, stagger: 0.1 });
-        }, 3000);
+        }, safetyTimeoutValue);
 
-        // For project pages, reveal immediately. For homepage, wait for metadata to sync with demo reel.
         if (heroVideo.readyState >= 1 || !isHomePage) {
             clearTimeout(safetyTimeout);
             setupSequence();
@@ -191,7 +180,7 @@ function initScrollAnimations() {
         });
     });
 
-    // Staggered reveal for testimonials (1-2-3 sequence)
+    // Staggered reveal for testimonials
     const testimonialCards = document.querySelectorAll('.testimonial-card');
     const testimonialGrid = document.querySelector('.testimonials-grid');
 
@@ -202,12 +191,12 @@ function initScrollAnimations() {
                 start: 'top 85%',
                 toggleActions: 'play none none none',
             },
-            y: '+=40', // Relative: Starts 40px below its CSS stair-step position
+            y: '+=40',
             opacity: 0,
             duration: 1.2,
             stagger: 0.3,
             ease: 'power3.out',
-            clearProps: "all" // Crucial: Reverts control to CSS (staircase) after animation
+            clearProps: "all"
         });
     }
 
@@ -226,7 +215,7 @@ function initScrollAnimations() {
 
     gsap.from('.about-stats .stat-item', {
         scrollTrigger: {
-            trigger: '.about', // Trigger when the entire about section is reached
+            trigger: '.about',
             start: 'top 70%',
             toggleActions: 'play none none none',
         },
@@ -235,7 +224,7 @@ function initScrollAnimations() {
         duration: 1,
         stagger: 0.2,
         ease: 'back.out(1.7)',
-        clearProps: "opacity,transform" // Revert to CSS after animation
+        clearProps: "opacity,transform"
     });
 }
 
@@ -244,8 +233,6 @@ function initScrollAnimations() {
 // ================================
 function initPortfolioAnimations() {
     const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-    // Use Intersection Observer for better performance
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px',
@@ -254,7 +241,6 @@ function initPortfolioAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                // Add delay based on index for stagger effect
                 setTimeout(() => {
                     entry.target.classList.add('visible');
                 }, index * 50);
@@ -262,8 +248,6 @@ function initPortfolioAnimations() {
             }
         });
     }, observerOptions);
-
-    console.log(`Found ${portfolioItems.length} portfolio items to animate.`);
 
     portfolioItems.forEach((item) => {
         observer.observe(item);
@@ -274,7 +258,6 @@ function initPortfolioAnimations() {
 // Smooth Scroll for Anchor Links
 // ================================
 function initSmoothScroll() {
-    // Smooth scroll for Back to Top button
     document.querySelectorAll('.back-to-top-btn, a[href="#top"]').forEach((anchor) => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -303,30 +286,14 @@ function initMobileMenu() {
             menuToggle.classList.toggle('active');
             islandLinks.classList.toggle('active');
 
-            // Animate toggle button
-            const spans = menuToggle.querySelectorAll('span');
-            if (menuToggle.classList.contains('active')) {
-                gsap.to(spans[0], { rotation: 45, y: 8, duration: 0.3 });
-                gsap.to(spans[1], { opacity: 0, duration: 0.3 });
-                gsap.to(spans[2], { rotation: -45, y: -8, duration: 0.3 });
-            } else {
-                gsap.to(spans[0], { rotation: 0, y: 0, duration: 0.3 });
-                gsap.to(spans[1], { opacity: 1, duration: 0.3 });
-                gsap.to(spans[2], { rotation: 0, y: 0, duration: 0.3 });
-            }
+            // Note: Hamburger animation handled in CSS via .active state
         });
 
-        // Close menu when a link is clicked
         const links = islandLinks.querySelectorAll('a');
         links.forEach(link => {
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('active');
                 islandLinks.classList.remove('active');
-
-                const spans = menuToggle.querySelectorAll('span');
-                gsap.to(spans[0], { rotation: 0, y: 0, duration: 0.3 });
-                gsap.to(spans[1], { opacity: 1, duration: 0.3 });
-                gsap.to(spans[2], { rotation: 0, y: 0, duration: 0.3 });
             });
         });
     }
@@ -337,19 +304,14 @@ function initMobileMenu() {
 // ================================
 function initNavbarScroll() {
     const navbar = document.querySelector('.navbar');
-    let lastScroll = 0;
-
     window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-
-        // Add shadow on scroll
-        if (currentScroll > 50) {
-            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        if (window.pageYOffset > 50) {
+            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+            navbar.style.background = 'rgba(10, 10, 10, 0.95)';
         } else {
             navbar.style.boxShadow = 'none';
+            navbar.style.background = 'var(--glass-bg)';
         }
-
-        lastScroll = currentScroll;
     });
 }
 
@@ -360,7 +322,6 @@ function initSoundToggle() {
     const toggleButtons = document.querySelectorAll('.sound-toggle-btn');
 
     toggleButtons.forEach(btn => {
-        // Find associated video in the same section or parent
         const container = btn.closest('section') || btn.closest('.hero-video-full-width') || btn.parentElement;
         const video = container.querySelector('video') || document.getElementById('hero-video');
 
@@ -368,83 +329,30 @@ function initSoundToggle() {
 
         const unmuteIcon = btn.querySelector('.unmute-icon');
         const muteIcon = btn.querySelector('.mute-icon');
-        const soundText = btn.querySelector('.sound-text');
 
         const updateUI = () => {
             if (video.muted) {
                 btn.classList.remove('active');
                 if (unmuteIcon) unmuteIcon.style.display = 'none';
                 if (muteIcon) muteIcon.style.display = 'block';
-                if (soundText) soundText.textContent = 'SOUND OFF';
             } else {
                 btn.classList.add('active');
                 if (unmuteIcon) unmuteIcon.style.display = 'block';
                 if (muteIcon) muteIcon.style.display = 'none';
-                if (soundText) soundText.textContent = 'SOUND ON';
             }
         };
 
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (video.muted) {
-                video.muted = false;
-                updateUI();
+            video.muted = !video.muted;
+            updateUI();
 
-                // Premium effect: pulse on unmute
-                if (typeof gsap !== 'undefined') {
-                    gsap.to(btn, {
-                        scale: 1.1,
-                        duration: 0.2,
-                        yoyo: true,
-                        repeat: 1
-                    });
-                }
-            } else {
-                video.muted = true; video.setAttribute("playsinline", ""); video.setAttribute("autoplay", "autoplay");
-                updateUI();
+            if (!video.muted && typeof gsap !== 'undefined') {
+                gsap.to(btn, { scale: 1.1, duration: 0.2, yoyo: true, repeat: 1 });
             }
         });
 
-        // Handle initial state and autoplay
         updateUI();
-
-        // Autoplay attempt
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(() => {
-                // If unmuted autoplay fails, ensure it's muted and try again
-                video.muted = true; video.setAttribute("playsinline", ""); video.setAttribute("autoplay", "autoplay");
-                video.play();
-                updateUI();
-            });
-        }
-
-        // Initial Attention grabber if muted
-        if (typeof gsap !== 'undefined' && video.muted) {
-            gsap.to(btn, {
-                opacity: 0.8,
-                duration: 2,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            });
-        }
-    });
-}
-
-// ================================
-// Add Parallax Effect to Hero (Optional)
-// ================================
-function initParallax() {
-    const hero = document.querySelector('.hero');
-
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const parallax = scrolled * 0.5;
-
-        if (hero) {
-            hero.style.transform = `translateY(${parallax}px)`;
-        }
     });
 }
 
@@ -467,31 +375,32 @@ function animateCounter(element, target, duration = 2000) {
     }, 16);
 }
 
-// Trigger counter animation when stats come into view
 const statsObserver = new IntersectionObserver(
     (entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 const statNumbers = entry.target.querySelectorAll('.stat-number');
                 statNumbers.forEach((stat) => {
-                    const text = stat.textContent;
-                    const number = parseInt(text);
-                    if (!isNaN(number)) {
-                        animateCounter(stat, number);
-                    }
+                    const number = parseInt(stat.textContent);
+                    if (!isNaN(number)) animateCounter(stat, number);
                 });
                 statsObserver.unobserve(entry.target);
             }
         });
     },
-    { threshold: 0.2 } // Lower threshold for better scroll detection
+    { threshold: 0.2 }
 );
+
+const statsSection = document.querySelector('.about-stats');
+if (statsSection) {
+    statsObserver.observe(statsSection);
+}
 
 // ================================
 // Magnetic Button Effect
 // ================================
 function initMagneticButtons() {
-    const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .logo, .island-logo');
+    const buttons = document.querySelectorAll('.btn-primary, .btn-glass, .logo, .island-logo');
 
     buttons.forEach((btn) => {
         btn.addEventListener('mousemove', (e) => {
@@ -518,69 +427,6 @@ function initMagneticButtons() {
     });
 }
 
-const statsSection = document.querySelector('.about-stats');
-if (statsSection) {
-    statsObserver.observe(statsSection);
-}
-
-// Initialize Magnetic Buttons
-// Handled in DOMContentLoaded
-
-// ================================
-// Cursor Follow Effect (Optional Enhancement)
-// ================================
-function initCursorEffect() {
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    document.body.appendChild(cursor);
-
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    function animateCursor() {
-        const dx = mouseX - cursorX;
-        const dy = mouseY - cursorY;
-
-        cursorX += dx * 0.1;
-        cursorY += dy * 0.1;
-
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-
-        requestAnimationFrame(animateCursor);
-    }
-
-    animateCursor();
-
-    // Add hover effect on interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .portfolio-item');
-    interactiveElements.forEach((el) => {
-        el.addEventListener('mouseenter', () => {
-            cursor.classList.add('cursor-hover');
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('cursor-hover');
-        });
-    });
-}
-
-// ================================
-// Page Load Animation
-// ================================
-window.addEventListener('load', () => {
-    document.body.classList.add('loading');
-
-    // Optional: Initialize cursor effect (uncomment to enable)
-    // initCursorEffect();
-});
-
 // ================================
 // Scroll Progress Indicator
 // ================================
@@ -593,7 +439,7 @@ function initScrollProgress() {
         left: 0;
         width: 0;
         height: 3px;
-        background: linear-gradient(90deg, #6366f1, #a78bfa);
+        background: linear-gradient(90deg, #FFB347, #ff7b00);
         z-index: 9999;
         transition: width 0.1s ease;
     `;
@@ -607,79 +453,32 @@ function initScrollProgress() {
     });
 }
 
-// Initialize scroll progress
 initScrollProgress();
-
-// ================================
-// Performance Optimization
-// ================================
-// Debounce function for scroll events
-function debounce(func, wait = 10) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Throttle function for frequent events
-function throttle(func, limit = 16) {
-    let inThrottle;
-    return function executedFunction(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => (inThrottle = false), limit);
-        }
-    };
-}
 
 // ================================
 // 2-Second Video Preview Logic
 // ================================
 function initVideoPreviews() {
-    // Target videos that are NOT background or hero (those already autoplay)
     const videos = document.querySelectorAll('video:not(.global-bg-video):not(.hero-video):not(#hero-video):not(.hero-video-full-width video)');
-    console.log(`🎬 Found ${videos.length} project videos. Initializing 2-second preview logic...`);
 
     const previewVideo = async (video) => {
-        // Only trigger once per session to save bandwidth
         if (video.dataset.previewed) return;
 
         try {
-            video.muted = true; video.setAttribute("playsinline", ""); video.setAttribute("autoplay", "autoplay");
+            video.muted = true;
+            video.setAttribute("playsinline", "");
+            video.setAttribute("autoplay", "autoplay");
             video.setAttribute('preload', 'auto');
-            video.classList.add('loading-preview');
-
-            // Wait until we have enough data to play
-            if (video.readyState < 3) {
-                await new Promise((resolve) => {
-                    video.addEventListener('canplay', resolve, { once: true });
-                    setTimeout(resolve, 2000); // Safety timeout
-                });
-            }
 
             const playPromise = video.play();
             if (playPromise !== undefined) {
                 await playPromise;
-                video.classList.remove('loading-preview');
-                video.classList.add('preview-active');
-
-                // Let it play for exactly 2 seconds
                 setTimeout(() => {
                     video.pause();
                     video.dataset.previewed = "true";
-                    video.classList.remove('preview-active');
-                    video.classList.add('preview-ready');
-                    console.log('✅ 2-second preview complete for:', video.src.split('/').pop());
                 }, 2000);
             }
         } catch (err) {
-            console.warn('⚠️ Preview failed for video:', err);
             video.pause();
         }
     };
@@ -688,69 +487,13 @@ function initVideoPreviews() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 previewVideo(entry.target);
-                // We keep observing if we want it to reset? 
-                // No, user said "display their first frame", so once is enough.
                 observer.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.2, // Trigger when 20% of video is visible
-        rootMargin: '50px'
-    });
+    }, { threshold: 0.2 });
 
     videos.forEach(v => observer.observe(v));
 }
-
-// ================================
-// Atmospheric Mobile Video Logic
-// ================================
-function initAtmosphericMobileVideos() {
-    // Only target screens <= 1024px
-    if (window.innerWidth > 1024) return;
-
-    // Detect if we are on a project detail page
-    const isProjectDetail = document.body.classList.contains('project-detail-no-navbar') ||
-        document.body.classList.contains('project-detail-page');
-    if (!isProjectDetail) return;
-
-    console.log('📱 Premium Mobile Mode: Swapping project videos for atmospheric background.');
-
-    const atmosphericSrc = 'https://nat-gatto-demo.b-cdn.net/1.mp4';
-
-    // Find all videos that aren't already the atmospheric one
-    const projectVideos = document.querySelectorAll('video');
-
-    projectVideos.forEach(video => {
-        const source = video.querySelector('source');
-        if (source && !source.src.includes('1.mp4')) {
-            source.src = atmosphericSrc;
-            video.load(); // Reload video with new source
-
-            // Ensure silent atmospheric looping
-            video.muted = true; video.setAttribute("playsinline", ""); video.setAttribute("autoplay", "autoplay");
-            video.loop = true;
-
-            // Add premium class for potential styling hooks
-            video.classList.add('atmospheric-swapped');
-
-            // Re-attempt play
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log('Note: Video individual play caught:', error);
-                });
-            }
-        }
-    });
-}
-
-
-
-console.log('🚀 Nat Gatto Portfolio - Initialized');
-console.log('📱 Responsive design active');
-console.log('✨ Animations loaded with GSAP');
-console.log('🎯 Scroll triggers active');
-console.log('🎬 2-Second Video Preview system active');
 
 function forcePlayGlobalVideo() {
     const bgVideo = document.querySelector('.global-bg-video');
@@ -760,5 +503,4 @@ function forcePlayGlobalVideo() {
     }
 }
 
-
-
+console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
