@@ -12,12 +12,12 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=29.0">
+    <link rel="stylesheet" href="css/style.css?v=30.0">
 </head>
 
 <body id="top" class="project-detail-no-navbar">
 <video class="global-bg-video" autoplay loop muted playsinline>
-        <source src="https://nat-gatto-demo.b-cdn.net/1.mp4" type="video/mp4">
+        <source src="https://nat-gatto-demo.b-cdn.net/1.mp4?v=1.0" type="video/mp4">
     </video>
     <div class="global-overlay"></div>
 
@@ -67,7 +67,7 @@
     </a>
     <section class="project-hero" style="padding-top: 0;">
         <!-- Fullscreen Hero Video -->
-        <div class="media-fullscreen" style="margin-top: -30px;">
+        <div class="media-fullscreen hero-smooth-mask" style="margin-top: -30px; background: transparent !important;">
             <video autoplay loop muted playsinline style="width: 100%; height: auto; display: block;">
                 <source src="https://nat-gatto-demo.b-cdn.net/saintseiya10.mp4" type="video/mp4">
             </video>
@@ -186,13 +186,7 @@
     </footer>
 
     <style>
-        .project-hero {
-            position: relative;
-            background: transparent !important;
-            padding-bottom: 250px !important;
-            -webkit-mask-image: linear-gradient(to bottom, black 0%, black calc(100% - 300px), transparent 100%);
-            mask-image: linear-gradient(to bottom, black 0%, black calc(100% - 300px), transparent 100%);
-        }
+        
 
         @media (max-width: 1200px) {
             .project-subtitle {
@@ -209,6 +203,13 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
 
 
 
