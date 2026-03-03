@@ -15,7 +15,12 @@ if (typeof gsap !== 'undefined') {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Content Loaded - Initializing animations...');
 
-    // 1. Initialize Core Components (Non-GSAP dependent or simple GSAP)
+    // 1. Initialize GSAP Animations (Early for tagging)
+    if (typeof gsap !== 'undefined') {
+        initHeroAnimations();
+    }
+
+    // 2. Initialize Core Components
     initSmoothScroll();
     initMobileMenu();
     initNavbarScroll();
@@ -24,9 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initCinemaMode();
     forcePlayGlobalVideo();
 
-    // 2. Initialize GSAP Animations
+    // 3. Initialize remaining GSAP Animations
     if (typeof gsap !== 'undefined') {
-        initHeroAnimations();
         initScrollAnimations();
         initPortfolioAnimations();
         initSoundToggle();
@@ -74,7 +78,14 @@ function initHeroAnimations() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     const heroVideo = document.getElementById('hero-video') ||
         document.querySelector('.hero video') ||
-        document.querySelector('.hero-video-full-width video');
+        document.querySelector('.hero-video-full-width video') ||
+        document.querySelector('.project-hero video');
+
+    // Tag the hero video to ensure it's never paused by optimization scripts
+    if (heroVideo) {
+        heroVideo.dataset.isHero = "true";
+        heroVideo.classList.add('is-hero-video');
+    }
 
     const allElements = [title, subtitle, heroSubtitle, heroCta, ...allCinemaBtns, scrollIndicator].filter(el => el);
     const isMobile = window.innerWidth <= 768;
@@ -527,16 +538,18 @@ function initVideoPreviews() {
         // We want to EXCLUDE hero videos from the auto-pause logic.
         const isHero =
             video.id === 'hero-video' ||
+            video.dataset.isHero === "true" ||
             video.classList.contains('hero-video') ||
+            video.classList.contains('is-hero-video') ||
             video.closest('.hero-video-full-width') ||
             video.closest('.hero') ||
             video.closest('.project-hero') ||
             video.closest('.media-fullscreen') ||
-            // Robust fallback: If the video is within the top 800px of the page (safer threshold for mobile)
-            (video.getBoundingClientRect().top + window.scrollY < 800);
+            video.hasAttribute('loop') || // Hero videos usually loop
+            // Robust fallback: If the video is within the top 1200px of the page (safer threshold for mobile)
+            (video.getBoundingClientRect().top + window.scrollY < 1200);
 
-        // Note: .project-hero-featured-image is specifically NOT in isHero, 
-        // so gallery/process videos WILL be stopped after 6 seconds to save bandwidth.
+        // Note: Gallery/process videos in .project-hero-featured-image WILL be stopped after 6 seconds to save bandwidth.
         return !isGlobalBg && !isHero;
     });
 
