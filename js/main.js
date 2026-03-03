@@ -557,6 +557,12 @@ function initVideoPreviews() {
     const previewVideo = async (video) => {
         if (video.dataset.previewed) return;
 
+        // NUCLEAR GUARD: Never preview/pause hero videos or looping videos
+        if (video.dataset.isHero === "true" || video.classList.contains('is-hero-video') || video.hasAttribute('loop')) {
+            video.play().catch(() => { });
+            return;
+        }
+
         try {
             video.muted = true;
             video.setAttribute("playsinline", "");
@@ -653,5 +659,44 @@ function initCinemaMode() {
         observer.observe(btn, { attributes: true });
     });
 }
+
+// ================================
+// Mobile "Keep-Alive" Heartbeat for Hero Videos
+// ================================
+function initHeroHeartbeat() {
+    const isMobile = window.innerWidth <= 1024;
+    if (!isMobile) return;
+
+    // Periodically ensure hero videos are playing if they should be
+    setInterval(() => {
+        const heroVideos = document.querySelectorAll('.is-hero-video, #hero-video, .hero-video-full-width video, .project-hero video');
+        heroVideos.forEach(v => {
+            if (v.paused && !v.ended && v.readyState >= 2) {
+                console.log('💓 Hero Heartbeat: Resuming video...');
+                v.play().catch(() => { });
+            }
+        });
+    }, 3000);
+
+    // Resume on tab focus
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            const heroVideos = document.querySelectorAll('.is-hero-video, #hero-video, .hero-video-full-width video, .project-hero video');
+            heroVideos.forEach(v => v.play().catch(() => { }));
+        }
+    });
+
+    // Resume on any interaction (once)
+    const resumeOnInteraction = () => {
+        const heroVideos = document.querySelectorAll('.is-hero-video, #hero-video, .hero-video-full-width video, .project-hero video');
+        heroVideos.forEach(v => v.play().catch(() => { }));
+        document.removeEventListener('touchstart', resumeOnInteraction);
+        document.removeEventListener('click', resumeOnInteraction);
+    };
+    document.addEventListener('touchstart', resumeOnInteraction, { once: true });
+    document.addEventListener('click', resumeOnInteraction, { once: true });
+}
+
+initHeroHeartbeat();
 
 console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
