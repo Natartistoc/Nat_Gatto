@@ -89,6 +89,7 @@ function initHeroAnimations() {
                 if (isMobile) {
                     gsap.set(heroVideo, { opacity: 1 });
                     gsap.set(allElements, { opacity: 1, y: 0, visibility: 'visible', pointerEvents: 'auto' });
+                    heroVideo.play(); // Ensure playback starts on mobile
                     return;
                 }
 
@@ -509,9 +510,21 @@ function initVideoPreviews() {
     // Select all videos and filter out continuous ones
     const videos = Array.from(document.querySelectorAll('video')).filter(video => {
         const isGlobalBg = video.classList.contains('global-bg-video');
-        const isHero = video.id === 'hero-video' || video.classList.contains('hero-video') || video.closest('.hero') || video.closest('.project-hero') || video.closest('.hero-video-full-width');
+
+        // Robust Hero detection: check ID, Classes, Parent containers, AND position
+        const isHero =
+            video.id === 'hero-video' ||
+            video.classList.contains('hero-video') ||
+            video.closest('.hero-video-full-width') ||
+            video.closest('.hero') ||
+            video.closest('.project-hero-featured-image') ||
+            video.closest('.media-fullscreen') ||
+            // Fallback: If the video is in the top 800px of the page, it's a Hero video
+            (video.getBoundingClientRect().top + window.scrollY < 800);
+
         return !isGlobalBg && !isHero;
     });
+
 
     const previewVideo = async (video) => {
         if (video.dataset.previewed) return;
