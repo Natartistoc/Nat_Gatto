@@ -530,9 +530,10 @@ function initVideoPreviews() {
             video.classList.contains('hero-video') ||
             video.closest('.hero-video-full-width') ||
             video.closest('.hero') ||
+            video.closest('.project-hero') ||
             video.closest('.media-fullscreen') ||
-            // Robust fallback: If the video is within the top 500px of the page
-            (video.getBoundingClientRect().top + window.scrollY < 500);
+            // Robust fallback: If the video is within the top 800px of the page (safer threshold for mobile)
+            (video.getBoundingClientRect().top + window.scrollY < 800);
 
         // Note: .project-hero-featured-image is specifically NOT in isHero, 
         // so gallery/process videos WILL be stopped after 6 seconds to save bandwidth.
