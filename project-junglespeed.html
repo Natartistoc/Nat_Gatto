@@ -13,6 +13,194 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=30.0">
+    <!-- Fix for exploded view transparency and banana cropping -->
+    <style>
+        .project-gallery .project-hero-featured-image:first-of-type {
+            background: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+            animation: none !important;
+            overflow: visible !important;
+        }
+
+        .project-gallery .project-hero-featured-image:first-of-type img {
+            object-fit: contain !important;
+            height: auto !important;
+        }
+    </style>
+    <!-- Harmonize side-by-side images -->
+    <style>
+        /* Match the review image's fit and background to its neighbor */
+        img[src*="jungle-speed-donkey-kong-asmodee-recensione-review"] {
+            object-fit: contain !important;
+            /* Prevents aggressive cropping */
+            object-position: center !important;
+            /* Centers the subject perfectly */
+            background-color: #ffffff !important;
+            /* Matches the white background of the adjacent frame */
+        }
+    </style>
+    <!-- Fix for left image container harmonization -->
+    <style>
+        /* 1. Add white background and padding to the left box */
+        .project-gallery div[style*="repeat(2,1fr)"]>div:first-child {
+            background-color: #ffffff !important;
+            padding: 40px !important;
+            /* This creates the visible 'container' border */
+            box-sizing: border-box !important;
+        }
+
+        /* 2. Fix the image fit so it doesn't crop */
+        img[src*="jungle-speed-donkey-kong-asmodee-recensione-review"] {
+            object-fit: contain !important;
+            object-position: center !important;
+        }
+    </style>
+    <!-- Final fix for left image fit and harmony -->
+    <style>
+        /* 1. Set white background and remove padding to let image fill the space */
+        .project-gallery div[style*="repeat(2,1fr)"]>div:first-child {
+            background-color: #ffffff !important;
+            padding: 0 !important;
+            /* Removed padding so the image fits the container height */
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        /* 2. Ensure the image fits perfectly without cropping */
+        img[src*="jungle-speed-donkey-kong-asmodee-recensione-review"] {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain !important;
+            /* This is the key: fits the box without cutting anything */
+            object-position: center !important;
+        }
+    </style>
+    <!-- Zoomed-in harmony fix for left image -->
+    <style>
+        /* 1. Match the white background for the container */
+        .project-gallery div[style*="repeat(2,1fr)"]>div:first-child {
+            background-color: #ffffff !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        /* 2. Fit and Zoom the image */
+        img[src*="jungle-speed-donkey-kong-asmodee-recensione-review"] {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain !important;
+            object-position: center !important;
+
+            /* ADJUST ZOOM HERE: 1.15 is 15% zoom. Try 1.2 or 1.3 for more zoom */
+            transform: scale(1.15) !important;
+        }
+    </style>
+    <!-- Final harmony container fix for left image -->
+    <style>
+        /* 1. Force the left container to match the right one */
+        .project-gallery div[style*="repeat(2,1fr)"]>div:first-child {
+            background-color: #ffffff !important;
+            padding: 40px !important;
+            /* Adds the white space 'container' look around the box */
+            box-sizing: border-box !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        /* 2. Scale and fit the image properly inside the padding */
+        img[src*="jungle-speed-donkey-kong-asmodee-recensione-review"] {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain !important;
+            object-position: center !important;
+
+            /* Zoom slightly within the white frame */
+            transform: scale(1.1) !important;
+        }
+    </style>
+    <!-- Unified Container + Zoom Fix -->
+    <style>
+        /* 1. Force the left container to match the right one exactly */
+        .project-gallery div[style*="repeat(2,1fr)"]>div:first-child {
+            background-color: #ffffff !important;
+            overflow: hidden !important;
+            /* Cleanly cuts off the zoomed edges */
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        /* 2. Apply the 'Zoom In' effect to the image */
+        img[src*="jungle-speed-donkey-kong-asmodee-recensione-review"] {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain !important;
+
+            /* ADJUST ZOOM HERE: 1.3 means 30% zoomed in. Use 1.4 or 1.5 for more. */
+            transform: scale(1.3) !important;
+
+            transform-origin: center !important;
+        }
+    </style>
+    <!-- Ultimate Transparency Fix for Exploded View -->
+    <style>
+        /* Remove the shimmer animation, background colors, and any masks from both the box and the image */
+        .project-gallery .project-hero-featured-image:first-of-type,
+        .project-gallery .project-hero-featured-image:first-of-type img {
+            background: none !important;
+            background-image: none !important;
+            animation: none !important;
+            mask-image: none !important;
+            -webkit-mask-image: none !important;
+            opacity: 1 !important;
+            filter: none !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+    </style>
+    <!-- Mobile and Tablet Harmonization Fix -->
+    <style>
+        /* This targets tablets and phones (screens smaller than 1024px wide) */
+        @media (max-width: 1024px) {
+
+            /* 1. Reduce the white padding so the image fills more of the box */
+            .project-gallery div[style*="repeat(2,1fr)"]>div:first-child {
+                padding: 15px !important;
+                /* Smaller white border on mobile */
+            }
+
+            /* 2. Ensure the image fits perfectly without being tiny */
+            img[src*="jungle-speed-donkey-kong-asmodee-recensione-review"] {
+                transform: scale(1.0) !important;
+                /* Reset zoom to fit the frame safely on mobile */
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important;
+            }
+        }
+    </style>
+    <!-- Image Zoom Controls (Desktop & Mobile) -->
+    <style>
+        /* --- DESKTOP ZOOM --- */
+        img[src*="jungle-speed-donkey-kong-asmodee-recensione-review"] {
+            /* Change 1.3 to a higher number like 1.5 to make it BIGGER */
+            transform: scale(1.3) !important;
+            transform-origin: center !important;
+        }
+
+        /* --- MOBILE & TABLET ZOOM --- */
+        @media (max-width: 1024px) {
+            img[src*="jungle-speed-donkey-kong-asmodee-recensione-review"] {
+                /* Change 1.0 to 1.2 or 1.3 to make it BIGGER on phones/tablets */
+                transform: scale(1.8) !important;
+            }
+        }
+    </style>
+
 </head>
 
 <body id="top" class="project-detail-no-navbar">
@@ -20,44 +208,48 @@
     <nav class="navbar island-nav">
         <div class="container">
             <div class="return-btn-container">
-            <div class="sound-control-container">
-                <button class="sound-toggle-btn" aria-label="Toggle Sound">
-                    <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
-                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
-                    </svg>
-                    <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                        <line x1="23" y1="9" x2="17" y2="15"></line>
-                        <line x1="17" y1="9" x2="23" y2="15"></line>
-                    </svg>
-                </button>
-            </div>
+                <div class="sound-control-container">
+                    <button class="sound-toggle-btn" aria-label="Toggle Sound">
+                        <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
+                            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
+                        </svg>
+                        <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                            <line x1="23" y1="9" x2="17" y2="15"></line>
+                            <line x1="17" y1="9" x2="23" y2="15"></line>
+                        </svg>
+                    </button>
+                </div>
                 <a href="index.html#projects" class="return-btn">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                    <polyline points="12 19 5 12 12 5"></polyline>
-                  </svg>
-                  Return to Portfolio
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Return to Portfolio
                 </a>
             </div>
             <div class="island-cta">
-                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank" class="btn-primary">Happy to chat on WhatsApp</a>
+                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank"
+                    class="btn-primary">Happy to chat on WhatsApp</a>
             </div>
         </div>
     </nav>
 
     <!-- Navigation Overlay -->
-    
-<video class="global-bg-video" autoplay loop muted playsinline>
+
+    <video class="global-bg-video" autoplay loop muted playsinline>
         <source src="https://nat-gatto-demo.b-cdn.net/1.mp4?v=1.0" type="video/mp4">
     </video>
-    
 
-    
 
-    
+
+
+
 
     <!-- Logo top right -->
     <a href="index.html" class="project-top-logo">
@@ -72,16 +264,29 @@
             </video>
 
 
-        <!-- Cinema Mode Button -->
-        <button class="cinema-mode-btn" aria-label="Enter Cinema Mode">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 3h6v6M9 21H3v-6M21 15v6h-6M3 9V3h6" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <span>Cinema Mode</span>
-        </button>
+            <!-- Cinema Mode Button -->
+            <button class="cinema-mode-btn" aria-label="Enter Cinema Mode">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.39 21.39">
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: #0f0f0f;
+                            }
+                        </style>
+                    </defs>
+                    <polygon class="cls-1" points="12.72 .5 20.89 .5 20.89 9 21.39 9 21.39 0 12.72 0 12.72 .5" />
+                    <polygon class="cls-1"
+                        points="20.89 13.06 20.89 20.89 12.72 20.89 12.72 21.39 21.39 21.39 21.39 13.06 20.89 13.06" />
+                    <polygon class="cls-1" points=".5 9 .5 .5 8.67 .5 8.67 0 0 0 0 9 .5 9" />
+                    <polygon class="cls-1"
+                        points="8.67 20.89 .5 20.89 .5 13.06 0 13.06 0 21.39 8.67 21.39 8.67 20.89" />
+                </svg>
+                <span>Cinema Mode</span>
+            </button>
 
-            
-        
+
+
         </div>
 
         <!-- Project Title Section -->
@@ -117,7 +322,7 @@
                     <p
                         style="color: rgba(255, 255, 255, 0.75); line-height: 1.35; letter-spacing: -0.012em; margin-bottom: 12px;">
                         For Jungle Speed | Limited Edition, I contributed to both the promotional visuals and the
-                        redesign of the game’s iconic totem. This project extended beyond visual marketing to include
+                        redesign of the game's iconic totem. This project extended beyond visual marketing to include
                         the creation of the physical object itself.</p>
                     <p
                         style="color: rgba(255, 255, 255, 0.75); line-height: 1.35; letter-spacing: -0.012em; margin-bottom: 12px;">
@@ -193,7 +398,7 @@
         </div>
     </section>
 
-        <footer class="footer">
+    <footer class="footer">
         <div class="container footer-row-master">
             <div class="footer-copyright">
                 <div class="island-logo footer-logo-corner">
@@ -205,7 +410,8 @@
             <div class="back-to-top-container">
                 <a href="#top" class="back-to-top-btn">
                     <div class="arrow-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
                             <polyline points="18 15 12 9 6 15"></polyline>
                         </svg>
                     </div>
@@ -226,40 +432,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

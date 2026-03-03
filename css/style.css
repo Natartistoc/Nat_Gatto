@@ -1555,9 +1555,6 @@ img {
     width: 100%;
     height: auto;
     display: block;
-    /* Cinematic Bottom Fade: Smooth transition at the bottom */
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
 }
 
 /* Glassmorphism Launch Reveal */
@@ -3496,31 +3493,21 @@ video.loaded {
         object-position: top !important;
         z-index: 1 !important;
         opacity: 1 !important;
+
         /* Nice faded opacity at bottom, matching other pages */
-        -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%) !important;
-        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%) !important;
+        /* Mobile Hero Fade only */
+        .hero .hero-video,
+        .project-hero .hero-video-full-width video {
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%) !important;
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%) !important;
+        }
+
     }
 
     .hero-overlay {
         display: none !important;
     }
 
-    .cinema-mode-btn {
-        /* Sitewide unified position: bottom-center of 16:9 video area */
-        position: absolute !important;
-        top: calc(100vw * 9 / 16 - 45px) !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        bottom: auto !important;
-        right: auto !important;
-        margin: 0 !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        pointer-events: auto !important;
-        z-index: 100 !important;
-        padding: 10px 20px !important;
-        font-size: 0.75rem !important;
-    }
 
     .hero-content {
         position: relative !important;
@@ -3878,72 +3865,69 @@ video.loaded {
 /* ================================
    Cinema Mode Button
    ================================ */
-.cinema-mode-btn {
-    position: absolute;
-    bottom: 40px;
-    right: 50px;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 24px;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 0.5px solid rgba(255, 255, 255, 0.2);
-    border-radius: 100px;
-    color: #ffffff;
-    cursor: pointer;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    /* Animated in via JS */
-    pointer-events: none;
-}
-
-.cinema-mode-btn svg {
-    width: 20px;
-    height: 20px;
-    stroke: currentColor;
-}
-
-.cinema-mode-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-4px) scale(1.05);
-    border-color: #ff7b00;
-    box-shadow: 0 15px 50px rgba(255, 123, 0, 0.3);
-}
-
-.cinema-mode-btn:active {
-    transform: translateY(-2px) scale(0.98);
-}
-
-/* Ensure visibility on project pages and non-homepages */
-body:not(.home-page) .cinema-mode-btn {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    z-index: 9999 !important;
-}
-
-@media (max-width: 1024px) {
+/* 1. HIDE the button completely from Desktop & Tablets (larger than 767px) */
+@media screen and (min-width: 768px) {
     .cinema-mode-btn {
-        bottom: 30px;
-        right: 30px;
-        padding: 10px 20px;
-        font-size: 0.75rem;
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
     }
 }
 
-@media (max-width: 768px) {
+/* 2. THE CHOSEN MOBILE DESIGN (Shown ONLY on phone screens 767px and below) */
+@media screen and (max-width: 767px) {
+    .cinema-mode-btn {
+        /* YOUR POSITION: Center Bottom */
+        display: flex !important;
+        position: absolute !important;
+        bottom: 30px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
 
-    /* Position logic now handled in sitewide block above to ensure perfect consistency across all pages */
-    .cinema-mode-btn:hover {
-        transform: translateX(-50%) translateY(-2px) !important;
+        /* YOUR DESIGN: Floating White Icon only */
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        color: #ffffff !important;
+        z-index: 9999 !important;
+        transition: all 0.3s ease !important;
     }
+
+    /* KILLS THE UNWANTED "CINEMA MODE" TEXT */
+    .cinema-mode-btn span {
+        display: none !important;
+    }
+
+    /* KEEPS YOUR EXACT MOBILE ICON SIZE AND GLOW */
+    .cinema-mode-btn svg {
+        width: 28px !important;
+        height: 28px !important;
+        stroke: #ffffff !important;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) !important;
+        transition: filter 0.3s ease !important;
+    }
+
+    /* HOMEPAGE ORC POSITION: Pushes the button higher for this section */
+    #demo-reel .cinema-mode-btn {
+        bottom: auto !important;
+        top: 22vh !important;
+    }
+
+    /* MOBILE SHINING ORANGE HALO EFFECT */
+    .cinema-mode-btn:active svg,
+    .cinema-mode-btn:hover svg {
+        filter: drop-shadow(0 0 15px rgba(255, 123, 0, 1.0)) drop-shadow(0 0 30px rgba(255, 123, 0, 0.8)) !important;
+    }
+}
+
+/* Fix: Remove gradual opacity fade from all project gallery videos */
+.glass-card video,
+.project-hero-featured-image video,
+.process-media-grid video,
+.video-grid video,
+.brief-supplemental-videos video,
+.media-fullscreen video:not(#rocket-video):not(.hero-video) {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
 }

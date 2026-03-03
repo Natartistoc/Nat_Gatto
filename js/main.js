@@ -506,7 +506,12 @@ initScrollProgress();
 // 2-Second Video Preview Logic
 // ================================
 function initVideoPreviews() {
-    const videos = document.querySelectorAll('video:not(.global-bg-video):not(.hero-video):not(#hero-video):not(.hero-video-full-width video)');
+    // Select all videos and filter out continuous ones
+    const videos = Array.from(document.querySelectorAll('video')).filter(video => {
+        const isGlobalBg = video.classList.contains('global-bg-video');
+        const isHero = video.id === 'hero-video' || video.classList.contains('hero-video') || video.closest('.hero') || video.closest('.project-hero') || video.closest('.hero-video-full-width');
+        return !isGlobalBg && !isHero;
+    });
 
     const previewVideo = async (video) => {
         if (video.dataset.previewed) return;
@@ -516,14 +521,18 @@ function initVideoPreviews() {
             video.setAttribute("playsinline", "");
             video.setAttribute("autoplay", "autoplay");
             video.setAttribute('preload', 'auto');
+            // Remove loop attribute for non-hero videos to save bandwidth
+            video.loop = false;
+            video.removeAttribute('loop');
 
             const playPromise = video.play();
             if (playPromise !== undefined) {
                 await playPromise;
+                // Stop after 6 seconds (a few seconds) to save bandwidth
                 setTimeout(() => {
                     video.pause();
                     video.dataset.previewed = "true";
-                }, 2000);
+                }, 6000);
             }
         } catch (err) {
             video.pause();

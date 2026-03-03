@@ -16,7 +16,7 @@
 </head>
 
 <body id="top" class="project-detail-no-navbar">
-<video class="global-bg-video" autoplay loop muted playsinline>
+    <video class="global-bg-video" autoplay loop muted playsinline>
         <source src="https://nat-gatto-demo.b-cdn.net/1.mp4?v=1.0" type="video/mp4">
     </video>
     <div class="global-overlay"></div>
@@ -24,42 +24,46 @@
     <nav class="navbar island-nav">
         <div class="container">
             <div class="return-btn-container">
-            <div class="sound-control-container">
-                <button class="sound-toggle-btn" aria-label="Toggle Sound">
-                    <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
-                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
-                    </svg>
-                    <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                        <line x1="23" y1="9" x2="17" y2="15"></line>
-                        <line x1="17" y1="9" x2="23" y2="15"></line>
-                    </svg>
-                </button>
-            </div>
+                <div class="sound-control-container">
+                    <button class="sound-toggle-btn" aria-label="Toggle Sound">
+                        <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
+                            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
+                        </svg>
+                        <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                            <line x1="23" y1="9" x2="17" y2="15"></line>
+                            <line x1="17" y1="9" x2="23" y2="15"></line>
+                        </svg>
+                    </button>
+                </div>
                 <a href="index.html#projects" class="return-btn">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                    <polyline points="12 19 5 12 12 5"></polyline>
-                  </svg>
-                  Return to Portfolio
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Return to Portfolio
                 </a>
             </div>
             <div class="island-cta">
-                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank" class="btn-primary">Happy to chat on WhatsApp</a>
+                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank"
+                    class="btn-primary">Happy to chat on WhatsApp</a>
             </div>
         </div>
     </nav>
 
     <!-- Navigation Overlay -->
-    
+
 
     <!-- Navigation Overlay -->
-    
-    
 
-    
+
+
+
 
     <!-- Logo top right -->
     <a href="index.html" class="project-top-logo">
@@ -94,7 +98,7 @@
                     <p style="color: rgba(255, 255, 255, 0.75);">Inspired by a pencil sketch by Mitch Leeuwe, this piece
                         was reinterpreted into an original composition with lighting as the primary artistic driver. The
                         environment was designed to precisely control contrast, light direction, and surface response,
-                        with a focus on dappled sunlight interacting with the cat’s fur. The painting process
+                        with a focus on dappled sunlight interacting with the cat's fur. The painting process
                         emphasized
                         light-driven composition, material readability, and atmospheric depth.</p>
                 </div>
@@ -123,29 +127,32 @@
             <div class="premium-divider" style="margin-top: 0; margin-bottom: 60px;"></div>
             <h2 class="section-title" style="margin-bottom: 30px; letter-spacing: 0.1em;">Creative and Digital painting
                 Process</h2>
-            <div class="hero-video-full-width hero-smooth-mask"
-                style="width:100%; aspect-ratio:16/9; background: transparent !important; border-radius: var(--border-radius-lg); overflow:hidden; box-shadow: var(--premium-shadow);">
+            <!-- Glass Card for a sharp, solid gallery video -->
+            <div class="glass-card"
+                style="width:100%; aspect-ratio:16/9; overflow:hidden; border-radius:18px; position:relative;">
                 <video loop muted playsinline controls preload="auto"
                     poster="images/projects/wintercinematic/process-poster.png"
-                    style="width:100%; height:100%; object-fit:cover;" autoplay>
+                    style="width:100%; height:100%; object-fit:cover; display:block; opacity:1 !important; mask-image:none !important;"
+                    autoplay>
                     <source src="https://nat-gatto-demo.b-cdn.net/Roudoudou_Process_opt.mp4#t=0.001" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
 
+                <!-- NEW CINEMA BUTTON (Optional - matching icons) -->
+                <button class="cinema-mode-btn" aria-label="Enter Cinema Mode">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 3h6v6M9 21H3v-6M21 15v6h-6M3 9V3h6" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
 
-        <!-- Cinema Mode Button -->
-        <button class="cinema-mode-btn" aria-label="Enter Cinema Mode">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 3h6v6M9 21H3v-6M21 15v6h-6M3 9V3h6" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <span>Cinema Mode</span>
-        </button>
-            
+
         </div>
         </div>
     </section>
 
-        <footer class="footer">
+    <footer class="footer">
         <div class="container footer-row-master">
             <div class="footer-copyright">
                 <div class="island-logo footer-logo-corner">
@@ -157,7 +164,8 @@
             <div class="back-to-top-container">
                 <a href="#top" class="back-to-top-btn">
                     <div class="arrow-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
                             <polyline points="18 15 12 9 6 15"></polyline>
                         </svg>
                     </div>
@@ -178,42 +186,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
