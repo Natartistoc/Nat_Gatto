@@ -85,11 +85,17 @@ function initHeroAnimations() {
             let duration = heroVideo.duration || 10;
             if (!duration || isNaN(duration)) duration = 10;
 
+            // CRITICAL: Ensure Hero video is always looping and playing on all devices
+            heroVideo.loop = true;
+            heroVideo.setAttribute('loop', '');
+            heroVideo.muted = true;
+            heroVideo.setAttribute('playsinline', '');
+
             if (isHomePage) {
                 if (isMobile) {
                     gsap.set(heroVideo, { opacity: 1 });
                     gsap.set(allElements, { opacity: 1, y: 0, visibility: 'visible', pointerEvents: 'auto' });
-                    heroVideo.play(); // Ensure playback starts on mobile
+                    heroVideo.play().catch(() => { }); // Force play for mobile
                     return;
                 }
 
@@ -133,6 +139,12 @@ function initHeroAnimations() {
             } else {
                 // Project page: Instant reveal
                 const tl = gsap.timeline();
+
+                // Ensure hero video plays on project pages too (especially mobile)
+                if (isMobile) {
+                    heroVideo.play().catch(() => { });
+                }
+
                 // Ensure all elements, including all cinema buttons, are revealed
                 tl.set(allElements, { opacity: 0, y: 15, visibility: 'visible' });
                 tl.to(allElements, { opacity: 1, y: 0, duration: 0.8 / (isMobile ? 2 : 1), stagger: 0.1, ease: 'power2.out' });
@@ -504,24 +516,26 @@ function initScrollProgress() {
 initScrollProgress();
 
 // ================================
-// 2-Second Video Preview Logic
+// Video Bandwidth Optimization (Preview Logic)
 // ================================
 function initVideoPreviews() {
-    // Select all videos and filter out continuous ones
+    // Select all videos and filter out continuous (Hero) ones
     const videos = Array.from(document.querySelectorAll('video')).filter(video => {
         const isGlobalBg = video.classList.contains('global-bg-video');
 
-        // Robust Hero detection: check ID, Classes, Parent containers, AND position
+        // IMPROVED Hero detection: 
+        // We want to EXCLUDE hero videos from the auto-pause logic.
         const isHero =
             video.id === 'hero-video' ||
             video.classList.contains('hero-video') ||
             video.closest('.hero-video-full-width') ||
             video.closest('.hero') ||
-            video.closest('.project-hero-featured-image') ||
             video.closest('.media-fullscreen') ||
-            // Fallback: If the video is in the top 800px of the page, it's a Hero video
-            (video.getBoundingClientRect().top + window.scrollY < 800);
+            // Robust fallback: If the video is within the top 500px of the page
+            (video.getBoundingClientRect().top + window.scrollY < 500);
 
+        // Note: .project-hero-featured-image is specifically NOT in isHero, 
+        // so gallery/process videos WILL be stopped after 6 seconds to save bandwidth.
         return !isGlobalBg && !isHero;
     });
 
@@ -534,21 +548,24 @@ function initVideoPreviews() {
             video.setAttribute("playsinline", "");
             video.setAttribute("autoplay", "autoplay");
             video.setAttribute('preload', 'auto');
-            // Remove loop attribute for non-hero videos to save bandwidth
+
+            // Non-hero videos are set to not loop and will pause after a few seconds
             video.loop = false;
             video.removeAttribute('loop');
 
             const playPromise = video.play();
             if (playPromise !== undefined) {
                 await playPromise;
-                // Stop after 6 seconds (a few seconds) to save bandwidth
+                // Stop after 6 seconds to save bandwidth
                 setTimeout(() => {
-                    video.pause();
-                    video.dataset.previewed = "true";
+                    if (!video.paused) {
+                        video.pause();
+                        video.dataset.previewed = "true";
+                    }
                 }, 6000);
             }
         } catch (err) {
-            video.pause();
+            console.log('Preview playback failed:', err);
         }
     };
 
