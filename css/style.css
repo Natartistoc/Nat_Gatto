@@ -406,7 +406,8 @@ img {
     object-fit: cover;
     z-index: 1;
     display: block;
-    opacity: 1;
+    opacity: 0;
+    /* Corrected: Starts at 0 for the GSAP fade */
     /* Cinematic Bottom Fade: Smooth transition to transparency */
     -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
@@ -416,11 +417,12 @@ img {
     background: transparent !important;
 }
 
+/* Fade-In Starting Point for all Hero media types */
+.hero-video,
 .hero-video-full-width video,
-.hero-video-full-width img {
-    /* Cinematic Bottom Fade for Project Pages */
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%);
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%);
+.hero-video-full-width img,
+.project-hero-featured-image img {
+    opacity: 0;
 }
 
 .hero-smooth-mask {
@@ -429,10 +431,10 @@ img {
             rgba(0, 0, 0, 1) 60%,
             rgba(0, 0, 0, 0) 100%) !important;
     mask-image: linear-gradient(to bottom,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 1) 60%,
+            rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 60%,
             rgba(0, 0, 0, 0) 100%) !important;
 }
+
 
 .hero-overlay {
     position: absolute;
@@ -3279,8 +3281,6 @@ video.loaded {
         0 0 25px rgba(255, 123, 0, 0.8),
         0 0 35px rgba(255, 123, 0, 0.4) !important;
     transform: scale(1.1) !important;
-}
-
 }
 
 /* WhatsApp Button (Right) */
