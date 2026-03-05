@@ -63,6 +63,12 @@
     object-fit: cover;
     z-index: -2;
     pointer-events: none;
+    /* Force Hardware Acceleration for Tablet/Mobile */
+    transform: translateZ(0);
+    -webkit-perspective: 1000;
+    perspective: 1000px;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
 }
 
 .global-overlay {
@@ -413,6 +419,12 @@ img {
     display: block;
     opacity: 1;
     background: #000;
+    /* Force Hardware Acceleration for Tablet/Mobile */
+    transform: translateZ(0);
+    -webkit-perspective: 1000;
+    perspective: 1000px;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
 }
 
 .hero-video-full-width {
@@ -3863,6 +3875,10 @@ video.loaded {
         opacity: 1 !important;
         visibility: visible !important;
         display: block !important;
+        /* Re-enforce Render Hack */
+        transform: translateZ(0) !important;
+        -webkit-perspective: 1000 !important;
+        perspective: 1000px !important;
     }
 
     .project-description {
@@ -4180,6 +4196,9 @@ video {
     .global-bg-video {
         visibility: visible !important;
         display: block !important;
+        opacity: 1 !important;
+        z-index: -2 !important;
+        transform: translateZ(0) !important;
     }
 }
 
@@ -4192,12 +4211,12 @@ video {
     background: transparent !important;
 }
 
-/* 2. Set Hero Video to 0 opacity initially (Preparing for JS fade-in) 
-   EXCEPT for the homepage hero, which should be visible immediately */
+/* 2. Set Hero Video to 1 opacity by default to ensure visibility even if JS delays 
+   WE REMOVED the opacity: 0 that was causing 'invisible' videos on some devices */
 .global-bg-video,
 .hero-video-full-width video,
 .project-hero video {
-    opacity: 0;
+    opacity: 1;
     visibility: visible;
     transition: opacity 1.5s ease-in-out;
     background: transparent !important;
