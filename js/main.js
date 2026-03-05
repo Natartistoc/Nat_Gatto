@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMagneticButtons();
     initVideoPreviews();
     initCinemaMode();
-    forcePlayGlobalVideo();
+    forcePlayAllVideos(); // Renamed and improved from forcePlayGlobalVideo
 
     // 2. Initialize GSAP Animations
     if (typeof gsap !== 'undefined') {
@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.warn('⚠️ GSAP not detected. Forcing manual visibility...');
         document.body.classList.remove('loading');
+        // Manual visibility for hero video if no GSAP
+        const hv = document.getElementById('hero-video') || document.querySelector('.hero video');
+        if (hv) hv.style.opacity = '1';
     }
 
     // 3. The "Ultimate Fallback": If anything is still invisible after 2 seconds, force its appearance.
@@ -40,6 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
         }
+
+        // Final Video & Loading Safety Check
+        document.querySelectorAll('video').forEach(v => {
+            v.style.opacity = '1';
+            v.style.visibility = 'visible';
+            if (v.paused) v.play().catch(() => v.currentTime = 0.1);
+        });
 
         // Testimonials Safety Check
         const testimonials = document.querySelectorAll('.testimonial-card');
@@ -77,7 +87,7 @@ function initHeroAnimations() {
         document.querySelector('.hero-video-full-width video');
 
     const allElements = [title, subtitle, heroSubtitle, heroCta, ...allCinemaBtns, scrollIndicator].filter(el => el);
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = window.innerWidth <= 1024;
     const isHomePage = !!document.getElementById('demo-reel');
 
     if (heroVideo) {
@@ -148,10 +158,11 @@ function initHeroAnimations() {
             }
         };
 
-        const safetyTimeoutValue = isMobile ? 2000 : 5000;
+        const safetyTimeoutValue = isMobile ? 3000 : 6000;
         const safetyTimeout = setTimeout(() => {
             console.warn('Hero safety reveal triggered');
             gsap.to(allElements, { opacity: 1, y: 0, duration: 1, stagger: 0.1 });
+            if (heroVideo) gsap.to(heroVideo, { opacity: 1, duration: 1, visibility: 'visible' });
         }, safetyTimeoutValue);
 
         if (heroVideo.readyState >= 1 || !isHomePage) {
@@ -565,11 +576,24 @@ function initVideoPreviews() {
 }
 
 
-function forcePlayGlobalVideo() {
-    const videos = document.querySelectorAll('.global-bg-video, #hero-video, .hero-video, .hero-video-full-width video');
+function forcePlayAllVideos() {
+    const videos = document.querySelectorAll('video');
     videos.forEach(v => {
         v.muted = true;
-        v.play().catch(e => console.log('Video play caught:', e));
+        v.playsInline = true;
+        v.setAttribute('muted', '');
+        v.setAttribute('playsinline', '');
+
+        // Immediate opacity fix
+        v.style.opacity = '1';
+        v.style.visibility = 'visible';
+
+        v.play().then(() => {
+            console.log('✅ Video playing:', v.currentSrc || v.id);
+        }).catch(e => {
+            console.warn('⚠️ Video play failed, showing frame:', v.id);
+            v.currentTime = 0.1;
+        });
     });
 }
 
