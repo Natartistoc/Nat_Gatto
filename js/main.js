@@ -19,9 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initMobileMenu();
     initMagneticButtons();
-    initVideoPreviews();
+    initVideoSystem();
     initCinemaMode();
-    forcePlayAllVideos(); // Renamed and improved from forcePlayGlobalVideo
 
     // 2. Initialize GSAP Animations
     if (typeof gsap !== 'undefined') {
@@ -474,25 +473,70 @@ function initMagneticButtons() {
 
 
 // ============================================================
-// Robust Video Handling (No Poster Version)
+// Enhanced Video Playback System (Tablet & Mobile Optimized)
 // ============================================================
 
-function initVideoPreviews() {
-    // 1. Identify content videos (exclude Hero & Background)
-    const contentVideos = Array.from(document.querySelectorAll('video')).filter(v => {
-        const isHero = v.id === 'hero-video' ||
+function initVideoSystem() {
+    const allVideos = document.querySelectorAll('video');
+
+    // 1. Attribute Injection & Initial Prep
+    allVideos.forEach(v => {
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', '');
+        v.setAttribute('preload', 'auto');
+        v.muted = true;
+        v.setAttribute('muted', '');
+
+        // Background & Hero specific prep
+        const isCritical = v.classList.contains('global-bg-video') ||
+            v.id === 'hero-video' ||
             v.classList.contains('hero-video') ||
-            v.closest('.hero') ||
+            v.dataset.heroVideo === "true" ||
             v.closest('.hero-video-full-width');
-        const isBg = v.classList.contains('global-bg-video');
-        return !isHero && !isBg;
+
+        if (isCritical) {
+            v.loop = true;
+            v.setAttribute('loop', '');
+            v.dataset.isCritical = "true";
+        }
     });
 
-    contentVideos.forEach(video => {
-        video.muted = true;
-        video.playsInline = true;
+    // 2. The Super Watchdog (Runs every 2s)
+    const runWatchdog = () => {
+        allVideos.forEach(v => {
+            const isCritical = v.dataset.isCritical === "true";
 
-        // Wrap video to add the dynamic Play Overlay
+            // Handle critical videos (Always Play, Loop Forever)
+            if (isCritical) {
+                if (v.paused || v.ended) {
+                    v.play().catch(() => { });
+                }
+
+                // Stall Detector: If time isn't advancing but it should be playing
+                if (!v.paused && v.readyState >= 2) {
+                    const lastTime = parseFloat(v.dataset.lastTime || -1);
+                    if (v.currentTime === lastTime && v.currentTime > 0) {
+                        console.warn('Video stall detected, reloading:', v.src);
+                        v.load();
+                        v.play().catch(() => { });
+                    }
+                    v.dataset.lastTime = v.currentTime;
+                }
+
+                // Safety reveal
+                v.style.opacity = '1';
+                v.classList.add('video-ready');
+            }
+        });
+    };
+
+    setInterval(runWatchdog, 2000);
+
+    // 3. Content Preview Logic (Pause after 4s)
+    const contentVideos = Array.from(allVideos).filter(v => v.dataset.isCritical !== "true");
+
+    contentVideos.forEach(video => {
+        // Wrap video to add the dynamic Play Overlay if not already present
         if (!video.parentElement.classList.contains('video-stopped-preview')) {
             const wrapper = document.createElement('div');
             wrapper.className = 'video-stopped-preview';
@@ -503,7 +547,6 @@ function initVideoPreviews() {
             overlay.className = 'video-player-overlay';
             wrapper.appendChild(overlay);
 
-            // Toggle play/pause on click
             wrapper.addEventListener('click', () => {
                 if (video.paused) {
                     video.play();
@@ -520,16 +563,14 @@ function initVideoPreviews() {
             entries.forEach(entry => {
                 if (entry.isIntersecting && video.dataset.wasPreviewed !== "true") {
                     video.play().then(() => {
-                        // After 4s of playback, pause and show title frame
                         setTimeout(() => {
-                            if (!video.paused) {
+                            if (!video.paused && video.dataset.wasPreviewed !== "true") {
                                 video.pause();
                                 video.parentElement.classList.add('is-paused');
+                                video.dataset.wasPreviewed = "true";
                             }
-                            video.dataset.wasPreviewed = "true";
                         }, 4000);
                     }).catch(() => {
-                        // Fallback: If autoplay is blocked, force first frame
                         video.currentTime = 0.1;
                         video.parentElement.classList.add('is-paused');
                     });
@@ -542,59 +583,16 @@ function initVideoPreviews() {
     });
 }
 
-function forcePlayAllVideos() {
-    console.log('Force playing all videos...');
-    const videos = document.querySelectorAll('video');
-
-    videos.forEach(v => {
-        v.muted = true;
-        v.setAttribute('muted', '');
-        v.playsInline = true;
-        v.setAttribute('playsinline', '');
-        v.loop = true;
-
-        const isSmoothFade = v.id === 'hero-video' ||
-            v.classList.contains('hero-video') ||
-            v.classList.contains('global-bg-video') ||
-            v.closest('.hero-video-full-width');
-
-        const applyReveal = () => {
-            if (isSmoothFade) v.classList.add('video-ready');
-            v.style.opacity = '1';
-        };
-
-        const tryPlay = () => {
-            v.play().then(() => {
-                applyReveal();
-            }).catch(err => {
-                console.warn('Autoplay prevented, forcing reveal anyway:', err);
-                v.currentTime = 0.1;
-                applyReveal();
-            });
-        };
-
-        // Safety reveal after 1s regardless of play status
-        setTimeout(applyReveal, 1000);
-
-        if (v.readyState >= 2) {
-            tryPlay();
-        } else {
-            v.addEventListener('canplay', tryPlay, { once: true });
-            v.load();
-        }
-    });
-}
-
-// BFCache / Navigation Back Fix: re-trigger video playback when returning to the page
-window.addEventListener('pageshow', (event) => {
-    forcePlayAllVideos();
-});
-
-
-// CRITICAL FIX: Unlock all videos on mobile after user touch
-// This bypasses Safari/iPad's strict "first interaction" requirement
-window.addEventListener('touchstart', function () {
-    forcePlayAllVideos();
+// Global Kickstarters
+window.addEventListener('DOMContentLoaded', initVideoSystem);
+window.addEventListener('pageshow', initVideoSystem);
+window.addEventListener('touchstart', () => {
+    document.querySelectorAll('video').forEach(v => v.play().catch(() => { }));
+}, { once: true });
+window.addEventListener('scroll', () => {
+    // Secondary kickstart if first one fails
+    const critical = document.querySelector('video[data-is-critical="true"]');
+    if (critical && critical.paused) critical.play().catch(() => { });
 }, { once: true });
 
 
@@ -650,29 +648,3 @@ function initCinemaMode() {
 }
 
 console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
-// --- CRITICAL HERO AUTOPLAY PROTECTION ---
-// Ensures 'Roar.mp4' on Homepage never pauses and loops forever on all devices
-(function () {
-    const heroVideo = document.getElementById('hero-video');
-    if (!heroVideo) return;
-
-    // 1. Force play on all standard events
-    ['pageshow', 'load', 'touchstart', 'click'].forEach(evt => {
-        window.addEventListener(evt, () => {
-            if (heroVideo.paused) heroVideo.play().catch(() => { });
-        }, { once: false }); // Allow multiple re-triggers if needed
-    });
-
-    // 2. Prevent accidental pausing (by other scripts or viewport observers)
-    heroVideo.addEventListener('pause', function () {
-        // If it was paused externally but shouldn't be, resume immediately
-        if (heroVideo.readyState >= 2) {
-            heroVideo.play().catch(() => { });
-        }
-    });
-
-    // 3. Keep attributes enforced
-    heroVideo.muted = true;
-    heroVideo.loop = true;
-    heroVideo.setAttribute('playsinline', '');
-})();

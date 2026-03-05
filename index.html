@@ -74,36 +74,18 @@
 
     <!-- Hero Section -->
     <section id="demo-reel" class="hero">
-        <!-- ROAR HERO VIDEO: Optimized for Autoplay & Loop (Desktop/Tablet/Mobile) -->
+        <!-- HERO VIDEO: Demoreel Roar.mp4 - Premium Autoplay & Sound-enabled Loop -->
         <video id="hero-video" class="hero-video" autoplay loop muted playsinline webkit-playsinline preload="auto"
-            src="https://nat-gatto-demo.b-cdn.net/Demoreel%20Roar.mp4?v=1.3">
+            data-hero-video="true">
+            <source src="https://nat-gatto-demo.b-cdn.net/Demoreel%20Roar.mp4?v=3.0" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <script>
-            // ROAR WATCHDOG: Aggressive autoplay enforcer
+            // Instant Kickstart: Minimal script to trigger play immediately
             (function () {
-                const vid = document.getElementById('hero-video');
-                if (!vid) return;
-
-                const forcePlay = () => {
-                    if (vid.paused) vid.play().catch(() => { });
-                };
-
-                // Trigger play on all common user actions
-                ['click', 'touchstart', 'scroll', 'pageshow', 'load'].forEach(ev => {
-                    window.addEventListener(ev, forcePlay, { passive: true });
-                });
-
-                // Periodic check to ensure it never stops (browser policies can be tricky)
-                setInterval(forcePlay, 1000);
-
-                // Hard-coded loop and muted properties
-                vid.loop = true;
-                vid.muted = true;
-
-                // Resume play when tab becomes visible again
-                document.addEventListener('visibilitychange', () => {
-                    if (document.visibilityState === 'visible') forcePlay();
+                const v = document.getElementById('hero-video');
+                if (v) v.play().catch(() => {
+                    // Fail silently, main.js watchdog will take over
                 });
             })();
         </script>

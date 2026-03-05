@@ -16,7 +16,7 @@
 </head>
 
 <body id="top" class="project-detail-no-navbar">
-    <video class="global-bg-video" autoplay loop muted playsinline>
+    <video class="global-bg-video" autoplay loop muted playsinline webkit-playsinline preload="auto">
         <source src="https://nat-gatto-demo.b-cdn.net/1.mp4?v=1.0" type="video/mp4">
     </video>
     <div class="global-overlay"></div>
@@ -72,7 +72,8 @@
     <section class="project-hero" style="padding-top: 0;">
         <!-- Fullscreen Hero Video -->
         <div class="media-fullscreen hero-smooth-mask" style="margin-top: -30px; background: transparent !important;">
-            <video autoplay loop muted playsinline style="width: 100%; height: auto; display: block;">
+            <video autoplay loop muted playsinline webkit-playsinline preload="auto" data-hero-video="true"
+                style="width: 100%; height: auto; display: block;">
                 <source src="https://nat-gatto-demo.b-cdn.net/saintseiya10.mp4" type="video/mp4">
             </video>
 
@@ -157,7 +158,7 @@
             <h2 class="section-title" style="text-align: center; margin-bottom: 40px; text-transform: uppercase;">
                 Digital Painting Process</h2>
             <div class="project-hero-featured-image glass-card" style="margin-bottom: 60px;">
-                <video loop muted playsinline controls preload="auto" class="portfolio-img-content"
+                <video loop muted playsinline webkit-playsinline controls preload="auto" class="portfolio-img-content"
                     style="width:100%; border-radius:inherit;">
                     <source src="https://nat-gatto-demo.b-cdn.net/saintseiya-timelapsepart-artstation.mp4#t=0.001"
                         type="video/mp4">
