@@ -12,7 +12,7 @@
     --color-bg-dark: #0a0a0a;
     --color-border: #262626;
     --version: "30.0";
-    --color-glow-orange: #ff7b00;
+    --color-glow-orange: rgba(255, 126, 34, 1.0);
     --color-glow-intense: rgba(255, 165, 0, 0.9);
     --color-glow-white: rgba(255, 255, 255, 0.4);
 
@@ -326,14 +326,10 @@ img {
     background-color: var(--color-primary);
     color: var(--color-secondary);
     transform: translateY(-2px);
-    /* TRIPLE LAYER GLOW: Massive increase in spread and brightness */
-    box-shadow: 0 0 50px var(--color-glow-orange),
-        0 0 25px var(--color-glow-intense),
-        0 0 70px rgba(255, 123, 0, 0.5);
+    box-shadow: 0 0 35px var(--color-glow-orange), 0 0 15px var(--color-glow-intense);
     text-shadow: 0 0 12px var(--color-glow-white), 0 0 8px var(--color-glow-orange);
     border-color: rgba(255, 255, 255, 1);
 }
-
 
 .btn-glass {
     background: var(--glass-bg);
@@ -406,8 +402,7 @@ img {
     object-fit: cover;
     z-index: 1;
     display: block;
-    opacity: 0;
-    /* Corrected: Starts at 0 for the GSAP fade */
+    opacity: 1;
     /* Cinematic Bottom Fade: Smooth transition to transparency */
     -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
@@ -417,12 +412,11 @@ img {
     background: transparent !important;
 }
 
-/* Fade-In Starting Point for all Hero media types */
-.hero-video,
 .hero-video-full-width video,
-.hero-video-full-width img,
-.project-hero-featured-image img {
-    opacity: 0;
+.hero-video-full-width img {
+    /* Cinematic Bottom Fade for Project Pages */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%);
 }
 
 .hero-smooth-mask {
@@ -431,10 +425,10 @@ img {
             rgba(0, 0, 0, 1) 60%,
             rgba(0, 0, 0, 0) 100%) !important;
     mask-image: linear-gradient(to bottom,
-            rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 60%,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 1) 60%,
             rgba(0, 0, 0, 0) 100%) !important;
 }
-
 
 .hero-overlay {
     position: absolute;
@@ -1199,23 +1193,19 @@ img {
 
 
 
-/* Updated: BRIGHTER & Intense Breathing Glow */
 @keyframes logoBreathingPremium {
 
     0%,
     100% {
-        /* Brighter starting point */
-        filter: drop-shadow(0 0 15px var(--color-glow-orange)) drop-shadow(0 0 25px rgba(255, 123, 0, 0.6)) brightness(1);
+        filter: drop-shadow(0 0 30px rgba(255, 123, 0, 0.5)) brightness(1);
         transform: scale(1);
     }
 
     50% {
-        /* Peak brightness and size */
-        filter: drop-shadow(0 0 30px var(--color-glow-orange)) drop-shadow(0 0 60px rgba(255, 123, 0, 0.9)) brightness(1.3);
-        transform: scale(1.12);
+        filter: drop-shadow(0 0 65px rgba(255, 123, 0, 0.95)) brightness(1.4);
+        transform: scale(1.15);
     }
 }
-
 
 @media (max-width: 1024px) {
     .footer .container.footer-row-master {
@@ -1565,6 +1555,8 @@ img {
     width: 100%;
     height: auto;
     display: block;
+    opacity: 1 !important;
+    /* Forces visibility for these project videos */
 }
 
 /* Glassmorphism Launch Reveal */
@@ -1576,7 +1568,8 @@ img {
 }
 
 .reveal-video video {
-    opacity: 0;
+    opacity: 1;
+    /* Changed from 0 to 1 */
     animation: videoReveal 1s ease-out forwards;
     animation-delay: 1.5s;
 }
@@ -2031,7 +2024,8 @@ img {
     display: block;
     transition: transform var(--transition-base);
     border: none;
-    /* Keep border: none for video/iframe, it won't affect img */
+    opacity: 1 !important;
+    /* Ensure content is never stuck at 0 opacity */
 }
 
 .portfolio-link:hover .portfolio-img-content {
@@ -3276,10 +3270,7 @@ video.loaded {
 
 .island-links a:hover {
     color: #fff !important;
-    /* DOUBLE LAYER GLOW: Spreads wider and much brighter */
-    text-shadow: 0 0 15px var(--color-glow-orange),
-        0 0 25px rgba(255, 123, 0, 0.8),
-        0 0 35px rgba(255, 123, 0, 0.4) !important;
+    text-shadow: 0 0 10px var(--color-glow-orange) !important;
     transform: scale(1.1) !important;
 }
 
@@ -3924,7 +3915,7 @@ video.loaded {
     /* HOMEPAGE ORC POSITION: Pushes the button higher for this section */
     #demo-reel .cinema-mode-btn {
         bottom: auto !important;
-        top: 25vh !important;
+        top: 22vh !important;
     }
 
     /* MOBILE SHINING ORANGE HALO EFFECT */
@@ -3943,22 +3934,4 @@ video.loaded {
 .media-fullscreen video:not(#rocket-video):not(.hero-video) {
     -webkit-mask-image: none !important;
     mask-image: none !important;
-}
-
-/* Logo Brighter Orange Glow Hover */
-.logo:hover img,
-.island-logo:hover img,
-.project-top-logo:hover img {
-    transform: scale(1.05);
-    /* Slight enlargement on hover */
-    /* Triple Layer Drop Shadow for the logo shape */
-    filter: drop-shadow(0 0 10px var(--color-glow-orange)) drop-shadow(0 0 20px rgba(255, 123, 0, 0.8)) drop-shadow(0 0 30px rgba(255, 123, 0, 0.4)) !important;
-    transition: all 0.4s ease !important;
-}
-
-/* Ensure the transition is smooth when leaving the hover */
-.logo img,
-.island-logo img,
-.project-top-logo img {
-    transition: all 0.4s ease !important;
 }

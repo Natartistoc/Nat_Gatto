@@ -15,12 +15,7 @@ if (typeof gsap !== 'undefined') {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Content Loaded - Initializing animations...');
 
-    // 1. Initialize GSAP Animations (Early for tagging)
-    if (typeof gsap !== 'undefined') {
-        initHeroAnimations();
-    }
-
-    // 2. Initialize Core Components
+    // 1. Initialize Core Components (Non-GSAP dependent or simple GSAP)
     initSmoothScroll();
     initMobileMenu();
     initNavbarScroll();
@@ -29,8 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initCinemaMode();
     forcePlayGlobalVideo();
 
-    // 3. Initialize remaining GSAP Animations
+    // 2. Initialize GSAP Animations
     if (typeof gsap !== 'undefined') {
+        initHeroAnimations();
         initScrollAnimations();
         initPortfolioAnimations();
         initSoundToggle();
@@ -78,17 +74,10 @@ function initHeroAnimations() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     const heroVideo = document.getElementById('hero-video') ||
         document.querySelector('.hero video') ||
-        document.querySelector('.hero-video-full-width video') ||
-        document.querySelector('.project-hero video');
-
-    // Tag the hero video to ensure it's never paused by optimization scripts
-    if (heroVideo) {
-        heroVideo.dataset.isHero = "true";
-        heroVideo.classList.add('is-hero-video');
-    }
+        document.querySelector('.hero-video-full-width video');
 
     const allElements = [title, subtitle, heroSubtitle, heroCta, ...allCinemaBtns, scrollIndicator].filter(el => el);
-    const isMobile = window.innerWidth <= 1024;
+    const isMobile = window.innerWidth <= 768;
     const isHomePage = !!document.getElementById('demo-reel');
 
     if (heroVideo) {
@@ -96,17 +85,10 @@ function initHeroAnimations() {
             let duration = heroVideo.duration || 10;
             if (!duration || isNaN(duration)) duration = 10;
 
-            // CRITICAL: Ensure Hero video is always looping and playing on all devices
-            heroVideo.loop = true;
-            heroVideo.setAttribute('loop', '');
-            heroVideo.muted = true;
-            heroVideo.setAttribute('playsinline', '');
-
             if (isHomePage) {
                 if (isMobile) {
                     gsap.set(heroVideo, { opacity: 1 });
                     gsap.set(allElements, { opacity: 1, y: 0, visibility: 'visible', pointerEvents: 'auto' });
-                    heroVideo.play().catch(() => { }); // Force play for mobile
                     return;
                 }
 
@@ -150,14 +132,13 @@ function initHeroAnimations() {
             } else {
                 // Project page: Instant reveal
                 const tl = gsap.timeline();
-
-                // Ensure hero video plays on project pages too (especially mobile)
-                if (isMobile) {
-                    heroVideo.play().catch(() => { });
-                }
-
                 // Ensure all elements, including all cinema buttons, are revealed
                 tl.set(allElements, { opacity: 0, y: 15, visibility: 'visible' });
+
+                // Force hero video to be visible and playing
+                gsap.set(heroVideo, { opacity: 1, visibility: 'visible' });
+                heroVideo.play().catch(e => console.log('Hero play catch:', e));
+
                 tl.to(allElements, { opacity: 1, y: 0, duration: 0.8 / (isMobile ? 2 : 1), stagger: 0.1, ease: 'power2.out' });
 
                 // Force all cinema buttons to be active and visible on project pages
@@ -525,83 +506,71 @@ function initScrollProgress() {
 }
 
 initScrollProgress();
-// ================================================================
-// Video Bandwidth & Preview Optimization (Non-Hero Videos)
-// ================================================================
+
+/* ============================================================
+   Internal Video Preview Logic (Show frame + Stop after 4s)
+   ============================================================ */
 function initVideoPreviews() {
-    const allVideos = Array.from(document.querySelectorAll('video'));
-
-    const otherVideos = allVideos.filter(video => {
-        // 1. Never touch the global background video
-        if (video.classList.contains('global-bg-video')) return false;
-
-        // 2. Identify Hero Videos (These should NOT stop)
-        // We know it's a Hero if:
-        // - It's in a 'full-width' container
-        // - It has the 'hero-video' class
-        // - It has NO controls (Gallery videos always have controls)
-        const isHero =
-            video.classList.contains('hero-video') ||
-            video.classList.contains('is-hero-video') ||
-            video.closest('.hero-video-full-width') ||
-            (video.closest('.hero') && !video.hasAttribute('controls')) ||
-            (video.closest('.project-hero') && !video.hasAttribute('controls'));
-
-        return !isHero;
+    // 1. Target ONLY internal videos (Exclude Hero, Global Background, and Seamless loops)
+    const internalVideos = Array.from(document.querySelectorAll('video')).filter(v => {
+        const isHero = v.id === 'hero-video' ||
+            v.classList.contains('hero-video') ||
+            v.closest('.hero') ||
+            v.closest('.hero-video-full-width');
+        const isBg = v.classList.contains('global-bg-video');
+        const isSeamless = v.closest('.seamless-video-wrapper');
+        return !isHero && !isBg && !isSeamless;
     });
 
-    const runAutoPreview = async (video) => {
-        if (video.dataset.previewed) return;
+    console.log(`🎬 Initializing preview for ${internalVideos.length} internal videos.`);
 
-        try {
-            video.muted = true;
-            video.setAttribute("playsinline", "");
+    internalVideos.forEach(video => {
+        // ENFORCE PREVIEW SETTINGS: Ensure they are ready for muted autoplay and show a frame
+        video.muted = true;
+        video.playsInline = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
 
-            // Force browser to seek to start to ensure frame 1 is rendered
+        if (!video.getAttribute('poster') && !video.src.includes('#t=')) {
             video.currentTime = 0.1;
-
-            const originalLoop = video.loop;
-            video.loop = false;
-
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                await playPromise;
-
-                // Play for 3 seconds, then pause
-                setTimeout(() => {
-                    video.pause();
-                    video.dataset.previewed = "true";
-                    video.loop = originalLoop;
-                }, 3000);
-            }
-        } catch (err) {
-            // If autoplay is blocked, we still want to see a frame
-            video.currentTime = 0.5;
         }
-    };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                runAutoPreview(entry.target);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '400px' // Increased to start loading even earlier
+        // Use IntersectionObserver for smart autoplay on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (video.dataset.previewed !== "true") {
+                        console.log('🎥 Starting 4s preview for internal video');
+
+                        video.play().then(() => {
+                            // AUTO-STOP: Pause after 4 seconds to save bandwidth
+                            setTimeout(() => {
+                                if (!video.paused) {
+                                    video.pause();
+                                }
+                                video.dataset.previewed = "true";
+                            }, 4000);
+                        }).catch(err => {
+                            video.currentTime = 0.1;
+                        });
+
+                        observer.unobserve(video);
+                    }
+                }
+            });
+        }, { threshold: 0.15 });
+
+        observer.observe(video);
     });
-
-    otherVideos.forEach(v => observer.observe(v));
 }
 
 
 function forcePlayGlobalVideo() {
-    const bgVideo = document.querySelector('.global-bg-video');
-    if (bgVideo) {
-        bgVideo.muted = true;
-        bgVideo.play().catch(e => console.log('Global bg play caught:', e));
-    }
+    const videos = document.querySelectorAll('.global-bg-video, #hero-video, .hero-video, .hero-video-full-width video');
+    videos.forEach(v => {
+        v.muted = true;
+        v.play().catch(e => console.log('Video play caught:', e));
+    });
 }
 
 // ================================
@@ -654,44 +623,5 @@ function initCinemaMode() {
         observer.observe(btn, { attributes: true });
     });
 }
-
-// ================================
-// Mobile "Keep-Alive" Heartbeat for Hero Videos
-// ================================
-function initHeroHeartbeat() {
-    const isMobile = window.innerWidth <= 1024;
-    if (!isMobile) return;
-
-    // Periodically ensure hero videos are playing if they should be
-    setInterval(() => {
-        const heroVideos = document.querySelectorAll('.is-hero-video, #hero-video, .hero-video-full-width video, .project-hero video');
-        heroVideos.forEach(v => {
-            if (v.paused && !v.ended && v.readyState >= 2) {
-                console.log('💓 Hero Heartbeat: Resuming video...');
-                v.play().catch(() => { });
-            }
-        });
-    }, 3000);
-
-    // Resume on tab focus
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
-            const heroVideos = document.querySelectorAll('.is-hero-video, #hero-video, .hero-video-full-width video, .project-hero video');
-            heroVideos.forEach(v => v.play().catch(() => { }));
-        }
-    });
-
-    // Resume on any interaction (once)
-    const resumeOnInteraction = () => {
-        const heroVideos = document.querySelectorAll('.is-hero-video, #hero-video, .hero-video-full-width video, .project-hero video');
-        heroVideos.forEach(v => v.play().catch(() => { }));
-        document.removeEventListener('touchstart', resumeOnInteraction);
-        document.removeEventListener('click', resumeOnInteraction);
-    };
-    document.addEventListener('touchstart', resumeOnInteraction, { once: true });
-    document.addEventListener('click', resumeOnInteraction, { once: true });
-}
-
-initHeroHeartbeat();
 
 console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
