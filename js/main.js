@@ -498,6 +498,14 @@ function initVideoSystem() {
             v.loop = true;
             v.setAttribute('loop', '');
             v.dataset.isCritical = "true";
+
+            // Optimization: Forced metadata-only preload for the massive 143MB Demoreel on Mobile/Tablet
+            if ((v.id === 'hero-video' || v.src.includes('Demoreel')) && window.innerWidth <= 1024) {
+                if (v.getAttribute('preload') !== 'metadata') {
+                    v.setAttribute('preload', 'metadata');
+                    console.log('Optimized large hero video for mobile: preload=metadata');
+                }
+            }
         }
     });
 
@@ -515,10 +523,27 @@ function initVideoSystem() {
                 // Stall Detector: If time isn't advancing but it should be playing
                 if (!v.paused && v.readyState >= 2) {
                     const lastTime = parseFloat(v.dataset.lastTime || -1);
+                    const stallCount = parseInt(v.dataset.stallCount || 0);
+
                     if (v.currentTime === lastTime && v.currentTime > 0) {
-                        console.warn('Video stall detected, reloading:', v.src);
-                        v.load();
-                        v.play().catch(() => { });
+                        // For large videos (Hero), be more patient (Stall for 8s before reload)
+                        const maxStalls = v.id === 'hero-video' || v.src.includes('Demoreel') ? 4 : 2;
+
+                        if (stallCount >= maxStalls) {
+                            console.warn('Video stall confirmed, attempting recovery:', v.src);
+                            // Avoid heavy load() for massive files unless absolutely necessary
+                            if (v.id === 'hero-video' && v.src.includes('Demoreel')) {
+                                v.play().catch(() => { v.load(); v.play(); });
+                            } else {
+                                v.load();
+                                v.play().catch(() => { });
+                            }
+                            v.dataset.stallCount = 0;
+                        } else {
+                            v.dataset.stallCount = stallCount + 1;
+                        }
+                    } else {
+                        v.dataset.stallCount = 0;
                     }
                     v.dataset.lastTime = v.currentTime;
                 }
