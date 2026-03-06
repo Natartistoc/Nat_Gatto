@@ -4240,3 +4240,21 @@ video.video-ready {
         margin-bottom: 2rem;
     }
 }
+
+/* Align Software labels and icons to the left */
+.meta-item .meta-label[style*="text-align: center"] {
+    text-align: left !important;
+}
+
+.software-icons-row,
+.software-meta {
+    justify-content: flex-start !important;
+}
+
+/* Stop shimmer animation once the video is revealed via JS */
+video.video-ready,
+.video-ready .portfolio-img-content {
+    animation: none !important;
+    background: #000 !important;
+    opacity: 1 !important;
+}
