@@ -19,8 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initMobileMenu();
     initMagneticButtons();
-    initVideoSystem();
+    initVideoPreviews();
     initCinemaMode();
+    forcePlayAllVideos(); // Renamed and improved from forcePlayGlobalVideo
 
     // 2. Initialize GSAP Animations
     if (typeof gsap !== 'undefined') {
@@ -473,133 +474,37 @@ function initMagneticButtons() {
 
 
 // ============================================================
-// Enhanced Video Playback System (Tablet & Mobile Optimized)
+// Robust Video Handling (No Poster Version)
 // ============================================================
 
-function initVideoSystem() {
-    const allVideos = document.querySelectorAll('video');
-
-    // 1. Attribute Injection & Initial Prep
-    allVideos.forEach(v => {
-        v.setAttribute('playsinline', '');
-        v.setAttribute('webkit-playsinline', '');
-        v.setAttribute('preload', 'auto');
-        v.muted = true;
-        v.setAttribute('muted', '');
-
-        // Background & Hero specific prep
-        const isCritical = v.classList.contains('global-bg-video') ||
-            v.id === 'hero-video' ||
+function initVideoPreviews() {
+    // 1. Identify content videos (exclude Hero & Background)
+    const contentVideos = Array.from(document.querySelectorAll('video')).filter(v => {
+        const isHero = v.id === 'hero-video' ||
             v.classList.contains('hero-video') ||
             v.dataset.heroVideo === "true" ||
+            v.closest('.hero') ||
             v.closest('.hero-video-full-width');
-
-        if (isCritical) {
-            v.loop = true;
-            v.setAttribute('loop', '');
-            v.dataset.isCritical = "true";
-
-            // Optimization: Forced metadata-only preload for the massive 143MB Demoreel on Mobile/Tablet
-            if ((v.id === 'hero-video' || v.src.includes('Demoreel')) && window.innerWidth <= 1024) {
-                if (v.getAttribute('preload') !== 'metadata') {
-                    v.setAttribute('preload', 'metadata');
-                    console.log('Optimized large hero video for mobile: preload=metadata');
-                }
-            }
-        }
+        const isBg = v.classList.contains('global-bg-video');
+        return !isHero && !isBg;
     });
 
-    // 2. The Super Watchdog (Runs every 2s)
-    const runWatchdog = () => {
-        allVideos.forEach(v => {
-            const isCritical = v.dataset.isCritical === "true";
-
-            // Handle critical videos (Always Play, Loop Forever)
-            if (isCritical) {
-                if (v.paused || v.ended) {
-                    v.play().catch(() => { });
-                }
-
-                // Stall Detector: If time isn't advancing but it should be playing
-                if (!v.paused && v.readyState >= 2) {
-                    const lastTime = parseFloat(v.dataset.lastTime || -1);
-                    const stallCount = parseInt(v.dataset.stallCount || 0);
-
-                    if (v.currentTime === lastTime && v.currentTime > 0) {
-                        // For large videos (Hero), be more patient (Stall for 8s before reload)
-                        const maxStalls = v.id === 'hero-video' || v.src.includes('Demoreel') ? 4 : 2;
-
-                        if (stallCount >= maxStalls) {
-                            console.warn('Video stall confirmed, attempting recovery:', v.src);
-                            // Avoid heavy load() for massive files unless absolutely necessary
-                            if (v.id === 'hero-video' && v.src.includes('Demoreel')) {
-                                v.play().catch(() => { v.load(); v.play(); });
-                            } else {
-                                v.load();
-                                v.play().catch(() => { });
-                            }
-                            v.dataset.stallCount = 0;
-                        } else {
-                            v.dataset.stallCount = stallCount + 1;
-                        }
-                    } else {
-                        v.dataset.stallCount = 0;
-                    }
-                    v.dataset.lastTime = v.currentTime;
-                }
-
-                // Safety reveal
-                v.style.opacity = '1';
-                v.classList.add('video-ready');
-            }
-        });
-    };
-
-    setInterval(runWatchdog, 2000);
-
-    // 3. Content Preview Logic (Pause after 4s)
-    const contentVideos = Array.from(allVideos).filter(v => v.dataset.isCritical !== "true");
-
     contentVideos.forEach(video => {
-        // Wrap video to add the dynamic Play Overlay if not already present
-        if (!video.parentElement.classList.contains('video-stopped-preview')) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'video-stopped-preview';
-            video.parentNode.insertBefore(wrapper, video);
-            wrapper.appendChild(video);
+        video.muted = true;
+        video.playsInline = true;
+        video.loop = true; // Ensure it loops
 
-            const overlay = document.createElement('div');
-            overlay.className = 'video-player-overlay';
-            wrapper.appendChild(overlay);
-
-            wrapper.addEventListener('click', () => {
-                if (video.paused) {
-                    video.play();
-                    wrapper.classList.remove('is-paused');
-                } else {
-                    video.pause();
-                    wrapper.classList.add('is-paused');
-                }
-            });
-        }
-
-        // Smart loading on scroll: Start preview then pause to save data
+        // 2. Simple play/pause based on visibility
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && video.dataset.wasPreviewed !== "true") {
-                    video.play().then(() => {
-                        setTimeout(() => {
-                            if (!video.paused && video.dataset.wasPreviewed !== "true") {
-                                video.pause();
-                                video.parentElement.classList.add('is-paused');
-                                video.dataset.wasPreviewed = "true";
-                            }
-                        }, 4000);
-                    }).catch(() => {
+                if (entry.isIntersecting) {
+                    video.play().catch(() => {
+                        // Fallback: If autoplay is blocked, force first frame
                         video.currentTime = 0.1;
-                        video.parentElement.classList.add('is-paused');
                     });
-                    observer.unobserve(video);
+                } else {
+                    // Pause when out of view to save resources (optional, but good practice)
+                    video.pause();
                 }
             });
         }, { threshold: 0.1 });
@@ -608,16 +513,59 @@ function initVideoSystem() {
     });
 }
 
-// Global Kickstarters
-window.addEventListener('DOMContentLoaded', initVideoSystem);
-window.addEventListener('pageshow', initVideoSystem);
-window.addEventListener('touchstart', () => {
-    document.querySelectorAll('video').forEach(v => v.play().catch(() => { }));
-}, { once: true });
-window.addEventListener('scroll', () => {
-    // Secondary kickstart if first one fails
-    const critical = document.querySelector('video[data-is-critical="true"]');
-    if (critical && critical.paused) critical.play().catch(() => { });
+function forcePlayAllVideos() {
+    console.log('Force playing all videos...');
+    const videos = document.querySelectorAll('video');
+
+    videos.forEach(v => {
+        v.muted = true;
+        v.setAttribute('muted', '');
+        v.playsInline = true;
+        v.setAttribute('playsinline', '');
+        v.loop = true;
+
+        const isSmoothFade = v.id === 'hero-video' ||
+            v.classList.contains('hero-video') ||
+            v.classList.contains('global-bg-video') ||
+            v.closest('.hero-video-full-width');
+
+        const applyReveal = () => {
+            if (isSmoothFade) v.classList.add('video-ready');
+            v.style.opacity = '1';
+        };
+
+        const tryPlay = () => {
+            v.play().then(() => {
+                applyReveal();
+            }).catch(err => {
+                console.warn('Autoplay prevented, forcing reveal anyway:', err);
+                v.currentTime = 0.1;
+                applyReveal();
+            });
+        };
+
+        // Safety reveal after 1s regardless of play status
+        setTimeout(applyReveal, 1000);
+
+        if (v.readyState >= 2) {
+            tryPlay();
+        } else {
+            v.addEventListener('canplay', tryPlay, { once: true });
+            v.load();
+        }
+    });
+}
+
+// BFCache / Navigation Back Fix: re-trigger video playback when returning to the page
+window.addEventListener('pageshow', (event) => {
+    forcePlayAllVideos();
+});
+
+
+// CRITICAL FIX: Unlock all videos on mobile after user touch
+// This bypasses Safari/iPad's strict "first interaction" requirement
+window.addEventListener('touchstart', function () {
+    forcePlayAllVideos();
 }, { once: true });
 
 
@@ -673,3 +621,57 @@ function initCinemaMode() {
 }
 
 console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
+// --- CRITICAL HERO AUTOPLAY PROTECTION ---
+// Ensures 'Demoreel Roar.mp4' on Homepage never pauses and loops forever on all devices
+(function () {
+    const heroVideo = document.getElementById('hero-video');
+    if (!heroVideo) return;
+
+    let lastTime = -1;
+    const ensurePlay = () => {
+        // 1. If paused or ended, attempt to resume
+        if (heroVideo.paused || heroVideo.ended) {
+            heroVideo.play().catch(() => {
+                // If standard play fails (likely autoplay block), only THEN force muted
+                if (!heroVideo.muted) {
+                    heroVideo.muted = true;
+                    heroVideo.play().catch(() => { });
+                }
+            });
+        }
+
+        // 2. STALL DETECTOR: If video is nominally playing but time is not advancing (stuck on black)
+        if (!heroVideo.paused && heroVideo.readyState >= 2) {
+            if (heroVideo.currentTime === lastTime && heroVideo.currentTime > 0) {
+                console.warn('Hero video stalled detected - forcing reload');
+                heroVideo.load();
+                heroVideo.play().catch(() => { });
+            }
+            lastTime = heroVideo.currentTime;
+        }
+    };
+
+    // Initialize attributes for autoplay compatibility
+    heroVideo.setAttribute('playsinline', '');
+    heroVideo.setAttribute('webkit-playsinline', '');
+    heroVideo.loop = true;
+
+    // Trigger on all common interaction events
+    ['pageshow', 'load', 'touchstart', 'click', 'scroll', 'mousedown'].forEach(evt => {
+        window.addEventListener(evt, ensurePlay, { once: false });
+    });
+
+    // Handle end of video (loop insurance)
+    heroVideo.addEventListener('ended', () => {
+        heroVideo.currentTime = 0;
+        ensurePlay();
+    });
+
+    // Visibility change handling
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') ensurePlay();
+    });
+
+    // Safety net: periodic check every 2s
+    setInterval(ensurePlay, 2000);
+})();

@@ -23,6 +23,7 @@
 <body id="top" class="home-page">
     <!--Global Background Video & Overlay-->
     <video class="global-bg-video" autoplay loop muted playsinline webkit-playsinline preload="auto">
+        <source src="https://nat-gatto-demo.b-cdn.net/1-tablet.mp4?v=1.0" type="video/mp4" media="(max-width: 1024px)">
         <source src="https://nat-gatto-demo.b-cdn.net/1.mp4?v=1.0" type="video/mp4">
     </video>
     <div class="global-overlay"></div>
@@ -75,9 +76,11 @@
     <!-- Hero Section -->
     <section id="demo-reel" class="hero">
         <!-- HERO VIDEO: Demoreel Roar.mp4 - Premium Autoplay & Sound-enabled Loop -->
-        <video id="hero-video" class="hero-video" autoplay loop muted playsinline webkit-playsinline preload="metadata"
+        <video id="hero-video" class="hero-video" autoplay loop muted playsinline webkit-playsinline preload="auto"
             data-hero-video="true">
-            <source src="https://nat-gatto-demo.b-cdn.net/Demoreel%20Roar.mp4?v=3.0" type="video/mp4">
+            <source src="https://nat-gatto-demo.b-cdn.net/Demoreel_Roar-tablet.mp4?v=3.0" type="video/mp4"
+                media="(max-width: 1024px)">
+            <source src="https://nat-gatto-demo.b-cdn.net/Demoreel_Roar.mp4?v=3.0" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <script>
@@ -353,7 +356,7 @@
                 <div class="portfolio-item">
                     <a href="project-orc-print.html" class="portfolio-link">
                         <div class="portfolio-image">
-                            <img src="images/projects/orcprint/Orc_Print-1.jpg" alt="ORC WARRIOR | PRINT"
+                            <img src="images/thumbnails/Orc-Print-thumb.jpg" alt="ORC WARRIOR | PRINT"
                                 class="portfolio-img-content">
                         </div>
                         <div class="portfolio-info">
@@ -736,6 +739,11 @@
         <div class="container">
 
             <h2 class="section-title">Technical Arsenal</h2>
+            <p class="skills-complementary-note">
+                Also bringing a creative background in Graphic & Web Design (UI/UX),
+                supported by fundamental notions of coding and programming logic.
+            </p>
+
             <div class="skills-grid">
                 <div class="skill-category">
                     <h3 class="skill-cat-title">3D & Art</h3>
@@ -752,27 +760,28 @@
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3 class="skill-cat-title">
-                        Texturing & Shading</h3>
+                    <h3 class="skill-cat-title">Texturing & Shading</h3>
                     <div class="skill-tags">
                         <span>Substance 3D Painter</span>
-                        <span>Substance 3D Stager</span>
                         <span>Substance 3D Sampler</span>
                         <span>Substance 3D Designer</span>
+                        <span>Quixel</span>
                     </div>
                 </div>
+
                 <div class="skill-category">
-                    <h3 class="skill-cat-title">
-                        Real-Time & Rendering</h3>
+                    <h3 class="skill-cat-title">Real-Time & Rendering</h3>
                     <div class="skill-tags">
                         <span>Unreal Engine 5</span>
                         <span>Unity</span>
                         <span>Marmoset</span>
                         <span>Sketchfab</span>
+                        <span>Substance 3D Stager</span>
                         <span>Redshift</span>
                         <span>Iray</span>
                     </div>
                 </div>
+
                 <div class="skill-category">
                     <h3 class="skill-cat-title">
                         Post-Production</h3>

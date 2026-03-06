@@ -54,7 +54,8 @@
 
     <!-- Navigation Overlay -->
 
-    <video class="global-bg-video" autoplay loop muted playsinline webkit-playsinline preload="auto">
+    <video class="global-bg-video" autoplay loop muted playsinline>
+        <source src="https://nat-gatto-demo.b-cdn.net/1-tablet.mp4?v=1.0" type="video/mp4" media="(max-width: 1024px)">
         <source src="https://nat-gatto-demo.b-cdn.net/1.mp4?v=1.0" type="video/mp4">
     </video>
 
@@ -67,10 +68,11 @@
     <section class="project-hero" style="padding-top:0;">
         <!--HeroVideo/VisualPlaceholder(FullWidth) -->
         <div class="hero-video-full-width"
-            style="width:100%;aspect-ratio:16/9;background: #000;position:relative;overflow:hidden;"><video autoplay
-                loop muted playsinline webkit-playsinline preload="auto" data-hero-video="true"
-                style="width:100%;height:100%;object-fit:cover;">
-                <source src="https://nat-gatto-demo.b-cdn.net/Buggy%20Ai%20Intro_opt.mp4" type="video/mp4">
+            style="width:100%;aspect-ratio:16/9;background: #000;position:relative;overflow:hidden;">
+            <video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;">
+                <source src="https://nat-gatto-demo.b-cdn.net/Buggy_Ai_Intro_opt-tablet.mp4" type="video/mp4"
+                    media="(max-width: 1024px)">
+                <source src="https://nat-gatto-demo.b-cdn.net/Buggy_Ai_Intro_opt.mp4" type="video/mp4">
             </video>
 
             <!--SoundTogglePlaceholder(Matchesstructureofotherpages) -->
@@ -146,10 +148,14 @@
         <div class="container" style="margin-bottom:80px;">
             <p
                 style="color: rgba(255, 255, 255, 0.6); font-size: 1.1rem; line-height: 1.6; max-width: 1100px; margin: 0 auto 40px; text-align: center; font-style: italic;">
-                Iray was used to render multiple views of the car in a futuristic indoor environment, distinct from the
-                beach setting. These renders served as the basis for the animated turnaround shown at the top of the
-                page. Above are the iterative multi-view renders, and below are the full-screen images produced with
-                Iray.
+                I combined Iray with AI generation to render multiple views of the car within a futuristic indoor
+                environment, creating a deliberate contrast with the initial beach setting rendered solely in Iray.
+                These renders served as the foundation for the animated turnaround featured at the top of the page,
+                created using Veo 3 AI-assisted animation tools. Above, you can see the iterative multi-view renders
+                achieved through this hybrid workflow; below are the original full-screen Iray renders. The final
+                quality stems from the high-end modeling and texturing I developed prior to using AI, which further
+                enhanced the results. Exploring this type of AI-integrated workflow is a fascinating part of my creative
+                process.
             </p>
             <div class="project-hero-featured-image glass-card" style="margin-top:0;">
                 <img src="images/projects/buggy/Buggy_01.jpg" alt="BEACH BUGGY01" class="portfolio-img-content"
@@ -169,7 +175,7 @@
                     <p style="color: rgba(255, 255, 255, 0.75);">The license plate graphics were created in Adobe
                         Photoshop and Adobe Illustrator. I also experimented with various HDR environment maps and
                         handled the final rendering in Iray. The main objective of this project was to accurately
-                        reproduce the distinctive sparkling blue paint seen on the reference vehicles.</p>
+                        reproduce the distinctive sparkling blue paint.</p>
                 </div>
                 <div class="project-meta glass-card"
                     style="border-color: rgba(255, 123, 0, 0.15); box-shadow: 0 0 20px rgba(255, 123, 0, 0.05); height:100%; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:40px;">
@@ -218,29 +224,35 @@
                 Creative and Technical Process</h2>
 
             <!--ProductionBreakdownVideos-->
-            <div class="responsive-grid-3" style="margin-top:0; margin-bottom:20px;">
+            <div class="responsive-grid-3"
+                style="margin-top:0; margin-bottom:20px; width:100%; max-width:1800px; margin-left:auto; margin-right:auto;">
                 <!--MakingOfVideo-->
                 <div class="portfolio-image glass-card" style="aspect-ratio:16/9; margin: 0;">
-                    <video loop muted playsinline webkit-playsinline controls preload="auto"
-                        class="portfolio-img-content" style="width:100%;height:100%;object-fit:cover;">
-                        <source src="https://nat-gatto-demo.b-cdn.net/Buggy%20Making%20Opt2.mp4" type="video/mp4">
+                    <video loop muted playsinline class="portfolio-img-content"
+                        style="width:100%;height:100%;object-fit:cover;">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Buggy_Polyframe_1_opt-tablet.mp4" type="video/mp4"
+                            media="(max-width: 1024px)">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Buggy_Polyframe_1_opt.mp4" type="video/mp4">
                     </video>
                 </div>
 
-                <!--AigleNioisVideo-->
+                <!--AigleNi�oisVideo-->
                 <div class="portfolio-image glass-card" style="aspect-ratio:16/9; margin: 0;">
-                    <video loop muted playsinline webkit-playsinline controls preload="auto"
-                        class="portfolio-img-content" style="width:100%;height:100%;object-fit:cover;">
-                        <source src="https://nat-gatto-demo.b-cdn.net/Aigle%20Ni%C3%A7ois%20Insta_opt.mp4"
-                            type="video/mp4">
+                    <video loop muted playsinline class="portfolio-img-content"
+                        style="width:100%;height:100%;object-fit:cover;">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Aigle_Nicois_Insta_opt.mp4" type="video/mp4"
+                            media="(max-width: 1024px)">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Aigle_Nicois_Insta_opt.mp4" type="video/mp4">
                     </video>
                 </div>
 
                 <!--PneuPortfolioVideo-->
                 <div class="portfolio-image glass-card" style="aspect-ratio:16/9; margin: 0;">
-                    <video loop muted playsinline webkit-playsinline controls preload="auto"
-                        class="portfolio-img-content" style="width:100%;height:100%;object-fit:cover;">
-                        <source src="https://nat-gatto-demo.b-cdn.net/Pneu1%20Portfolio_opt.mp4" type="video/mp4">
+                    <video loop muted playsinline class="portfolio-img-content"
+                        style="width:100%;height:100%;object-fit:cover;">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Pneu1_Portfolio_opt-tablet.mp4" type="video/mp4"
+                            media="(max-width: 1024px)">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Pneu1_Portfolio_opt.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
@@ -250,25 +262,35 @@
                 style="margin-bottom:60px;margin-top:0;width:100%;max-width:1800px;margin-left:auto;margin-right:auto;">
                 <!--BlueSeatsVideo(9:16) -->
                 <div class="portfolio-image glass-card" style="aspect-ratio:9/16;height:600px;">
-                    <video loop muted playsinline webkit-playsinline controls preload="auto"
-                        class="portfolio-img-content" style="width:100%;height:100%;object-fit:cover;">
-                        <source src="https://nat-gatto-demo.b-cdn.net/Buggy%20Blue%20Seats%20Insta_opt.mp4"
-                            type="video/mp4">
+                    <video loop muted playsinline class="portfolio-img-content"
+                        style="width:100%;height:100%;object-fit:cover;">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Buggy_Blue_Seats_Insta_opt-tablet.mp4"
+                            type="video/mp4" media="(max-width: 1024px)">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Buggy_Blue_Seats_Insta_opt.mp4" type="video/mp4">
                     </video>
                 </div>
 
                 <!--PolyframeVideo(9:16) -->
                 <div class="portfolio-image glass-card" style="aspect-ratio:9/16;height:600px;">
-                    <video loop muted playsinline webkit-playsinline controls preload="auto"
-                        class="portfolio-img-content" style="width:100%;height:100%;object-fit:cover;">
-                        <source src="https://nat-gatto-demo.b-cdn.net/Buggy%20Polyframe%201_opt.mp4" type="video/mp4">
+                    <video loop muted playsinline class="portfolio-img-content"
+                        style="width:100%;height:100%;object-fit:cover;">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Buggy_Polyframe_1_opt-tablet.mp4" type="video/mp4"
+                            media="(max-width: 1024px)">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Buggy_Polyframe_1_opt.mp4" type="video/mp4">
                     </video>
                 </div>
 
-                <!--Rendu04Video(16:9-MassiveMatched) -->
-                <div class="portfolio-image glass-card" style="aspect-ratio:16/9;height:600px;">
-                    <video loop muted playsinline webkit-playsinline controls preload="auto"
-                        class="portfolio-img-content" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+
+            <!-- Enlarged Final Renders -->
+            <div class="video-showcase-single"
+                style="margin-bottom: 80px; margin-top: 40px; width: 100%; max-width: 1800px; margin-left: auto; margin-right: auto;">
+                <div class="project-hero-featured-image glass-card"
+                    style="margin-top:0; aspect-ratio: 16/9; overflow: hidden; width: 100%;">
+                    <video loop muted playsinline class="portfolio-img-content"
+                        style="width:100%;height:100%;object-fit:cover; display: block;">
+                        <source src="https://nat-gatto-demo.b-cdn.net/Rendu04_opt.mp4" type="video/mp4"
+                            media="(max-width: 1024px)">
                         <source src="https://nat-gatto-demo.b-cdn.net/Rendu04_opt.mp4" type="video/mp4">
                     </video>
                 </div>

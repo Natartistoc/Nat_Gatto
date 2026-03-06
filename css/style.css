@@ -12,9 +12,9 @@
     --color-bg-dark: #0a0a0a;
     --color-border: #262626;
     --version: "30.0";
-    --color-glow-orange: rgba(255, 80, 0, 1.0);
-    --color-glow-intense: rgba(255, 110, 0, 0.9);
-    --color-glow-white: rgba(255, 255, 255, 0.4);
+    --color-glow-orange: rgba(255, 160, 0, 1.0);
+    --color-glow-intense: rgba(255, 110, 0, 1.0);
+    --color-glow-white: rgba(255, 180, 0, 0.4);
 
     /* Spacing */
     --spacing-xs: 0.5rem;
@@ -61,15 +61,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 1;
-    /* Move above base page background */
+    z-index: -2;
     pointer-events: none;
-    /* Force Hardware Acceleration for Tablet/Mobile */
-    transform: translateZ(0);
-    -webkit-perspective: 1000;
-    perspective: 1000px;
-    backface-visibility: hidden;
-    will-change: transform, opacity;
 }
 
 .global-overlay {
@@ -80,8 +73,7 @@
     height: 100%;
     background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, transparent 50%, rgba(0, 0, 0, 0.9) 100%);
-    z-index: 2;
-    /* Move above video but below content */
+    z-index: -1;
     pointer-events: none;
 }
 
@@ -115,8 +107,7 @@ body::after {
     overflow: hidden;
     background-color: transparent !important;
     padding: var(--spacing-xl) 0;
-    z-index: 5;
-    /* Ensure content is above BG Video/Overlay */
+    /* Reduced from xxl (8rem) to xl (6rem) for tighter flow */
 }
 
 .portfolio .container,
@@ -265,9 +256,10 @@ img {
 }
 
 .nav-links a:hover {
-    color: var(--color-primary);
-    animation: glow-spectrum-cycle 8s infinite linear;
-    text-shadow: 0 0 15px var(--glow-color, var(--color-glow-orange)), 0 0 5px var(--glow-color, var(--color-glow-intense)), 0 0 25px var(--glow-color, rgba(255, 126, 34, 0.5)) !important;
+    color: #FFFFFF;
+    /* Text turns white on hover to stand out */
+    text-shadow: 0 0 15px rgba(255, 160, 0, 1.0), 0 0 35px rgba(255, 160, 0, 0.6) !important;
+    animation: glow-spectrum-cycle 12s infinite ease-in-out;
 }
 
 .nav-cta {
@@ -340,7 +332,7 @@ img {
     background-color: var(--color-primary);
     color: var(--color-secondary);
     transform: translateY(-2px);
-    animation: glow-spectrum-cycle 8s infinite linear;
+    animation: glow-spectrum-cycle 12s infinite ease-in-out;
     box-shadow: 0 0 35px var(--glow-color, var(--color-glow-orange)), 0 0 15px var(--glow-color, var(--color-glow-intense)) !important;
     text-shadow: 0 0 12px var(--color-glow-white), 0 0 8px var(--glow-color, var(--color-glow-orange)) !important;
     border-color: rgba(255, 255, 255, 1);
@@ -359,7 +351,7 @@ img {
     background-color: var(--color-primary);
     color: var(--color-secondary);
     transform: translateY(-2px);
-    animation: glow-spectrum-cycle 8s infinite linear;
+    animation: glow-spectrum-cycle 12s infinite ease-in-out;
     box-shadow: 0 0 35px var(--glow-color, var(--color-glow-orange)), 0 0 15px var(--glow-color, var(--color-glow-intense)) !important;
     text-shadow: 0 0 12px var(--color-glow-white), 0 0 8px var(--glow-color, var(--color-glow-orange)) !important;
     border-color: rgba(255, 255, 255, 1);
@@ -376,7 +368,7 @@ img {
     background-color: var(--color-primary);
     color: var(--color-secondary);
     transform: translateY(-2px);
-    animation: glow-spectrum-cycle 8s infinite linear;
+    animation: glow-spectrum-cycle 12s infinite ease-in-out;
     box-shadow: 0 0 35px var(--glow-color, var(--color-glow-orange)), 0 0 15px var(--glow-color, var(--color-glow-intense)) !important;
     border-color: #FFFFFF;
 }
@@ -422,12 +414,6 @@ img {
     display: block;
     opacity: 1;
     background: #000;
-    /* Force Hardware Acceleration for Tablet/Mobile */
-    transform: translateZ(0);
-    -webkit-perspective: 1000;
-    perspective: 1000px;
-    backface-visibility: hidden;
-    will-change: transform, opacity;
 }
 
 .hero-video-full-width {
@@ -1198,7 +1184,7 @@ img {
 
 .footer-logo-corner:hover img {
     /* Stacked for solid color, but with a deeper red-orange hue */
-    filter: drop-shadow(0 0 12px rgba(255, 50, 0, 1.0)) drop-shadow(0 0 30px rgba(255, 80, 0, 0.8)) brightness(1.5) !important;
+    filter: drop-shadow(0 0 12px rgba(255, 150, 0, 1.0)) drop-shadow(0 0 30px rgba(255, 130, 0, 1.0)) brightness(1.5) !important;
 
     transform: scale(1.1) translateY(-5px) !important;
 }
@@ -3108,27 +3094,34 @@ video.loaded {
     }
 }
 
+/* --- Back to Top - Premium Orange Hover (Box Fix) --- */
 .back-to-top-btn:hover {
-    color: #ff5500;
+    color: rgba(255, 160, 0, 1.0);
+    background: none !important;
+    /* Forces the box to disappear */
+    border: none !important;
+    animation: glow-spectrum-cycle 15s infinite ease-in-out;
 }
 
 .back-to-top-btn:hover .arrow-icon {
     transform: translateY(-8px);
-    background: rgba(255, 85, 0, 0.15);
-    /* Tinted with warmer orange */
-    border-color: rgba(255, 85, 0, 0.4);
-    box-shadow: 0 0 35px rgba(255, 85, 0, 0.3);
+    background: rgba(255, 160, 0, 0.1);
+    border-color: rgba(255, 160, 0, 0.5);
+    /* Apply the glow ONLY here to the circle */
+    box-shadow: 0 0 35px rgba(255, 160, 0, 0.4);
 }
 
+
 .back-to-top-btn:active {
-    color: #ff5500;
+    color: rgba(255, 160, 0, 1.0);
 }
 
 .back-to-top-btn:active .arrow-icon {
     transform: translateY(-4px) scale(0.95);
-    background: rgba(255, 85, 0, 0.25);
-    box-shadow: 0 0 50px rgba(255, 85, 0, 0.6);
+    background: rgba(255, 160, 0, 0.25);
+    box-shadow: 0 0 50px rgba(255, 160, 0, 0.6);
 }
+
 
 .back-to-top-btn svg {
     width: 24px;
@@ -3346,14 +3339,21 @@ video.loaded {
     width: 38px !important;
     height: 38px !important;
     border-radius: 50% !important;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    border: none !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.2) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     cursor: pointer !important;
-    box-shadow: none !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.sound-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: scale(1.1) !important;
 }
 
 .sound-toggle-btn svg {
@@ -3366,8 +3366,9 @@ video.loaded {
     align-items: center !important;
     gap: 10px !important;
     padding: 10px 20px !important;
-    background: transparent !important;
-    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
     border-radius: 100px !important;
     color: white !important;
     font-family: "Roboto Condensed", sans-serif !important;
@@ -3375,7 +3376,8 @@ video.loaded {
     text-transform: uppercase !important;
     font-weight: 700 !important;
     text-decoration: none !important;
-    border: none !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.2) !important;
+    transition: all 0.3s ease !important;
 }
 
 /* Navbar Links (The Center Pill) */
@@ -3384,13 +3386,14 @@ video.loaded {
     display: flex !important;
     align-items: center !important;
     gap: 2.8rem !important;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0.875rem 0 !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
+    padding: 0.875rem 2.8rem !important;
     flex: 0 0 auto !important;
+    border-radius: 100px !important;
 }
 
 .island-links a {
@@ -3878,10 +3881,6 @@ video.loaded {
         opacity: 1 !important;
         visibility: visible !important;
         display: block !important;
-        /* Re-enforce Render Hack */
-        transform: translateZ(0) !important;
-        -webkit-perspective: 1000 !important;
-        perspective: 1000px !important;
     }
 
     .project-description {
@@ -4082,52 +4081,26 @@ video.loaded {
     .cinema-mode-btn:active svg,
     .cinema-mode-btn:hover svg {
         animation: glow-spectrum-cycle 8s infinite linear;
-        filter: drop-shadow(0 0 15px var(--glow-color, rgba(255, 80, 0, 1.0))) drop-shadow(0 0 30px var(--glow-color, rgba(255, 80, 0, 0.8))) !important;
+        filter: drop-shadow(0 0 15px var(--glow-color, rgba(255, 150, 0, 1.0))) drop-shadow(0 0 30px var(--glow-color, rgba(255, 180, 0, 1.0))) !important;
     }
 }
 
-/* --- Button Glow Color Spectrum Animation --- */
+/* --- Premium Breathing Orange Animation --- */
 @keyframes glow-spectrum-cycle {
     0% {
-        --glow-color: rgba(255, 80, 0, 1.0);
+        --glow-color: rgba(255, 160, 0, 1.0);
+        /* Premium Orange */
     }
 
-    /* Original Orange */
-    15% {
-        --glow-color: rgba(255, 180, 0, 1.0);
+    50% {
+        --glow-color: rgba(255, 200, 0, 1.0);
+        /* Brighter Gold-Orange */
     }
 
-    /* Yellowish Orange */
-    30% {
-        --glow-color: rgba(255, 40, 0, 1.0);
-    }
-
-    /* Warmer Orange */
-    45% {
-        --glow-color: rgba(180, 0, 255, 1.0);
-    }
-
-    /* Violet */
-    60% {
-        --glow-color: rgba(0, 80, 255, 1.0);
-    }
-
-    /* Blue */
-    75% {
-        --glow-color: rgba(0, 255, 200, 1.0);
-    }
-
-    /* Lagoon Blue */
-    90% {
-        --glow-color: rgba(255, 240, 0, 1.0);
-    }
-
-    /* Yellow */
     100% {
-        --glow-color: rgba(255, 80, 0, 1.0);
+        --glow-color: rgba(255, 160, 0, 1.0);
+        /* Back to Premium Orange */
     }
-
-    /* Back to Orange */
 }
 
 /* Fix: Remove gradual opacity fade from all project gallery videos */
@@ -4148,60 +4121,11 @@ video {
     background-color: #0d0d0d;
 }
 
-/* 2. Container for content videos to hold the play indicator */
-.video-stopped-preview {
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-}
-
-/* 3. The Play Indicator (Hidden until video pauses) */
-.video-player-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    pointer-events: none;
-    z-index: 5;
-}
-
-.video-player-overlay::after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 14px solid #fff;
-    margin-left: 4px;
-}
-
-/* Show indicator only when the container has the 'is-paused' class */
-.video-stopped-preview.is-paused .video-player-overlay {
-    opacity: 1;
-}
-
 /* Ensure global video is forced visible on Mobile/Tablet */
 @media (max-width: 1024px) {
     .global-bg-video {
         visibility: visible !important;
         display: block !important;
-        opacity: 1 !important;
-        z-index: 1 !important;
-        transform: translateZ(0) !important;
     }
 }
 
@@ -4214,12 +4138,12 @@ video {
     background: transparent !important;
 }
 
-/* 2. Set Hero Video to 1 opacity by default to ensure visibility even if JS delays 
-   WE REMOVED the opacity: 0 that was causing 'invisible' videos on some devices */
+/* 2. Set Hero Video to 0 opacity initially (Preparing for JS fade-in) 
+   EXCEPT for the homepage hero, which should be visible immediately */
 .global-bg-video,
 .hero-video-full-width video,
 .project-hero video {
-    opacity: 1;
+    opacity: 0;
     visibility: visible;
     transition: opacity 1.5s ease-in-out;
     background: transparent !important;
@@ -4244,50 +4168,6 @@ video.video-ready {
     object-fit: cover;
 }
 
-/* --- Button Glow Color Spectrum Animation --- */
-@keyframes glow-spectrum-cycle {
-    0% {
-        --glow-color: rgba(255, 80, 0, 1.0);
-    }
-
-    /* Original Orange */
-    15% {
-        --glow-color: rgba(255, 180, 0, 1.0);
-    }
-
-    /* Yellowish Orange */
-    30% {
-        --glow-color: rgba(255, 40, 0, 1.0);
-    }
-
-    /* Warmer Orange */
-    45% {
-        --glow-color: rgba(180, 0, 255, 1.0);
-    }
-
-    /* Violet */
-    60% {
-        --glow-color: rgba(0, 80, 255, 1.0);
-    }
-
-    /* Blue */
-    75% {
-        --glow-color: rgba(0, 255, 200, 1.0);
-    }
-
-    /* Lagoon Blue */
-    90% {
-        --glow-color: rgba(255, 240, 0, 1.0);
-    }
-
-    /* Yellow */
-    100% {
-        --glow-color: rgba(255, 80, 0, 1.0);
-    }
-
-    /* Back to Orange */
-}
-
 /* Helper class to apply the animation property */
 .glow-animated:hover {
     animation: glow-spectrum-cycle 8s infinite linear;
@@ -4301,4 +4181,62 @@ video.video-ready {
     pointer-events: none;
     background: #000;
     z-index: 1 !important;
+}
+
+/* --- Homepage Hero Gradient Mask --- */
+.home-page #hero-video {
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+
+    /* Hardware Acceleration to ensure smooth rendering on mobile/tablets */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* ============================================================
+   Orc Warrior | Print - Cinematic Hero Mask
+   ============================================================ */
+#orc-print-hero {
+    /* The Transparency Mask (Fade-out bottom 25%) */
+    -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+
+    /* Hardware & Stability Fixes */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    /* Forces Hardware Acceleration to prevent flickering on mobile/tablet */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+    /* Ensures the mask renders correctly on high-dpi screens */
+    perspective: 1000;
+    -webkit-perspective: 1000;
+}
+
+/* ============================================================
+   Skills Section - Complementary Skillset Note
+   ============================================================ */
+.skills-complementary-note {
+    font-style: italic;
+    font-size: 0.95rem;
+    /* Slightly smaller for hierarchy */
+    color: rgba(255, 255, 255, 0.45);
+    /* Soft grey, less prominent */
+    text-align: center;
+    max-width: 800px;
+    margin: -1.5rem auto 3rem;
+    /* Negative top margin to sit closer to title */
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    font-weight: 300;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .skills-complementary-note {
+        font-size: 0.85rem;
+        padding: 0 1rem;
+        margin-bottom: 2rem;
+    }
 }
