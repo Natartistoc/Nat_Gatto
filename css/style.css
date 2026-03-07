@@ -4349,3 +4349,133 @@ video.video-ready,
         display: none !important;
     }
 }
+
+/* Specific overrides for Mobile & Tablet in Portrait Orientation */
+@media (orientation: portrait) and (max-width: 1024px) {
+
+    /* 1. Stack the Grid and Center the Layout */
+    .project-grid {
+        grid-template-columns: 1fr !important;
+        /* Stack columns into one */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 40px !important;
+    }
+
+    /* 2. Center Narrative / Description Titles and Text */
+    .project-narrative,
+    .project-description {
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    /* Ensures titles with decorative lines (flex) are centered */
+    .project-narrative .section-title,
+    .project-description .section-title {
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    .project-narrative p,
+    .project-description p {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    /* 3. Center the Role & Software Meta Containers */
+    .project-meta {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+
+    .meta-item {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        margin-bottom: 35px !important;
+    }
+
+    .meta-label {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+    }
+
+    .meta-value {
+        text-align: center !important;
+        display: block !important;
+    }
+
+    /* 4. Center Software Icons and Lists */
+    .software-icons-row,
+    .software-meta {
+        justify-content: center !important;
+        /* Centers the flex row of icons */
+        width: 100% !important;
+        margin-top: 10px !important;
+    }
+
+    .software-icon {
+        margin: 0 6px !important;
+        /* Balanced spacing for centered icons */
+    }
+}
+
+/* ============================================================ 
+   Global Portrait Typography Update (Portrait & Max-1024px)
+   ============================================================ */
+@media (orientation: portrait) and (max-width: 1024px) {
+
+    /* 1. Standardize Body Text: Justified & Hyphenated */
+    .project-narrative p,
+    .project-description p,
+    .project-detail-content p,
+    .process-caption {
+        text-align: justify !important;
+        hyphens: auto !important;
+        -webkit-hyphens: auto;
+        /* For iOS/Safari */
+        -ms-hyphens: auto;
+
+        /* 2. Symmetrical Breathable Margins */
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        line-height: 1.6 !important;
+        /* Improved readability */
+    }
+
+    /* 3. Keep Headers and Meta Info Strictly Centered */
+    .section-title,
+    .project-subtitle,
+    .meta-label,
+    .meta-value,
+    .meta-item span,
+    .project-hero-content h1,
+    .project-hero-content h2 {
+        text-align: center !important;
+        justify-content: center !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        hyphens: none !important;
+        /* Titles should never hyphenate */
+    }
+
+    /* 4. Fine-Tune Container Spacing */
+    .container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}
