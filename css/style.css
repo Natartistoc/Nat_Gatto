@@ -4035,8 +4035,8 @@ video.loaded {
 /* ================================
    Cinema Mode Button
    ================================ */
-/* 1. HIDE the button completely from Desktop & Tablets (larger than 767px) */
-@media screen and (min-width: 768px) {
+/* 1. HIDE the button completely from Desktop (larger than 1024px) */
+@media screen and (min-width: 1025px) {
     .cinema-mode-btn {
         display: none !important;
         visibility: hidden !important;
@@ -4045,8 +4045,8 @@ video.loaded {
     }
 }
 
-/* 2. THE CHOSEN MOBILE DESIGN (Shown ONLY on phone screens 767px and below) */
-@media screen and (max-width: 767px) {
+/* 2. THE CHOSEN MOBILE DESIGN (Shown on Mobile & Tablets up to 1024px) */
+@media screen and (max-width: 1024px) {
     .cinema-mode-btn {
         /* YOUR POSITION: Center Bottom */
         display: flex !important;
@@ -4062,6 +4062,9 @@ video.loaded {
         color: #ffffff !important;
         z-index: 9999 !important;
         transition: all 0.3s ease !important;
+        opacity: 1 !important;
+        /* Ensure visibility from start */
+        visibility: visible !important;
     }
 
     /* KILLS THE UNWANTED "CINEMA MODE" TEXT */
@@ -4081,14 +4084,16 @@ video.loaded {
     /* HOMEPAGE ORC POSITION: Pushes the button higher for this section */
     #demo-reel .cinema-mode-btn {
         bottom: auto !important;
-        top: 22vh !important;
+        top: 28vh !important;
         transition: opacity 1s ease, transform 1s ease !important;
     }
 
+    /* Never disappearing: Removing hero-ui-hidden rule or overriding it */
     #demo-reel .cinema-mode-btn.hero-ui-hidden {
-        opacity: 0 !important;
-        pointer-events: none !important;
-        transform: translate(-50%, 10px) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        transform: translate(-50%, 0) !important;
     }
 
     /* MOBILE SHINING ORANGE HALO EFFECT */
@@ -4271,4 +4276,76 @@ video.video-ready,
     animation: none !important;
     background: #000 !important;
     opacity: 1 !important;
+}
+
+/* --- Hero UI Advanced Logic --- */
+
+/* 1. Transition Groundwork for Landscape (Desktop & Mobile Landscape) */
+.cinematic-title,
+.cinematic-subtitle,
+.hero-subtitle,
+.hero-cta,
+.scroll-indicator {
+    transition: opacity 1s ease-in-out !important;
+}
+
+/* 2. Portrait Behavior (Persistence, Move Name High, Move Slogan/Buttons Low) */
+@media (orientation: portrait) {
+
+    /* Force always visible on Portrait */
+    .cinematic-title,
+    .cinematic-subtitle,
+    .hero-subtitle,
+    .hero-cta,
+    .scroll-indicator {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+
+    /* 1. POSITION FOR NAME & JOB TITLE (Brings them to the top 12% of screen) */
+    .hero-content {
+        margin-top: 12vh !important;
+        padding: 0 1.5rem !important;
+        text-align: center !important;
+        z-index: 10 !important;
+        position: relative !important;
+    }
+
+    /* 2. GAP CONTROL: Pushes the Slogan ("Creating worlds...") lower */
+    .hero-subtitle {
+        margin-top: 6vh !important;
+        /* Adjust this to increase/decrease the gap in the middle */
+        text-align: center !important;
+        line-height: 1.4 !important;
+        letter-spacing: 0.06em !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 290px !important;
+        margin-bottom: 2.5rem !important;
+        /* Space before buttons */
+    }
+
+    /* 3. SCROLL ICON: Ensuring room at the bottom */
+    .scroll-indicator {
+        margin-top: 15vh !important;
+        position: relative !important;
+        display: block !important;
+    }
+
+    .portrait-only {
+        display: block !important;
+    }
+}
+
+
+/* 3. Landscape Specifics (Hide Cinema Mode) */
+@media (orientation: landscape) {
+    .cinema-mode-btn {
+        display: none !important;
+    }
+
+    .portrait-only {
+        display: none !important;
+    }
 }

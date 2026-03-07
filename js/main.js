@@ -72,125 +72,60 @@ document.addEventListener('DOMContentLoaded', () => {
 // ================================
 // Hero Reveal Animations
 // ================================
+// ================================
+// Advanced Hero UI Visibility Logic
+// ================================
 function initHeroAnimations() {
-    const title = document.querySelector('.cinematic-title');
-    const subtitle = document.querySelector('.cinematic-subtitle');
-    const heroSubtitle = document.querySelector('.hero-subtitle');
+    const heroVideo = document.getElementById('hero-video') || document.querySelector('.hero video');
+    const textElements = document.querySelectorAll('.cinematic-title, .cinematic-subtitle, .hero-subtitle');
+    const ctaElements = document.querySelectorAll('.hero-cta, .scroll-indicator');
 
-    const heroCta = document.querySelector('.hero-cta');
-    const allCinemaBtns = Array.from(document.querySelectorAll('.cinema-mode-btn'));
-    const cinemaBtn = allCinemaBtns[0]; // For legacy single-button logic
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    const heroVideo = document.getElementById('hero-video') ||
-        document.querySelector('.hero video') ||
-        document.querySelector('.hero-video-full-width video');
-
-    const allElements = [title, subtitle, heroSubtitle, heroCta, ...allCinemaBtns, scrollIndicator].filter(el => el);
-    const isMobile = window.innerWidth <= 1024;
     const isHomePage = !!document.getElementById('demo-reel');
 
-    if (heroVideo) {
-        const setupSequence = () => {
-            let duration = heroVideo.duration || 10;
-            if (!duration || isNaN(duration)) duration = 10;
+    if (heroVideo && isHomePage) {
+        let lastTime = 0;
 
-            const revealHero = () => {
-                if (heroVideo) {
-                    heroVideo.play().catch(() => { });
+        heroVideo.addEventListener('timeupdate', () => {
+            // Only execute this timing logic if we are in LANDSCAPE
+            if (window.matchMedia("(orientation: landscape)").matches) {
+                const time = heroVideo.currentTime;
+                const duration = heroVideo.duration;
+
+                // 1. Loop Reset (Detect when video restarts)
+                if (time < lastTime) {
+                    textElements.forEach(el => el.style.opacity = '0');
+                    ctaElements.forEach(el => el.style.opacity = '0');
                 }
-            };
+                lastTime = time;
 
-            if (isHomePage) {
-                // --- STRICT TIMED UI FADING (Once per loop at 12s) ---
-                let fadeTimeout;
-                let lastTime = 0;
-                let hasTriggeredThisLoop = false;
-                const heroUI = document.querySelector('.hero-content');
-                const uiElements = [heroUI, cinemaBtn].filter(el => el);
-
-                const showUI = () => {
-                    uiElements.forEach(el => {
-                        if (el) el.classList.remove('hero-ui-hidden');
-                    });
-                    clearTimeout(fadeTimeout);
-                    fadeTimeout = setTimeout(() => {
-                        uiElements.forEach(el => {
-                            if (el) el.classList.add('hero-ui-hidden');
-                        });
-                    }, 5000); // UI stays for 5 seconds
-                };
-
-                const hideUI = () => {
-                    uiElements.forEach(el => {
-                        if (el) el.classList.add('hero-ui-hidden');
-                    });
-                };
-
-                // 1. Initial State: Always Hidden at start
-                hideUI();
-                gsap.set(allElements, { opacity: 0, visibility: 'visible' });
-
-                // 2. Loop & Timing Detection (The Only Trigger)
-                if (heroVideo) {
-                    heroVideo.addEventListener('timeupdate', () => {
-                        const currentTime = heroVideo.currentTime;
-
-                        // Detect Loop Reset: Reset trigger flag and hide UI
-                        if (currentTime < lastTime) {
-                            hasTriggeredThisLoop = false;
-                            hideUI();
-                        }
-
-                        // Trigger strictly at the 12-second mark
-                        if (!hasTriggeredThisLoop && currentTime >= 12.0) {
-                            hasTriggeredThisLoop = true;
-                            // Entrance animation
-                            gsap.to(allElements, {
-                                opacity: 1,
-                                y: 0,
-                                duration: 1.2,
-                                stagger: 0.1,
-                                ease: "power2.out",
-                                onStart: () => showUI()
-                            });
-                        }
-
-                        lastTime = currentTime;
-                    });
+                // 2. Start Phase (0s to 10s): Hidden
+                if (time < 10) {
+                    textElements.forEach(el => el.style.opacity = '0');
+                    ctaElements.forEach(el => el.style.opacity = '0');
                 }
-            } else {
-                // Project page: Instant reveal
-                revealHero();
-
-                const projectTl = gsap.timeline();
-                // Ensure all elements, including all cinema buttons, are revealed
-                projectTl.set(allElements, { opacity: 0, y: 15, visibility: 'visible' });
-                projectTl.to(allElements, { opacity: 1, y: 0, duration: 0.8 / (isMobile ? 2 : 1), stagger: 0.1, ease: 'power2.out' });
-
-                // Force all cinema buttons to be active and visible on project pages
-                allCinemaBtns.forEach(btn => {
-                    gsap.set(btn, { opacity: 1, visibility: 'visible', pointerEvents: 'auto' });
-                });
+                // 3. Reveal Phase (10s to 15s): Fade ALL in
+                else if (time >= 10 && time < 15) {
+                    textElements.forEach(el => el.style.opacity = '1');
+                    ctaElements.forEach(el => el.style.opacity = '1');
+                }
+                // 4. Clear View Phase (15s to 20s before end): Fade OUT all
+                else if (time >= 15 && time < (duration - 20)) {
+                    textElements.forEach(el => el.style.opacity = '0');
+                    ctaElements.forEach(el => el.style.opacity = '0');
+                }
+                // 5. Final Phase (-20s before end): Fade in ONLY Buttons/Scroll
+                else if (time >= (duration - 20)) {
+                    textElements.forEach(el => el.style.opacity = '0');
+                    ctaElements.forEach(el => el.style.opacity = '1');
+                }
             }
-        };
-
-        const safetyTimeoutValue = isMobile ? 3000 : 5000;
-        const safetyTimeout = setTimeout(() => {
-            gsap.to(allElements, { opacity: 1, y: 0, duration: 1, stagger: 0.1 });
-            if (heroVideo) {
-                heroVideo.play().catch(() => { });
-            }
-        }, safetyTimeoutValue);
-
-        if (heroVideo.readyState >= 1 || !isHomePage) {
-            clearTimeout(safetyTimeout);
-            setupSequence();
-        } else {
-            heroVideo.addEventListener('loadedmetadata', () => {
-                clearTimeout(safetyTimeout);
-                setupSequence();
-            });
-        }
+        });
+    } else if (!isHomePage) {
+        // Simple reveal for project pages (since they aren't looping cinematic heroes)
+        [...textElements, ...ctaElements].forEach(el => {
+            el.style.opacity = '1';
+            el.style.visibility = 'visible';
+        });
     }
 }
 
