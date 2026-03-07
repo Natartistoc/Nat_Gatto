@@ -524,6 +524,13 @@ img {
     margin: 0;
     position: relative;
     z-index: 2;
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.hero-ui-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(10px);
 }
 
 .hero-content>*:not(.hero-video-container) {
@@ -4075,6 +4082,13 @@ video.loaded {
     #demo-reel .cinema-mode-btn {
         bottom: auto !important;
         top: 22vh !important;
+        transition: opacity 1s ease, transform 1s ease !important;
+    }
+
+    #demo-reel .cinema-mode-btn.hero-ui-hidden {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translate(-50%, 10px) !important;
     }
 
     /* MOBILE SHINING ORANGE HALO EFFECT */

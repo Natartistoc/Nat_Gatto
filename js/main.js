@@ -101,41 +101,63 @@ function initHeroAnimations() {
             };
 
             if (isHomePage) {
-                // Ensure video starts revealing immediately on homepage
-                revealHero();
+                // --- STRICT TIMED UI FADING (Once per loop at 12s) ---
+                let fadeTimeout;
+                let lastTime = 0;
+                let hasTriggeredThisLoop = false;
+                const heroUI = document.querySelector('.hero-content');
+                const uiElements = [heroUI, cinemaBtn].filter(el => el);
 
-                if (isMobile) {
-                    gsap.set(allElements, { opacity: 1, y: 0, visibility: 'visible', pointerEvents: 'auto' });
-                    return;
+                const showUI = () => {
+                    uiElements.forEach(el => {
+                        if (el) el.classList.remove('hero-ui-hidden');
+                    });
+                    clearTimeout(fadeTimeout);
+                    fadeTimeout = setTimeout(() => {
+                        uiElements.forEach(el => {
+                            if (el) el.classList.add('hero-ui-hidden');
+                        });
+                    }, 5000); // UI stays for 5 seconds
+                };
+
+                const hideUI = () => {
+                    uiElements.forEach(el => {
+                        if (el) el.classList.add('hero-ui-hidden');
+                    });
+                };
+
+                // 1. Initial State: Always Hidden at start
+                hideUI();
+                gsap.set(allElements, { opacity: 0, visibility: 'visible' });
+
+                // 2. Loop & Timing Detection (The Only Trigger)
+                if (heroVideo) {
+                    heroVideo.addEventListener('timeupdate', () => {
+                        const currentTime = heroVideo.currentTime;
+
+                        // Detect Loop Reset: Reset trigger flag and hide UI
+                        if (currentTime < lastTime) {
+                            hasTriggeredThisLoop = false;
+                            hideUI();
+                        }
+
+                        // Trigger strictly at the 12-second mark
+                        if (!hasTriggeredThisLoop && currentTime >= 12.0) {
+                            hasTriggeredThisLoop = true;
+                            // Entrance animation
+                            gsap.to(allElements, {
+                                opacity: 1,
+                                y: 0,
+                                duration: 1.2,
+                                stagger: 0.1,
+                                ease: "power2.out",
+                                onStart: () => showUI()
+                            });
+                        }
+
+                        lastTime = currentTime;
+                    });
                 }
-
-                const introWait = 11;
-                const timeline = gsap.timeline({ repeat: -1 });
-
-                // 1. Initial State
-                timeline.set(allElements, { opacity: 0, y: isMobile ? 15 : 30 });
-
-                // 2. Reveal
-                timeline.to(allElements, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1.5,
-                    stagger: 0.15,
-                    ease: "power4.out",
-                    onStart: () => {
-                        if (title) gsap.to(title, { letterSpacing: isMobile ? '0.1em' : '0.2em', duration: 1.5 });
-                    }
-                }, introWait);
-
-                // 3. Outro
-                const textPersistence = isMobile ? 12 : 6;
-                timeline.to(allElements, {
-                    opacity: 0,
-                    y: -20,
-                    duration: 1.5,
-                    stagger: 0.1,
-                    ease: "power2.in"
-                }, introWait + textPersistence);
             } else {
                 // Project page: Instant reveal
                 revealHero();
