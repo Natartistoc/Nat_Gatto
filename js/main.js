@@ -486,7 +486,8 @@ function initVideoPreviews() {
             v.closest('.hero') ||
             v.closest('.hero-video-full-width');
         const isBg = v.classList.contains('global-bg-video');
-        return !isHero && !isBg;
+        const isPausedLoop = v.classList.contains('paused-loop');
+        return !isHero && !isBg && !isPausedLoop;
     });
 
     contentVideos.forEach(video => {
@@ -518,6 +519,8 @@ function forcePlayAllVideos() {
     const videos = document.querySelectorAll('video');
 
     videos.forEach(v => {
+        if (v.classList.contains('paused-loop')) return; // SKIP these videos here
+
         v.muted = true;
         v.setAttribute('muted', '');
         v.playsInline = true;
@@ -530,7 +533,7 @@ function forcePlayAllVideos() {
             v.closest('.hero-video-full-width');
 
         const applyReveal = () => {
-            if (isSmoothFade) v.classList.add('video-ready');
+            v.classList.add('video-ready'); // Apply to all videos
             v.style.opacity = '1';
         };
 

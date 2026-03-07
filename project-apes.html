@@ -73,13 +73,13 @@
         <div class="hero-video-full-width"
             style="width:100%; aspect-ratio:16/9; background: #000; position:relative; overflow:hidden;">
 
-            <!-- Video element -->
-            <video id="rocket-video" autoplay muted playsinline style="width:100%; height:100%; object-fit:cover;" loop>
+            <video id="rocket-video" autoplay muted playsinline class="paused-loop"
+                style="width:100%; height:100%; object-fit:cover;">
                 <source src="https://nat-gatto-demo.b-cdn.net/Assetsttrocketstatictt01_V0027_Pix-tablet.mp4"
                     type="video/mp4" media="(max-width: 1024px)">
-                <source src="https://nat-gatto-demo.b-cdn.net/Assetsttrocketstatictt01_V0027_Pix.mp4"
-                    type="video/mp4">
+                <source src="https://nat-gatto-demo.b-cdn.net/Assetsttrocketstatictt01_V0027_Pix.mp4" type="video/mp4">
             </video>
+
 
             <!-- CINEMA BUTTON HAS TO BE IN HERE -->
             <button class="cinema-mode-btn" aria-label="Enter Cinema Mode">
@@ -170,18 +170,17 @@
                     </div>
                 </div>
             </div>
-
             <!-- Narrative Narrative (Bad Ape & Aligned Soldier) -->
             <div class="narrative-media-aligned" style="margin-top: 60px;">
                 <div class="project-hero-featured-image glass-card"
                     style="margin-bottom:20px; border-radius: var(--border-radius-lg);">
-                    <video id="bad-ape-video" muted playsinline preload="auto" class="portfolio-img-content"
+                    <video id="bad-ape-video" muted playsinline preload="auto" class="portfolio-img-content paused-loop"
                         style="object-fit:contain; border-radius: var(--border-radius-lg);">
+
                         <source
                             src="https://nat-gatto-demo.b-cdn.net/Assetsttbadapestatictt01_V0132_Pix-tablet.mp4#t=0.001"
                             type="video/mp4" media="(max-width: 1024px)">
-                        <source
-                            src="https://nat-gatto-demo.b-cdn.net/Assetsttbadapestatictt01_V0132_Pix.mp4#t=0.001"
+                        <source src="https://nat-gatto-demo.b-cdn.net/Assetsttbadapestatictt01_V0132_Pix.mp4#t=0.001"
                             type="video/mp4">
                     </video>
                 </div>
@@ -308,8 +307,8 @@
 
             <div class="footer-links">
                 <a href="index.html#demo-reel">Demo Reel</a>
-                <a href="index.html#works">Selected Works</a>
-                <a href="index.html#illustrations">Illustration</a>
+                <a href="index.html#projects">Selected Works</a>
+                <a href="index.html#illustration-visual-development">Illustration</a>
                 <a href="index.html#about">About</a>
                 <a href="index.html#contact">Contact</a>
             </div>
@@ -318,37 +317,34 @@
 
     <script src="js/main.js?v=25.0"></script>
     <script>
-        // High-precision loop logic for Weta Digital videos
-        // Holds for 3 seconds on the first frame (logo frame) before playing
-        const videoIdsToLoop = ['rocket-video'];
+        document.addEventListener('DOMContentLoaded', () => {
+            // Find all videos that should have the specific pause-at-start behavior
+            const customLoopVideos = document.querySelectorAll('.paused-loop');
 
-        videoIdsToLoop.forEach(id => {
-            const video = document.getElementById(id);
-            if (video) {
+            customLoopVideos.forEach(video => {
+                // Disable native loop to control timing manually
+                video.loop = false;
                 video.removeAttribute('loop');
 
-                const handleFirstFrame = () => {
+                const handlePauseAndReset = () => {
                     video.pause();
-                    video.currentTime = 0;
+                    video.currentTime = 0; // Back to first frame (logo/start)
+
+                    // Wait for 3 seconds before playing again
                     setTimeout(() => {
-                        video.play();
+                        video.play().catch(err => console.log("Waiting for user interaction..."));
                     }, 3000);
                 };
 
-                // Start with a 3-second hold on the first frame
-                // We use a small delay to ensure the video has loaded enough to be paused at start
-                if (video.readyState >= 1) {
-                    handleFirstFrame();
-                } else {
-                    video.addEventListener('loadedmetadata', handleFirstFrame, { once: true });
-                }
+                // Trigger the delay every time the video reaches its end
+                video.addEventListener('ended', handlePauseAndReset);
 
-                video.addEventListener('ended', function () {
-                    handleFirstFrame();
-                });
-            }
+                // Initial manual trigger: Start by waiting on frame 1 for 3 seconds
+                handlePauseAndReset();
+            });
         });
     </script>
+
 </body>
 
 </html>
