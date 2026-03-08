@@ -155,18 +155,14 @@
                     <img src="images/projects/flashlight/Flashlight02.jpg" alt="Flashlight Rendering 02"
                         style="width:100%; height:auto; display:block;">
                 </div>
+
+
+
                 <div class="glass-card" style="border-radius: var(--border-radius-lg); overflow: hidden;">
                     <video loop muted playsinline preload="none" style="width:100%; height:auto; display:block;">
                         <source src="https://nat-gatto-demo.b-cdn.net/Flashlight03_opt-tablet.mp4" type="video/mp4"
                             media="(max-width: 1024px)">
                         <source src="https://nat-gatto-demo.b-cdn.net/Flashlight03_opt.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="glass-card" style="border-radius: var(--border-radius-lg); overflow: hidden;">
-                    <video loop muted playsinline preload="none" style="width:100%; height:auto; display:block;">
-                        <source src="https://nat-gatto-demo.b-cdn.net/Flashlight02_opt-tablet.mp4" type="video/mp4"
-                            media="(max-width: 1024px)">
-                        <source src="https://nat-gatto-demo.b-cdn.net/Flashlight02_opt.mp4" type="video/mp4">
                     </video>
                 </div>
 
@@ -236,30 +232,14 @@
     <footer class="footer">
         <div class="container footer-row-master">
             <div class="footer-copyright">
-                <div class="island-logo footer-logo-corner">
-                    <img src="images/logo.png" alt="Nat Gatto Logo">
-                </div>
                 <p>&copy; 2026 Nat Gatto. All rights reserved.</p>
             </div>
 
-            <div class="back-to-top-container">
-                <a href="#top" class="back-to-top-btn">
-                    <div class="arrow-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                        </svg>
-                    </div>
-                    <span>Back to Top</span>
-                </a>
-            </div>
-
-            <div class="footer-links">
-                <a href="index.html#demo-reel">Demo Reel</a>
-                <a href="index.html#works">Selected Works</a>
-                <a href="index.html#illustrations">Illustration</a>
-                <a href="index.html#about">About</a>
-                <a href="index.html#contact">Contact</a>
+            <div class="back-to-top-container" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="island-logo footer-logo-corner">
+                    <img src="images/logo.png" alt="Nat Gatto Logo">
+                </div>
+                <span class="back-to-top-label">Back to Top</span>
             </div>
         </div>
     </footer>

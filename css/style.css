@@ -1122,80 +1122,25 @@ img {
     line-height: 1.7;
 }
 
-/* ================================
-   Footer
-   ================================ */
-/* ================================
-   Footer (Signature & Master Row Alignment)
-   ================================ */
-.footer {
-    position: relative;
-    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.2) 5%, rgba(0, 0, 0, 0.7) 40%, #000 100%);
-    color: #fff;
-    padding: 80px 0 60px;
-    margin-top: 100px;
-}
-
+/* Footer */
 .footer .container.footer-row-master {
     display: flex !important;
-    flex-direction: row !important;
+    flex-direction: column !important;
     align-items: center !important;
-    justify-content: space-between !important;
+    justify-content: center !important;
     width: 100% !important;
-    max-width: 100% !important;
-    padding: 0 5rem !important;
+    max-width: 1800px !important;
+    margin: 0 auto !important;
+    padding: 0 2rem !important;
+    gap: 3rem !important;
 }
 
 .footer-copyright {
     display: flex !important;
-    align-items: center !important;
-    gap: 1.5rem !important;
-}
-
-.footer-logo-corner {
-    width: 70px !important;
-    height: 70px !important;
-    min-width: 70px !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 0.5px solid rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
     justify-content: center !important;
-    overflow: visible !important;
-    margin: 0 !important;
+    align-items: center !important;
+    order: 2 !important;
 }
-
-/* 1. Base Logo styling with permanent Breathing Animation */
-.footer-logo-corner img {
-    height: 185px !important;
-    width: auto !important;
-    object-fit: contain !important;
-
-    /* Dramatically exaggerated breathing pulse (3s for more energy) */
-    animation: logoBreathingPremium 3s ease-in-out infinite !important;
-
-    /* Tight, visible red-orange glow (animation handles the breathing) */
-    filter: drop-shadow(0 0 25px rgba(255, 69, 0, 0.8));
-
-    transition: all 0.4s ease !important;
-}
-
-/* 2. Intense Hover Effect while keeping the animation */
-.footer-logo-corner:hover {
-    cursor: pointer !important;
-}
-
-.footer-logo-corner:hover img {
-    /* Stacked for solid color, but with a deeper red-orange hue */
-    filter: drop-shadow(0 0 12px rgba(255, 150, 0, 1.0)) drop-shadow(0 0 30px rgba(255, 130, 0, 1.0)) brightness(1.5) !important;
-
-    transform: scale(1.1) translateY(-5px) !important;
-}
-
 
 .footer-copyright p {
     margin: 0 !important;
@@ -1203,78 +1148,98 @@ img {
     font-size: 0.85rem !important;
     color: #fff !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    white-space: nowrap !important;
+    letter-spacing: 0.15em !important;
+    margin-top: -3.5rem !important;
+    /* Adding this will pull the text upward */
 }
 
 .footer .back-to-top-container {
-    margin: 0 !important;
     display: flex !important;
-    justify-content: center !important;
-}
-
-.footer-links {
-    display: flex !important;
-    gap: 2.22rem !important;
+    flex-direction: column !important;
     align-items: center !important;
-    margin-top: 0 !important;
+    gap: 1.25rem !important;
+    cursor: pointer !important;
+    order: 1 !important;
 }
 
-.footer-links a {
-    color: rgba(255, 255, 255, 0.6) !important;
-    font-size: 0.75rem !important;
-    letter-spacing: 0.15em !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-    white-space: nowrap !important;
-    transition: all 0.3s ease !important;
+.footer-logo-corner {
+    width: 90px !important;
+    /* Increased for more room */
+    height: 90px !important;
+    min-width: 90px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    transition: all 0.5s ease-out !important;
 }
 
-.footer-links a:hover {
-    color: #fff !important;
-    text-shadow: 0 0 12px var(--color-glow-orange) !important;
+.footer-logo-corner img {
+    width: 100px !important;
+    /* Use pixels instead of % */
+    height: 100px !important;
+    /* This makes the logo much bigger than the circle */
+    object-fit: contain !important;
+    max-width: none !important;
+    /* This prevents the circle from "crunching" the logo */
+    animation: logoBreathingFinal 5s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
 }
 
+.footer .back-to-top-container:hover .footer-logo-corner {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 123, 0, 0.2) !important;
+    /* Premium Orange: #ff7b00 is rgba(255, 123, 0) */
+    transform: scale(1.30) translateY(-8px) !important;
+    /* Soft, elegant aura using Premium Orange */
+    box-shadow: 0 0 50px rgba(255, 123, 0, 0.4) !important;
+}
 
+.footer .back-to-top-container:hover .footer-logo-corner img {
+    /* Precise Premium Orange Glow (#ff7b00) */
+    filter:
+        drop-shadow(0 0 12px rgba(255, 123, 0, 1.0)) drop-shadow(0 0 35px rgba(255, 123, 0, 1.0)) brightness(1.3) !important;
+}
 
-@keyframes logoBreathingPremium {
+@keyframes logoBreathingFinal {
 
     0%,
     100% {
-        /* Elegant contracted state: Neutral brightness, steady glow */
-        filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.7)) brightness(1);
-        transform: scale(0.98);
+        transform: scale(1);
+        filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.7));
     }
 
     50% {
-        /* Elegant expanded state: Deep glow without the 'flash' */
-        filter: drop-shadow(0 0 50px rgba(255, 69, 0, 0.9)) brightness(1.1);
-        transform: scale(1.15);
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 45px rgba(255, 69, 0, 0.9));
     }
 }
 
-@media (max-width: 1024px) {
-    .footer .container.footer-row-master {
-        flex-direction: column !important;
-        gap: 3rem !important;
-        text-align: center !important;
-        padding: 0 2rem !important;
-    }
+.back-to-top-label {
+    font-size: 0.8rem !important;
+    font-weight: 000 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1rem !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    transition: all 0.3s ease !important;
+    font-family: 'Roboto Condensed', sans-serif !important;
+    text-align: center !important;
+}
 
-    .footer-copyright {
-        justify-content: center !important;
-        flex-direction: column !important;
-    }
-
-    .footer-links {
-        justify-content: center !important;
-        flex-wrap: wrap !important;
-    }
+.footer .back-to-top-container:hover .back-to-top-label {
+    color: var(--accent-orange, #ff7b00) !important;
+    letter-spacing: 0.25rem !important;
 }
 
 
-/* ================================
-   Responsive Typography
+
+/* Responsive Typography
    ================================ */
 @media (max-width: 768px) {
     :root {
@@ -1430,9 +1395,6 @@ body:not(.loading) {
 /* Return Button for No-Navbar Pages */
 .return-btn {
     position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    margin: 0 !important;
     display: flex !important;
     align-items: center !important;
     gap: 10px !important;
@@ -1440,105 +1402,36 @@ body:not(.loading) {
     background: var(--glass-bg) !important;
     backdrop-filter: blur(var(--glass-blur)) !important;
     border-radius: 100px !important;
-    color: white !important;
+    color: var(--accent-orange, #ff7b00) !important;
     font-family: "Roboto Condensed", sans-serif !important;
-    font-size: 0.8rem !important;
+    font-size: 0.75rem !important;
     text-transform: uppercase !important;
-    font-weight: 700 !important;
+    font-weight: 600 !important;
     letter-spacing: 0.15em !important;
     text-decoration: none !important;
     border: 0.5px solid var(--glass-border) !important;
+    transition: all 0.3s ease !important;
 }
-
-@media (max-width: 1860px) {
-    .return-btn {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        margin: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 10px !important;
-        padding: 10px 20px !important;
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(var(--glass-blur)) !important;
-        border-radius: 100px !important;
-        color: white !important;
-        font-family: "Roboto Condensed", sans-serif !important;
-        font-size: 0.8rem !important;
-        text-transform: uppercase !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.15em !important;
-        text-decoration: none !important;
-        border: 0.5px solid var(--glass-border) !important;
-    }
-}
-
-
-/* For screens smaller than 1800px, fix the return button left margin */
-@media (max-width: 1860px) {
-    .return-btn {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        margin: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 10px !important;
-        padding: 10px 20px !important;
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(var(--glass-blur)) !important;
-        border-radius: 100px !important;
-        color: white !important;
-        font-family: "Roboto Condensed", sans-serif !important;
-        font-size: 0.8rem !important;
-        text-transform: uppercase !important;
-        font-weight: 700 !important;
-        text-decoration: none !important;
-        border: 0.5px solid var(--glass-border) !important;
-    }
-
-    @media (max-width: 1860px) {
-        .return-btn {
-            position: relative !important;
-            top: auto !important;
-            left: auto !important;
-            margin: 0 !important;
-            display: flex !important;
-            align-items: center !important;
-            gap: 10px !important;
-            padding: 10px 20px !important;
-            background: var(--glass-bg) !important;
-            backdrop-filter: blur(var(--glass-blur)) !important;
-            border-radius: 100px !important;
-            color: white !important;
-            font-family: "Roboto Condensed", sans-serif !important;
-            font-size: 0.8rem !important;
-            text-transform: uppercase !important;
-            font-weight: 700 !important;
-            text-decoration: none !important;
-            border: 0.5px solid var(--glass-border) !important;
-        }
-    }
-
-}
-
 
 .return-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: var(--color-primary);
-    box-shadow: 0 0 20px var(--color-glow-orange);
-    transform: translateX(-5px);
+    transform: translateX(-5px) !important;
+}
+
+.return-btn:hover span,
+.return-btn:hover svg {
+    color: #fff !important;
+    text-shadow: 0 0 10px rgba(255, 80, 0, 1.0) !important;
+    filter: drop-shadow(0 0 8px rgba(255, 80, 0, 0.8)) !important;
 }
 
 .return-btn svg {
     width: 18px;
     height: 18px;
-    transition: transform var(--transition-base);
+    transition: all 0.3s ease !important;
 }
 
 .return-btn:hover svg {
-    transform: translateX(-3px);
+    transform: translateX(-3px) !important;
 }
 
 /* Top Right Logo for Project Pages */
@@ -1685,6 +1578,24 @@ body:not(.loading) {
 
 @media (max-width: 768px) {
     .responsive-grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.responsive-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 1024px) {
+    .responsive-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .responsive-grid-4 {
         grid-template-columns: 1fr;
     }
 }
@@ -3260,33 +3171,7 @@ video.loaded {
     /* Gap between sound and return button */
 }
 
-.return-btn {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    margin: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 10px 20px !important;
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(var(--glass-blur)) !important;
-    border-radius: 100px !important;
-    color: white !important;
-    font-family: "Roboto Condensed", sans-serif !important;
-    font-size: 0.8rem !important;
-    text-transform: uppercase !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.15em !important;
-    text-decoration: none !important;
-    border: 0.5px solid var(--glass-border) !important;
-}
-
-.return-btn:hover {
-    background: rgba(255, 255, 255, 0.22);
-    transform: translateX(-5px);
-    border-color: var(--color-glow-orange);
-}
+/* Handled by global .return-btn at line 1409 */
 
 /* Navbar Links Pill */
 /* Links Locked */
@@ -3368,24 +3253,7 @@ video.loaded {
     height: 18px !important;
 }
 
-.return-btn {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 10px 20px !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border-radius: 100px !important;
-    color: white !important;
-    font-family: "Roboto Condensed", sans-serif !important;
-    font-size: 0.8rem !important;
-    text-transform: uppercase !important;
-    font-weight: 700 !important;
-    text-decoration: none !important;
-    border: 0.5px solid rgba(255, 255, 255, 0.2) !important;
-    transition: all 0.3s ease !important;
-}
+/* Handled by global .return-btn at line 1409 */
 
 /* Navbar Links (The Center Pill) */
 .island-links {
