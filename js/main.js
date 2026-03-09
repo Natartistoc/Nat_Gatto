@@ -431,37 +431,33 @@ function initMagneticButtons() {
 
 
 // ============================================================
-// Robust Video Handling (No Poster Version)
+// Robust Video Handling (Optimized for Large Reels)
 // ============================================================
 
 function initVideoPreviews() {
-    // 1. Identify content videos (exclude Hero & Background)
     const contentVideos = Array.from(document.querySelectorAll('video')).filter(v => {
         const isHero = v.id === 'hero-video' ||
             v.classList.contains('hero-video') ||
             v.dataset.heroVideo === "true" ||
             v.closest('.hero') ||
-            v.closest('.hero-video-full-width');
-        const isBg = v.classList.contains('global-bg-video');
-        const isPausedLoop = v.classList.contains('paused-loop');
-        return !isHero && !isBg && !isPausedLoop;
+            v.closest('.hero-video-full-width') ||
+            v.hasAttribute('data-hero-video');
+        const isBg = v.classList.contains('global-bg-video') || v.hasAttribute('data-bg-video');
+
+        // EXCLUDE autonomous videos from the lazy-pause script
+        return !isHero && !isBg && !v.classList.contains('paused-loop');
     });
 
     contentVideos.forEach(video => {
         video.muted = true;
         video.playsInline = true;
-        video.loop = true; // Ensure it loops
+        video.loop = true;
 
-        // 2. Simple play/pause based on visibility
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    video.play().catch(() => {
-                        // Fallback: If autoplay is blocked, force first frame
-                        video.currentTime = 0.1;
-                    });
+                    video.play().catch(() => { });
                 } else {
-                    // Pause when out of view to save resources (optional, but good practice)
                     video.pause();
                 }
             });
@@ -472,46 +468,39 @@ function initVideoPreviews() {
 }
 
 function forcePlayAllVideos() {
-    console.log('Force playing all videos...');
     const videos = document.querySelectorAll('video');
 
     videos.forEach(v => {
-        if (v.classList.contains('paused-loop')) return; // SKIP these videos here
+        if (v.classList.contains('paused-loop')) return;
 
-        v.muted = true;
-        v.setAttribute('muted', '');
-        v.playsInline = true;
-        v.setAttribute('playsinline', '');
-        v.loop = true;
-
-        const isSmoothFade = v.id === 'hero-video' ||
+        const isHero = v.id === 'hero-video' ||
             v.classList.contains('hero-video') ||
             v.classList.contains('global-bg-video') ||
-            v.closest('.hero-video-full-width');
+            v.hasAttribute('data-hero-video');
+
+        // Only mute gallery/content videos
+        if (!isHero) {
+            v.muted = true;
+            v.setAttribute('muted', '');
+        }
 
         const applyReveal = () => {
-            v.classList.add('video-ready'); // Apply to all videos
+            v.classList.add('video-ready');
             v.style.opacity = '1';
         };
 
         const tryPlay = () => {
-            v.play().then(() => {
+            if (v.paused) {
+                v.play().then(applyReveal).catch(applyReveal);
+            } else {
                 applyReveal();
-            }).catch(err => {
-                console.warn('Autoplay prevented, forcing reveal anyway:', err);
-                v.currentTime = 0.1;
-                applyReveal();
-            });
+            }
         };
-
-        // Safety reveal after 1s regardless of play status
-        setTimeout(applyReveal, 1000);
 
         if (v.readyState >= 2) {
             tryPlay();
         } else {
             v.addEventListener('canplay', tryPlay, { once: true });
-            v.load();
         }
     });
 }
@@ -581,57 +570,69 @@ function initCinemaMode() {
 }
 
 console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
-// --- CRITICAL HERO AUTOPLAY PROTECTION ---
-// Ensures 'Demoreel Roar.mp4' on Homepage never pauses and loops forever on all devices
+// ============================================================
+// CRITICAL HERO & BACKGROUND INFINITE LOOP
+// ============================================================
 (function () {
-    const heroVideo = document.getElementById('hero-video');
-    if (!heroVideo) return;
+    const criticalVideos = document.querySelectorAll('#hero-video, .hero-video, .global-bg-video, [data-hero-video="true"]');
 
-    let lastTime = -1;
-    const ensurePlay = () => {
-        // 1. If paused or ended, attempt to resume
-        if (heroVideo.paused || heroVideo.ended) {
-            heroVideo.play().catch(() => {
-                // If standard play fails (likely autoplay block), only THEN force muted
-                if (!heroVideo.muted) {
-                    heroVideo.muted = true;
-                    heroVideo.play().catch(() => { });
+    criticalVideos.forEach(video => {
+        if (!video) return;
+
+        // 1. Core Stability Attributes
+        video.loop = true;
+        video.setAttribute('loop', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        video.setAttribute('preload', 'auto');
+
+        // 2. JS Manual Loop Fallback (Essential for long CDN files)
+        video.addEventListener('ended', function () {
+            console.log("Video end reached - force recycling...");
+            this.currentTime = 0;
+            this.play().catch(() => {
+                // If unmuted playback fails on loop, mute as safety fallback
+                if (!this.muted) {
+                    this.muted = true;
+                    this.play().catch(() => { });
                 }
             });
-        }
+        }, false);
 
-        // 2. STALL DETECTOR: If video is nominally playing but time is not advancing (stuck on black)
-        if (!heroVideo.paused && heroVideo.readyState >= 2) {
-            if (heroVideo.currentTime === lastTime && heroVideo.currentTime > 0) {
-                console.warn('Hero video stalled detected - forcing reload');
-                heroVideo.load();
-                heroVideo.play().catch(() => { });
+        // 3. Staggered Watchdog (Check every 4s to avoid fighting)
+        setInterval(() => {
+            if (video.paused && video.readyState >= 2) {
+                // Only force play if we aren't literally at the end (allowing ended event)
+                if (video.currentTime < video.duration - 0.5) {
+                    video.play().catch(() => { });
+                }
             }
-            lastTime = heroVideo.currentTime;
-        }
-    };
+        }, 4000);
 
-    // Initialize attributes for autoplay compatibility
-    heroVideo.setAttribute('playsinline', '');
-    heroVideo.setAttribute('webkit-playsinline', '');
-    heroVideo.loop = true;
+        // Initial Play
+        const kickstart = () => {
+            video.play().catch(() => {
+                if (!video.muted) {
+                    video.muted = true;
+                    video.play().catch(() => { });
+                }
+            });
+        };
 
-    // Trigger on all common interaction events
-    ['pageshow', 'load', 'touchstart', 'click', 'scroll', 'mousedown'].forEach(evt => {
-        window.addEventListener(evt, ensurePlay, { once: false });
+        // 4. HARD RECYCLING for 4-minute reels:
+        // Some browsers fail to fire 'ended' on large CDN files.
+        // We force reset at 0.5s before the actual end.
+        video.addEventListener('timeupdate', function () {
+            if (this.duration > 5 && this.currentTime > (this.duration - 0.5)) {
+                console.log("Pre-emptive loop reset for long video...");
+                this.currentTime = 0;
+                this.play().catch(() => {
+                    this.muted = true;
+                    this.play().catch(() => { });
+                });
+            }
+        });
+
+        kickstart();
     });
-
-    // Handle end of video (loop insurance)
-    heroVideo.addEventListener('ended', () => {
-        heroVideo.currentTime = 0;
-        ensurePlay();
-    });
-
-    // Visibility change handling
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') ensurePlay();
-    });
-
-    // Safety net: periodic check every 2s
-    setInterval(ensurePlay, 2000);
 })();
