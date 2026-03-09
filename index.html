@@ -80,6 +80,9 @@
             data-hero-video="true" preload="auto">
             <source src="https://nat-gatto-demo.b-cdn.net/Demoreel_Roar-tablet.mp4" type="video/mp4"
                 media="(max-width: 1024px)">
+            <!-- Primary Desktop: HEVC (H.265) for modern browsers -->
+            <source src="https://nat-gatto-demo.b-cdn.net/Demoreel_Roar_HEVC.mp4" type='video/mp4; codecs="hvc1"'>
+            <!-- Fallback Desktop: H.264 for maximum compatibility -->
             <source src="https://nat-gatto-demo.b-cdn.net/Demoreel_Roar.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
