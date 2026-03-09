@@ -473,35 +473,22 @@ function forcePlayAllVideos() {
     videos.forEach(v => {
         if (v.classList.contains('paused-loop')) return;
 
-        const isHero = v.id === 'hero-video' ||
-            v.classList.contains('hero-video') ||
-            v.classList.contains('global-bg-video') ||
-            v.hasAttribute('data-hero-video');
-
-        // Only mute gallery/content videos
-        if (!isHero) {
-            v.muted = true;
-            v.setAttribute('muted', '');
-        }
-
         const applyReveal = () => {
             v.classList.add('video-ready');
             v.style.opacity = '1';
         };
 
-        const tryPlay = () => {
-            if (v.paused) {
+        // Attempt to play
+        v.play().then(applyReveal).catch(() => {
+            // If it fails (likely due to sound restrictions), mute if it's a hero/bg video and try once more
+            const isCritical = v.id === 'hero-video' || v.classList.contains('global-bg-video');
+            if (isCritical && !v.muted) {
+                v.muted = true;
                 v.play().then(applyReveal).catch(applyReveal);
             } else {
                 applyReveal();
             }
-        };
-
-        if (v.readyState >= 2) {
-            tryPlay();
-        } else {
-            v.addEventListener('canplay', tryPlay, { once: true });
-        }
+        });
     });
 }
 
@@ -580,18 +567,19 @@ console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
         if (!video) return;
 
         // 1. Core Stability Attributes
-        video.loop = true;
-        video.setAttribute('loop', '');
-        video.setAttribute('playsinline', '');
-        video.setAttribute('webkit-playsinline', '');
-        video.setAttribute('preload', 'auto');
+        const enforceAttributes = () => {
+            video.loop = true;
+            video.setAttribute('loop', '');
+            video.setAttribute('playsinline', '');
+            video.setAttribute('webkit-playsinline', '');
+            video.setAttribute('preload', 'auto');
+        };
+        enforceAttributes();
 
-        // 2. JS Manual Loop Fallback (Essential for long CDN files)
+        // 2. JS Manual Loop Fallback
         video.addEventListener('ended', function () {
-            console.log("Video end reached - force recycling...");
             this.currentTime = 0;
             this.play().catch(() => {
-                // If unmuted playback fails on loop, mute as safety fallback
                 if (!this.muted) {
                     this.muted = true;
                     this.play().catch(() => { });
@@ -599,29 +587,28 @@ console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
             });
         }, false);
 
-        // 3. Staggered Watchdog (Check every 4s to avoid fighting)
-        setInterval(() => {
+        // 3. Aggressive Watchdog (Check every 1.5s to restart if stalled/paused)
+        const checkAndResume = () => {
             if (video.paused && video.readyState >= 2) {
-                // Only force play if we aren't literally at the end (allowing ended event)
+                // Only force play if we aren't at the very end
                 if (video.currentTime < video.duration - 0.5) {
                     video.play().catch(() => { });
                 }
             }
-        }, 4000);
-
-        // Initial Play
-        const kickstart = () => {
-            video.play().catch(() => {
-                if (!video.muted) {
-                    video.muted = true;
-                    video.play().catch(() => { });
-                }
-            });
         };
+        setInterval(checkAndResume, 1500);
 
-        // 4. HARD RECYCLING for 4-minute reels:
-        // Some browsers fail to fire 'ended' on large CDN files.
-        // We force reset at 0.5s before the actual end.
+        // 4. Interaction Kickstart (Essential for modern browsers)
+        ['touchstart', 'click', 'scroll', 'mousedown'].forEach(evt => {
+            window.addEventListener(evt, checkAndResume, { once: false });
+        });
+
+        // 5. Visibility Change Recovery
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') checkAndResume();
+        });
+
+        // 6. HARD RECYCLING for 4-minute reels
         video.addEventListener('timeupdate', function () {
             if (this.duration > 5 && this.currentTime > (this.duration - 0.5)) {
                 console.log("Pre-emptive loop reset for long video...");
@@ -633,6 +620,12 @@ console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
             }
         });
 
-        kickstart();
+        // Initial Play Attempt
+        video.play().catch(() => {
+            if (!video.muted) {
+                video.muted = true;
+                video.play().catch(() => { });
+            }
+        });
     });
 })();
