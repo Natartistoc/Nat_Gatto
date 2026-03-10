@@ -76,57 +76,81 @@ document.addEventListener('DOMContentLoaded', () => {
 // Advanced Hero UI Visibility Logic
 // ================================
 function initHeroAnimations() {
-    const heroVideo = document.getElementById('hero-video') || document.querySelector('.hero video');
-    const textElements = document.querySelectorAll('.cinematic-title, .cinematic-subtitle, .hero-subtitle');
+    const vimeoIframe = document.getElementById('hero-vimeo-player');
+    const heroContent = document.querySelector('.hero-content');
     const ctaElements = document.querySelectorAll('.hero-cta, .scroll-indicator');
+    const cinemaBtn = document.querySelector('.cinema-mode-btn');
 
-    const isHomePage = !!document.getElementById('demo-reel');
-
-    if (heroVideo && isHomePage) {
-        let lastTime = 0;
-
-        heroVideo.addEventListener('timeupdate', () => {
-            // Only execute this timing logic if we are in LANDSCAPE
-            if (window.matchMedia("(orientation: landscape)").matches) {
-                const time = heroVideo.currentTime;
-                const duration = heroVideo.duration;
-
-                // 1. Loop Reset (Detect when video restarts)
-                if (time < lastTime) {
-                    textElements.forEach(el => el.style.opacity = '0');
-                    ctaElements.forEach(el => el.style.opacity = '0');
-                }
-                lastTime = time;
-
-                // 2. Start Phase (0s to 10s): Hidden
-                if (time < 10) {
-                    textElements.forEach(el => el.style.opacity = '0');
-                    ctaElements.forEach(el => el.style.opacity = '0');
-                }
-                // 3. Reveal Phase (10s to 15s): Fade ALL in
-                else if (time >= 10 && time < 15) {
-                    textElements.forEach(el => el.style.opacity = '1');
-                    ctaElements.forEach(el => el.style.opacity = '1');
-                }
-                // 4. Clear View Phase (15s to 20s before end): Fade OUT all
-                else if (time >= 15 && time < (duration - 20)) {
-                    textElements.forEach(el => el.style.opacity = '0');
-                    ctaElements.forEach(el => el.style.opacity = '0');
-                }
-                // 5. Final Phase (-20s before end): Fade in ONLY Buttons/Scroll
-                else if (time >= (duration - 20)) {
-                    textElements.forEach(el => el.style.opacity = '0');
-                    ctaElements.forEach(el => el.style.opacity = '1');
-                }
+    // 1. Mobile & Tablet: Always Visible (Force appearance)
+    if (window.innerWidth <= 1024 || !vimeoIframe || typeof Vimeo === 'undefined') {
+        [heroContent, ...ctaElements, cinemaBtn].forEach(el => {
+            if (el) {
+                el.style.opacity = '1';
+                el.style.visibility = 'visible';
+                el.classList.add('v-visible'); // Support the new CSS
             }
         });
-    } else if (!isHomePage) {
-        // Simple reveal for project pages (since they aren't looping cinematic heroes)
-        [...textElements, ...ctaElements].forEach(el => {
-            el.style.opacity = '1';
-            el.style.visibility = 'visible';
-        });
+        return;
     }
+
+    // 2. DESKTOP ONLY: Timed visibility via Vimeo API
+    const player = new Vimeo.Player(vimeoIframe);
+    let duration = 0;
+
+    player.ready().then(() => {
+        player.getDuration().then(d => { duration = d; });
+
+        player.on('timeupdate', (data) => {
+            const time = data.seconds;
+
+            // Reset logic for different phases
+            const setVisible = (showText, showButtons) => {
+                if (showText) {
+                    heroContent?.classList.add('v-visible');
+                    heroContent?.classList.remove('only-buttons');
+                } else if (showButtons) {
+                    heroContent?.classList.add('v-visible');
+                    heroContent?.classList.add('only-buttons');
+                } else {
+                    heroContent?.classList.remove('v-visible', 'only-buttons');
+                }
+
+                // CTA Buttons & Indicators
+                ctaElements.forEach(el => {
+                    if (showButtons) el.classList.add('v-visible');
+                    else el.classList.remove('v-visible');
+                });
+
+                // Cinema Button (follows text/intro phase)
+                if (showText) cinemaBtn?.classList.add('v-visible');
+                else cinemaBtn?.classList.remove('v-visible');
+            };
+
+            // Phase 1: 0s - 10s -> Hidden
+            if (time < 10) {
+                setVisible(false, false);
+            }
+            // Phase 2: 10s - 22s -> Fade In Everything
+            else if (time >= 10 && time < 22) {
+                setVisible(true, true);
+            }
+            // Phase 3: 22s - (End - 30s) -> Hidden
+            else if (time >= 22 && (duration === 0 || time < (duration - 30))) {
+                setVisible(false, false);
+            }
+            // Phase 4: (End - 30s) - End -> Buttons Only
+            else if (duration > 0 && time >= (duration - 30)) {
+                setVisible(false, true);
+            }
+        });
+
+        // Loop Reset: Detection of restart
+        player.on('play', () => {
+            player.getCurrentTime().then(t => {
+                if (t < 1) setVisible(false, false);
+            });
+        });
+    });
 }
 
 // ================================
@@ -310,29 +334,28 @@ function initMobileMenu() {
 // ================================
 function initSoundToggle() {
     const toggleButtons = document.querySelectorAll('.sound-toggle-btn');
+    const vimeoIframe = document.getElementById('hero-vimeo-player');
+    let vimeoPlayer = null;
+
+    if (vimeoIframe && typeof Vimeo !== 'undefined') {
+        vimeoPlayer = new Vimeo.Player(vimeoIframe);
+    }
 
     toggleButtons.forEach(btn => {
-        // Find the video: 
-        // 1. In the same section
-        // 2. The #hero-video
-        // 3. Any video in .hero or .hero-video-full-width
         const container = btn.closest('section') || btn.closest('.hero-video-full-width') || btn.closest('.navbar') || btn.parentElement;
         let video = container.querySelector('video') || document.getElementById('hero-video');
 
         if (!video) {
-            // Fallback for project pages where button is in navbar
             video = document.querySelector('.hero-video-full-width video') ||
                 document.querySelector('.media-fullscreen video') ||
                 document.querySelector('.project-hero video');
         }
 
-        if (!video) return;
-
         const unmuteIcon = btn.querySelector('.unmute-icon');
         const muteIcon = btn.querySelector('.mute-icon');
 
-        const updateUI = () => {
-            if (video.muted) {
+        const updateUI = (isMuted) => {
+            if (isMuted) {
                 btn.classList.remove('active');
                 if (unmuteIcon) unmuteIcon.style.display = 'none';
                 if (muteIcon) muteIcon.style.display = 'block';
@@ -343,17 +366,31 @@ function initSoundToggle() {
             }
         };
 
+        // Initialize state
+        if (vimeoPlayer) {
+            vimeoPlayer.getMuted().then(updateUI);
+        } else if (video) {
+            updateUI(video.muted);
+        }
+
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            video.muted = !video.muted;
-            updateUI();
 
-            if (!video.muted && typeof gsap !== 'undefined') {
+            if (vimeoPlayer) {
+                vimeoPlayer.getMuted().then(muted => {
+                    const newState = !muted;
+                    vimeoPlayer.setMuted(newState);
+                    updateUI(newState);
+                });
+            } else if (video) {
+                video.muted = !video.muted;
+                updateUI(video.muted);
+            }
+
+            if (typeof gsap !== 'undefined') {
                 gsap.to(btn, { scale: 1.1, duration: 0.2, yoyo: true, repeat: 1 });
             }
         });
-
-        updateUI();
     });
 }
 
@@ -431,33 +468,37 @@ function initMagneticButtons() {
 
 
 // ============================================================
-// Robust Video Handling (Optimized for Large Reels)
+// Robust Video Handling (No Poster Version)
 // ============================================================
 
 function initVideoPreviews() {
+    // 1. Identify content videos (exclude Hero & Background)
     const contentVideos = Array.from(document.querySelectorAll('video')).filter(v => {
         const isHero = v.id === 'hero-video' ||
             v.classList.contains('hero-video') ||
             v.dataset.heroVideo === "true" ||
             v.closest('.hero') ||
-            v.closest('.hero-video-full-width') ||
-            v.hasAttribute('data-hero-video');
-        const isBg = v.classList.contains('global-bg-video') || v.hasAttribute('data-bg-video');
-
-        // EXCLUDE autonomous videos from the lazy-pause script
-        return !isHero && !isBg && !v.classList.contains('paused-loop');
+            v.closest('.hero-video-full-width');
+        const isBg = v.classList.contains('global-bg-video');
+        const isPausedLoop = v.classList.contains('paused-loop');
+        return !isHero && !isBg && !isPausedLoop;
     });
 
     contentVideos.forEach(video => {
         video.muted = true;
         video.playsInline = true;
-        video.loop = true;
+        video.loop = true; // Ensure it loops
 
+        // 2. Simple play/pause based on visibility
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    video.play().catch(() => { });
+                    video.play().catch(() => {
+                        // Fallback: If autoplay is blocked, force first frame
+                        video.currentTime = 0.1;
+                    });
                 } else {
+                    // Pause when out of view to save resources (optional, but good practice)
                     video.pause();
                 }
             });
@@ -468,27 +509,47 @@ function initVideoPreviews() {
 }
 
 function forcePlayAllVideos() {
+    console.log('Force playing all videos...');
     const videos = document.querySelectorAll('video');
 
     videos.forEach(v => {
-        if (v.classList.contains('paused-loop')) return;
+        if (v.classList.contains('paused-loop')) return; // SKIP these videos here
+
+        v.muted = true;
+        v.setAttribute('muted', '');
+        v.playsInline = true;
+        v.setAttribute('playsinline', '');
+        v.loop = true;
+
+        const isSmoothFade = v.id === 'hero-video' ||
+            v.classList.contains('hero-video') ||
+            v.classList.contains('global-bg-video') ||
+            v.closest('.hero-video-full-width');
 
         const applyReveal = () => {
-            v.classList.add('video-ready');
+            v.classList.add('video-ready'); // Apply to all videos
             v.style.opacity = '1';
         };
 
-        // Attempt to play
-        v.play().then(applyReveal).catch(() => {
-            // If it fails (likely due to sound restrictions), mute if it's a hero/bg video and try once more
-            const isCritical = v.id === 'hero-video' || v.classList.contains('global-bg-video');
-            if (isCritical && !v.muted) {
-                v.muted = true;
-                v.play().then(applyReveal).catch(applyReveal);
-            } else {
+        const tryPlay = () => {
+            v.play().then(() => {
                 applyReveal();
-            }
-        });
+            }).catch(err => {
+                console.warn('Autoplay prevented, forcing reveal anyway:', err);
+                v.currentTime = 0.1;
+                applyReveal();
+            });
+        };
+
+        // Safety reveal after 1s regardless of play status
+        setTimeout(applyReveal, 1000);
+
+        if (v.readyState >= 2) {
+            tryPlay();
+        } else {
+            v.addEventListener('canplay', tryPlay, { once: true });
+            v.load();
+        }
     });
 }
 
@@ -512,33 +573,50 @@ function initCinemaMode() {
     const cinemaButtons = document.querySelectorAll('.cinema-mode-btn');
 
     cinemaButtons.forEach(btn => {
-        // Find the corresponding video
-        // 1. Check ID specified in data attribute if exists (future proofing)
-        // 2. Look in the same section/container
-        // 3. Look for #hero-video
-        // 4. Look for global hero video classes
         const container = btn.closest('section') ||
             btn.closest('.hero-video-full-width') ||
             btn.closest('.media-fullscreen') ||
             btn.closest('.project-hero-featured-image') ||
+            btn.closest('.hero-video-container') ||
             btn.parentElement;
 
-        const video = container.querySelector('video') ||
-            document.getElementById('hero-video') ||
-            document.querySelector('.hero-video-full-width video') ||
-            document.querySelector('.media-fullscreen video');
+        const media = container.querySelector('video, iframe') ||
+            document.getElementById('hero-vimeo-player') ||
+            document.getElementById('hero-video');
 
-        if (!video) return;
+        if (!media) return;
 
-        btn.addEventListener('click', () => {
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.webkitRequestFullscreen) {
-                /* Safari */
-                video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) {
-                /* IE11 */
-                video.msRequestFullscreen();
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Toggle in-page Theater Mode (Expansion of video itself)
+            const isTheater = container.classList.toggle('theater-active');
+
+            if (isTheater) {
+                document.body.style.overflow = 'hidden';
+                // Try and also trigger native landscape orientation if supported
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('landscape').catch(() => { });
+                }
+
+                // Secondary action: still TRY native fullscreen for immersive experience
+                if (media.tagName === 'IFRAME' && typeof Vimeo !== 'undefined') {
+                    const player = new Vimeo.Player(media);
+                    player.requestFullscreen().catch(() => { });
+                } else {
+                    if (media.webkitEnterFullscreen) media.webkitEnterFullscreen();
+                    else if (media.requestFullscreen) media.requestFullscreen();
+                }
+            } else {
+                document.body.style.overflow = '';
+                if (screen.orientation && screen.orientation.unlock) {
+                    screen.orientation.unlock();
+                }
+                // Exit native fullscreen if we are in it
+                if (document.fullscreenElement || document.webkitFullscreenElement) {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                }
             }
         });
 
@@ -557,75 +635,57 @@ function initCinemaMode() {
 }
 
 console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
-// ============================================================
-// CRITICAL HERO & BACKGROUND INFINITE LOOP
-// ============================================================
+// --- CRITICAL HERO AUTOPLAY PROTECTION ---
+// Ensures 'Demoreel Roar.mp4' on Homepage never pauses and loops forever on all devices
 (function () {
-    const criticalVideos = document.querySelectorAll('#hero-video, .hero-video, .global-bg-video, [data-hero-video="true"]');
+    const heroVideo = document.getElementById('hero-video');
+    if (!heroVideo) return;
 
-    criticalVideos.forEach(video => {
-        if (!video) return;
-
-        // 1. Core Stability Attributes
-        const enforceAttributes = () => {
-            video.loop = true;
-            video.setAttribute('loop', '');
-            video.setAttribute('playsinline', '');
-            video.setAttribute('webkit-playsinline', '');
-            video.setAttribute('preload', 'auto');
-        };
-        enforceAttributes();
-
-        // 2. JS Manual Loop Fallback
-        video.addEventListener('ended', function () {
-            this.currentTime = 0;
-            this.play().catch(() => {
-                if (!this.muted) {
-                    this.muted = true;
-                    this.play().catch(() => { });
+    let lastTime = -1;
+    const ensurePlay = () => {
+        // 1. If paused or ended, attempt to resume
+        if (heroVideo.paused || heroVideo.ended) {
+            heroVideo.play().catch(() => {
+                // If standard play fails (likely autoplay block), only THEN force muted
+                if (!heroVideo.muted) {
+                    heroVideo.muted = true;
+                    heroVideo.play().catch(() => { });
                 }
             });
-        }, false);
+        }
 
-        // 3. Aggressive Watchdog (Check every 1.5s to restart if stalled/paused)
-        const checkAndResume = () => {
-            if (video.paused && video.readyState >= 2) {
-                // Only force play if we aren't at the very end
-                if (video.currentTime < video.duration - 0.5) {
-                    video.play().catch(() => { });
-                }
+        // 2. STALL DETECTOR: If video is nominally playing but time is not advancing (stuck on black)
+        if (!heroVideo.paused && heroVideo.readyState >= 2) {
+            if (heroVideo.currentTime === lastTime && heroVideo.currentTime > 0) {
+                console.warn('Hero video stalled detected - forcing reload');
+                heroVideo.load();
+                heroVideo.play().catch(() => { });
             }
-        };
-        setInterval(checkAndResume, 1500);
+            lastTime = heroVideo.currentTime;
+        }
+    };
 
-        // 4. Interaction Kickstart (Essential for modern browsers)
-        ['touchstart', 'click', 'scroll', 'mousedown'].forEach(evt => {
-            window.addEventListener(evt, checkAndResume, { once: false });
-        });
+    // Initialize attributes for autoplay compatibility
+    heroVideo.setAttribute('playsinline', '');
+    heroVideo.setAttribute('webkit-playsinline', '');
+    heroVideo.loop = true;
 
-        // 5. Visibility Change Recovery
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') checkAndResume();
-        });
-
-        // 6. HARD RECYCLING for 4-minute reels
-        video.addEventListener('timeupdate', function () {
-            if (this.duration > 5 && this.currentTime > (this.duration - 0.5)) {
-                console.log("Pre-emptive loop reset for long video...");
-                this.currentTime = 0;
-                this.play().catch(() => {
-                    this.muted = true;
-                    this.play().catch(() => { });
-                });
-            }
-        });
-
-        // Initial Play Attempt
-        video.play().catch(() => {
-            if (!video.muted) {
-                video.muted = true;
-                video.play().catch(() => { });
-            }
-        });
+    // Trigger on all common interaction events
+    ['pageshow', 'load', 'touchstart', 'click', 'scroll', 'mousedown'].forEach(evt => {
+        window.addEventListener(evt, ensurePlay, { once: false });
     });
+
+    // Handle end of video (loop insurance)
+    heroVideo.addEventListener('ended', () => {
+        heroVideo.currentTime = 0;
+        ensurePlay();
+    });
+
+    // Visibility change handling
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') ensurePlay();
+    });
+
+    // Safety net: periodic check every 2s
+    setInterval(ensurePlay, 2000);
 })();
