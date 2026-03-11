@@ -464,81 +464,10 @@ img {
     width: 100%;
     position: relative;
     background: transparent;
-    -webkit-mask-image: linear-gradient(to bottom,
-            black 0%,
-            black 65%,
-            transparent 100%);
-    mask-image: linear-gradient(to bottom,
-            black 0%,
-            black 65%,
-            transparent 100%);
+    /* Default masks removed to allow FULLSCREEN experience */
 }
 
-@media (min-width: 1025px) {
-    .home-page .hero {
-        position: relative;
-        width: 100%;
-        min-height: auto !important;
-        /* Force auto height to match video ratio */
-        height: auto !important;
-        display: block !important;
-        padding: 0 !important;
-        /* Match the 'before' padding:0 */
-        margin: 0;
-        overflow: visible;
-    }
-
-    .home-page .hero-video-container {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    .home-page .hero-video-container iframe {
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        /* The exact cinematic proportions */
-        display: block;
-        margin: 0;
-    }
-
-    /* Overlay the text container precisely over the video frame */
-    .home-page .hero .container {
-        position: absolute !important;
-        bottom: 20% !important;
-        /* Changed from padding to bottom percentage to ensure height shift */
-        left: 0;
-        right: 0;
-        z-index: 100 !important;
-        /* Extra safety */
-        padding-bottom: 0 !important;
-        pointer-events: none;
-    }
-
-
-    .home-page .hero-content {
-        pointer-events: auto;
-        padding-left: 5rem;
-        /* Standard side alignment */
-    }
-
-    /* --- Independent Scroll Icon Position (Desktop Overlay) --- */
-    #demo-reel .scroll-indicator {
-        position: absolute !important;
-        bottom: 8rem !important;
-        /* Move it well above the taskbar/bottom edge */
-        left: 40rem !important;
-        /* Align perfectly with "View My Work" button */
-        transform: none !important;
-        /* Remove centering */
-        margin: 0 !important;
-        z-index: 200 !important;
-        display: block !important;
-    }
-
-}
+/* Consolidating this block into the later one at the end of the file for better maintenance */
 
 
 
@@ -591,6 +520,12 @@ img {
     transform: translateY(10px);
 }
 
+.hero-text-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(10px);
+}
+
 .hero-content>*:not(.hero-video-container) {
     max-width: 1400px;
 }
@@ -608,7 +543,6 @@ img {
     margin-bottom: 0.5rem;
     text-align: left;
     line-height: 1.2;
-    opacity: 0;
 }
 
 .hero-title {
@@ -648,7 +582,6 @@ img {
     color: var(--color-text-light);
     margin-bottom: var(--spacing-md);
     /* Reduced from lg (4rem) to md (2rem) */
-    opacity: 0;
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
@@ -665,7 +598,35 @@ img {
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Visibility Overrides for JavaScript Sequence */
+@keyframes NUCLEAR_FORCE_VISIBLE {
+    0% { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+    100% { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+}
+
+@keyframes NUCLEAR_FORCE_HIDDEN {
+    0% { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+    100% { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+}
+
+body #demo-reel .hero-force-visible,
+body #demo-reel .hero-content.hero-force-visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
+    animation: NUCLEAR_FORCE_VISIBLE 0.1s infinite !important;
+}
+
+body #demo-reel .hero-force-hidden,
+body #demo-reel .hero-content.hero-force-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    animation: NUCLEAR_FORCE_HIDDEN 0.1s infinite !important;
 }
 
 .scroll-indicator {
@@ -978,7 +939,7 @@ img {
     z-index: 10;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 768px) {
     /* Hide by default on desktop */
 
     .home-page .hero-content,
@@ -2849,8 +2810,6 @@ video.loaded {
     opacity: 1.0 !important;
 }
 
-
-
 .testimonial-text {
     font-size: var(--font-size-lg);
     font-style: italic;
@@ -2858,6 +2817,14 @@ video.loaded {
     /* Slightly less white */
     margin-bottom: var(--spacing-md);
     line-height: 1.6;
+}
+
+.footer-copyright p {
+    font-size: 0.75rem;
+    /* Reduced for a cleaner look */
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    letter-spacing: 0.05em;
 }
 
 .author-name {
@@ -3497,6 +3464,7 @@ video.loaded {
     .island-links.active a {
         font-size: 1.25rem !important;
         letter-spacing: 0.3em !important;
+        text-align: center !important;
         opacity: 0;
         animation: mobileLinkSlideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
     }
@@ -3535,6 +3503,14 @@ video.loaded {
 
     .island-links.active a:nth-child(6) {
         animation-delay: 0.35s;
+    }
+
+    .unmute-overlay-mobile .unmute-text {
+        color: #ffffff !important;
+        font-family: "Inter", sans-serif !important;
+        font-weight: 700 !important;
+        font-size: 1rem !important;
+        text-transform: none !important;
     }
 
     .mobile-menu-toggle {
@@ -4010,22 +3986,24 @@ video.loaded {
 /* 2. THE CHOSEN MOBILE DESIGN (Shown on Mobile up to 767px) */
 @media screen and (max-width: 767px) {
     .cinema-mode-btn {
-        /* YOUR POSITION: Center Bottom */
+        /* Positioning: Center horizontally under video */
         display: flex !important;
         position: absolute !important;
-        bottom: 30px !important;
+        bottom: -35px !important; /* Pushed precisely under the video frame */
         left: 50% !important;
         transform: translateX(-50%) !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
 
-        /* YOUR DESIGN: Floating White Icon only */
+        /* Floating White Icon only */
         background: none !important;
         border: none !important;
         padding: 0 !important;
         color: #ffffff !important;
-        z-index: 9999 !important;
+        z-index: 99 !important; /* Below overlays but above bg */
         transition: all 0.3s ease !important;
         opacity: 1 !important;
-        /* Ensure visibility from start */
         visibility: visible !important;
     }
 
@@ -4043,10 +4021,9 @@ video.loaded {
         transition: filter 0.3s ease !important;
     }
 
-    /* HOMEPAGE ORC POSITION: Adjusted slightly higher again as requested */
+    /* HOMEPAGE ORC POSITION: Standardizing for directly under the video */
     #demo-reel .cinema-mode-btn {
-        bottom: auto !important;
-        top: 29vh !important;
+        bottom: -35px !important; /* Forces it below the iframe inside the wrapper */
         transition: opacity 1s ease, transform 1s ease !important;
     }
 
@@ -4055,7 +4032,7 @@ video.loaded {
         opacity: 1 !important;
         visibility: visible !important;
         pointer-events: auto !important;
-        transform: translate(-50%, 0) !important;
+        transform: translateX(-50%) !important;
     }
 
     /* MOBILE SHINING ORANGE HALO EFFECT */
@@ -4119,7 +4096,7 @@ video {
     background: transparent !important;
 }
 
-/* 2. Set Hero Video to 0 opacity initially (Preparing for JS fade-in) 
+/* 2. Set Hero Video to 0 opacity initially (Preparing for JS fade-in)
    EXCEPT for the homepage hero, which should be visible immediately */
 .global-bg-video,
 .hero-video-full-width video,
@@ -4166,8 +4143,8 @@ video.video-ready {
 
 /* --- Homepage Hero Gradient Mask --- */
 .home-page #hero-video {
-    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
 
     /* Hardware Acceleration to ensure smooth rendering on mobile/tablets */
     transform: translateZ(0);
@@ -4298,193 +4275,423 @@ video.video-ready,
 
 
 
-/* 2. Portrait Behavior (Persistence, Move Name High, Move Slogan/Buttons Low) */
-@media (orientation: portrait) {
+/* ============================================================
+   UNIVERSAL LANDSCAPE LAYOUT (All Devices)
+   Matching Original Desktop Positioning (Left-Aligned)
+   ============================================================ */
+@media screen and (orientation: landscape) {
+    .home-page .hero {
+        position: relative !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        background: #000 !important;
+        z-index: 10;
+    }
 
-    /* Force always visible on Portrait */
-    .cinematic-title,
-    .cinematic-subtitle,
-    .hero-subtitle,
-    .hero-cta,
-    .scroll-indicator {
+    .home-page .hero-video-container {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 1 !important;
+        -webkit-mask-image: none !important;
+        mask-image: none !important;
+    }
+
+    /* TRUE FULLSCREEN COVER MATH FOR CLIPPED VIDEO */
+    .home-page .hero-video-container iframe {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        width: 100vw !important;
+        height: 56.25vw !important;
+        /* 16:9 ratio (100/1.777) */
+        min-height: 100vh !important;
+        min-width: 177.77vh !important;
+        /* 100 * 1.777 */
+        transform: translate(-50%, -50%) !important;
+        display: block !important;
+        border: none !important;
+    }
+
+    /* Identity Block: Left Aligned & Bottom Weighted */
+    .hero-vertical-group {
+        position: absolute !important;
+        bottom: 12vh !important;
+        left: 0;
+        width: 100% !important;
+        z-index: 100 !important;
+        pointer-events: none;
+        display: block !important;
+        min-height: 300px !important; /* Retained height forcing to prevent container collapse */
+    }
+
+    .hero-vertical-group .container {
+        padding-left: 6vw !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        pointer-events: none !important;
+        min-height: 200px !important; /* Retained height forcing to prevent container collapse */
+    }
+
+    .hero-content {
+        pointer-events: auto !important;
+        text-align: left !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        
+        /* Layout stabilization to prevent landscape container collapsing */
+        z-index: 50 !important;
+        min-height: 200px !important;
+        min-width: 300px !important;
+        transform: none !important;
         opacity: 1 !important;
         visibility: visible !important;
-        transform: none !important;
     }
 
-    /* 1. POSITION FOR NAME & JOB TITLE (Brings them to the top 12% of screen) */
-    .hero-content {
-        margin-top: 12vh !important;
-        padding: 0 1.5rem !important;
-        text-align: center !important;
-        z-index: 10 !important;
-        position: relative !important;
-    }
-
-    /* 2. GAP CONTROL: Pushes the Slogan ("Creating worlds...") lower */
-    .hero-subtitle {
-        margin-top: 6vh !important;
-        /* Adjust this to increase/decrease the gap in the middle */
-        text-align: center !important;
-        line-height: 1.4 !important;
-        letter-spacing: 0.06em !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        max-width: 290px !important;
-        margin-bottom: 2.5rem !important;
-        /* Space before buttons */
-    }
-
-    /* 3. SCROLL ICON: Ensuring room at the bottom */
-    .scroll-indicator {
-        margin-top: 15vh !important;
-        position: relative !important;
-        display: block !important;
-    }
-
-    .portrait-only {
-        display: block !important;
-    }
-}
-
-
-/* 3. Landscape Specifics (Hide Cinema Mode) */
-@media (orientation: landscape) {
-    .cinema-mode-btn {
-        display: none !important;
-    }
-
-    .portrait-only {
-        display: none !important;
-    }
-}
-
-/* Specific overrides for Mobile & Tablet in Portrait Orientation */
-@media (orientation: portrait) and (max-width: 1024px) {
-
-    /* 1. Stack the Grid and Center the Layout */
-    .project-grid {
-        grid-template-columns: 1fr !important;
-        /* Stack columns into one */
+    .hero-cta-group {
         display: flex !important;
         flex-direction: column !important;
-        align-items: center !important;
-        text-align: center !important;
-        gap: 40px !important;
+        align-items: flex-start !important;
+        width: fit-content !important;
+        margin-top: 1.5rem !important;
     }
 
-    /* 2. Center Narrative / Description Titles and Text */
-    .project-narrative,
-    .project-description {
-        text-align: center !important;
-        width: 100% !important;
+    .hero-cta {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 1.5rem !important;
+        justify-content: flex-start !important;
+        margin-bottom: 0 !important;
     }
 
-    /* Ensures titles with decorative lines (flex) are centered */
-    .project-narrative .section-title,
-    .project-description .section-title {
+    #demo-reel .scroll-indicator {
+        position: relative !important;
+        margin: 2.5rem 0 0 !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+
+    .cinema-mode-btn,
+    .portrait-only {
+        display: none !important;
+    }
+}
+
+/* ============================================================
+   UNIVERSAL PORTRAIT LAYOUT (All Devices)
+   Vertical & Horizontal Centering for Mobile & Tablet
+   ============================================================ */
+@media screen and (orientation: portrait) {
+    .home-page .hero {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        background: transparent !important;
+        overflow-x: hidden !important;
+    }
+
+    .hero-video-container {
+        width: 100vw !important;
+        /* Force full screen width regardless of parents */
+        margin-left: calc(-50vw + 50%) !important;
+        /* Center the full-width block */
+        aspect-ratio: 16 / 9 !important;
+        display: flex !important;
         justify-content: center !important;
-        text-align: center !important;
+        align-items: center !important;
+        overflow: hidden !important;
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        mask-image: none !important;
+        -webkit-mask-image: none !important;
     }
 
-    .project-narrative p,
-    .project-description p {
+    .hero-video-container iframe {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    /* PERFECT VERTICAL CENTERING FOR TEXT & BUTTONS */
+    .hero-vertical-group {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        /* Centering text/buttons vertically */
+        align-items: center !important;
+        /* Centering text/buttons horizontally */
+        width: 100% !important;
+        padding: 4vh 1.5rem !important;
+    }
+
+    .hero-content {
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    /* Typography Centering */
+    .cinematic-title,
+    .cinematic-subtitle,
+    .hero-subtitle {
         text-align: center !important;
         margin-left: auto !important;
         margin-right: auto !important;
     }
 
-    /* 3. Center the Role & Software Meta Containers */
-    .project-meta {
+    .hero-cta-group {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
         width: 100% !important;
+    }
+
+    .hero-cta {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 1.2rem !important;
+        margin-bottom: 2rem !important;
+    }
+
+    #demo-reel .scroll-indicator {
+        position: relative !important;
+        margin: 2rem auto 0 !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* UNIVERSAL PROJECT PAGE CENTERING (PORTRAIT) */
+    /* Target metadata, roles, and software icons for horizontal centering */
+    .project-grid,
+    .project-meta,
+    .project-info-section,
+    .role-details,
+    .software-logos-container {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         text-align: center !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        float: none !important;
     }
 
     .meta-item {
         width: 100% !important;
+        text-align: center !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        text-align: center !important;
-        margin-bottom: 35px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-bottom: 2rem !important;
     }
 
-    .meta-label {
+    /* Override any specific left alignments for labels and values */
+    .meta-label,
+    .meta-value {
+        text-align: center !important;
+        width: 100% !important;
+        display: block !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    /* Centering software icons grid/row */
+    .software-meta,
+    .software-icons-row,
+    .software-grid {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+        width: 100% !important;
+        margin: 10px auto 0 !important;
+        text-align: center !important;
+    }
+
+    /* Center project description text and titles */
+    .project-description {
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin-bottom: 3rem !important;
+    }
+
+    .project-description .section-title,
+    .project-info .section-title {
+        text-align: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: flex !important;
+    }
+
+    .project-description p,
+    .project-info p {
         text-align: center !important;
         margin-left: auto !important;
         margin-right: auto !important;
-        display: block !important;
-    }
-
-    .meta-value {
-        text-align: center !important;
-        display: block !important;
-    }
-
-    /* 4. Center Software Icons and Lists */
-    .software-icons-row,
-    .software-meta {
-        justify-content: center !important;
-        /* Centers the flex row of icons */
-        width: 100% !important;
-        margin-top: 10px !important;
-    }
-
-    .software-icon {
-        margin: 0 6px !important;
-        /* Balanced spacing for centered icons */
+        max-width: 100% !important;
     }
 }
 
-/* ============================================================ 
-   Global Portrait Typography Update (Portrait & Max-1024px)
-   ============================================================ */
-@media (orientation: portrait) and (max-width: 1024px) {
+/* ==========================================================================
+   Sound Toggle System: Dual Design (Circle Icon vs Rectangle Unmute)
+   ========================================================================== */
 
-    /* 1. Standardize Body Text: Justified & Hyphenated */
-    .project-narrative p,
-    .project-description p,
-    .project-detail-content p,
-    .process-caption {
-        text-align: justify !important;
-        hyphens: auto !important;
-        -webkit-hyphens: auto;
-        /* For iOS/Safari */
-        -ms-hyphens: auto;
+/* 1. Navbar sound button - Circle Icon Style (Standard) */
+.navbar .sound-toggle-btn .unmute-text {
+    display: none !important;
+}
 
-        /* 2. Symmetrical Breathable Margins */
-        padding-left: 30px !important;
-        padding-right: 30px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        line-height: 1.6 !important;
-        /* Improved readability */
+/* 2. Unmute Overlay - Rectangle Style (Center) */
+.unmute-overlay-mobile {
+    display: none !important;
+    /* Managed by JS for muted state */
+}
+
+/* Specific styling for Mobile/Tablet in Landscape Mode */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+
+    /* Show the overlay only on Mobile Landscape */
+    .unmute-overlay-mobile {
+        position: fixed !important;
+        top: 30px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 100005 !important;
     }
 
-    /* 3. Keep Headers and Meta Info Strictly Centered */
-    .section-title,
-    .project-subtitle,
-    .meta-label,
-    .meta-value,
-    .meta-item span,
-    .project-hero-content h1,
-    .project-hero-content h2 {
-        text-align: center !important;
+    .unmute-overlay-mobile .sound-toggle-btn {
+        width: auto !important;
+        height: auto !important;
+        padding: 10px 24px !important;
+        border-radius: 6px !important;
+        background: #000000 !important;
+        border: none !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6) !important;
+        display: flex !important;
+        align-items: center !important;
         justify-content: center !important;
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-        hyphens: none !important;
-        /* Titles should never hyphenate */
     }
 
-    /* 4. Fine-Tune Container Spacing */
+    .unmute-overlay-mobile .unmute-text {
+        color: #ffffff !important;
+        font-family: inherit !important;
+        font-weight: 700 !important;
+        font-size: 1rem !important;
+        text-transform: none !important;
+    }
+
+    /* Hide Icons in the fixed rectangle version */
+    .unmute-overlay-mobile .unmute-icon,
+    .unmute-overlay-mobile .mute-icon {
+        display: none !important;
+    }
+}
+
+/* Hard Kill the overlay on Desktop/Mobile Portrait */
+@media screen and (min-width: 1025px),
+screen and (orientation: portrait) {
+    .unmute-overlay-mobile {
+        display: none !important;
+    }
+}
+
+
+/* ============================================================
+   HARD-ALIGNMENT FIX (Narrow Portrait Viewports < 400px)
+   Final unification to match Cinematic Section (Screenshot 1)
+   ============================================================ */
+@media screen and (max-width: 400px) and (orientation: portrait) {
+
+    /* 1. Prevent root overflow and lock viewport */
+    html,
+    body {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 2. Unified Container & Section Lock */
+    /* Focus padding only on the container to match the Cinematic reference exactly */
     .container {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        padding-left: 20px !important;
+        /* Unified consistent margin */
+        padding-right: 20px !important;
+        /* Locks the right edge */
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. Portfolio Grid - Pure Single Column */
+    .portfolio-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 30px !important;
+        /* Consistent vertical spacing */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 4. Portfolio Card - Fill Parent */
+    .portfolio-item,
+    .portfolio-link {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        display: block !important;
+    }
+
+    /* 5. FIX FOR SCREENSHOT 2: Ensure text doesn't push card width */
+    .portfolio-location {
+        width: 100% !important;
+        overflow-wrap: break-word !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+    }
+
+    /* 6. Media scaling inside cards - FORCED UNIFORM HEIGHT */
+    .portfolio-image,
+    .portfolio-img-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        aspect-ratio: 16 / 9 !important;
+        /* This forces the same proportions for everyone */
+        object-fit: cover !important;
+        /* This ensures the image fills the space without stretching */
     }
 }

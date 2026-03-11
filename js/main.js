@@ -22,10 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initVideoPreviews();
     initCinemaMode();
     forcePlayAllVideos(); // Renamed and improved from forcePlayGlobalVideo
+    
+    // Now totally independent of GSAP
+    console.log("🚀 Starting Hero Logic...");
+    initHeroAnimations();
 
     // 2. Initialize GSAP Animations
     if (typeof gsap !== 'undefined') {
-        initHeroAnimations();
         initScrollAnimations();
         initPortfolioAnimations();
         initSoundToggle();
@@ -81,76 +84,91 @@ function initHeroAnimations() {
     const ctaElements = document.querySelectorAll('.hero-cta, .scroll-indicator');
     const cinemaBtn = document.querySelector('.cinema-mode-btn');
 
-    // 1. Mobile & Tablet: Always Visible (Force appearance)
-    if (window.innerWidth <= 1024 || !vimeoIframe || typeof Vimeo === 'undefined') {
-        [heroContent, ...ctaElements, cinemaBtn].forEach(el => {
+    const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+
+    // 1. Portrait Mode: Always Visible (Force appearance)
+    if (isPortrait || !vimeoIframe || typeof Vimeo === 'undefined') {
+        const titleElements = heroContent ? Array.from(heroContent.querySelectorAll('.cinematic-title, .cinematic-subtitle, .hero-subtitle')) : [];
+        [heroContent, ...titleElements, ...Array.from(ctaElements), cinemaBtn].forEach(el => {
             if (el) {
-                el.style.opacity = '1';
-                el.style.visibility = 'visible';
-                el.classList.add('v-visible'); // Support the new CSS
+                el.style.setProperty('opacity', '1', 'important');
+                el.style.setProperty('visibility', 'visible', 'important');
+                el.style.setProperty('pointer-events', 'auto', 'important');
+                el.classList.add('hero-force-visible');
+                el.classList.remove('hero-force-hidden');
             }
         });
         return;
     }
 
-    // 2. DESKTOP ONLY: Timed visibility via Vimeo API
+    // 2. LANDSCAPE & DESKTOP: Timed visibility via Polling
     const player = new Vimeo.Player(vimeoIframe);
-    let duration = 0;
+    const titleElements = heroContent ? Array.from(heroContent.querySelectorAll('.cinematic-title, .cinematic-subtitle, .hero-subtitle')) : [];
+    const allHeroElements = [...titleElements, ...Array.from(ctaElements), cinemaBtn].filter(Boolean);
+    
+    // Initialize elements to be hidden immediately
+    allHeroElements.forEach(el => {
+        el.style.setProperty('transition', 'opacity 1s ease, visibility 1s ease', 'important');
+        el.style.setProperty('opacity', '0', 'important');
+        el.style.setProperty('visibility', 'hidden', 'important');
+        el.style.setProperty('pointer-events', 'none', 'important');
+        el.classList.add('hero-force-hidden');
+        el.classList.remove('hero-force-visible');
+    });
+
+    // WATCHDOG TIMER: Fallback if Tracking Prevention blocks Vimeo API
+    let isApiResponding = false;
+    setTimeout(() => {
+        if (!isApiResponding) {
+            console.warn("⚠️ Vimeo API blocked. Forcing hero text visible.");
+            allHeroElements.forEach(el => {
+                el.style.setProperty('opacity', '1', 'important');
+                el.style.setProperty('visibility', 'visible', 'important');
+                el.style.setProperty('pointer-events', 'auto', 'important');
+                el.classList.add('hero-force-visible');
+                el.classList.remove('hero-force-hidden');
+            });
+        }
+    }, 3000);
 
     player.ready().then(() => {
-        player.getDuration().then(d => { duration = d; });
+        let lastPhase = 'none';
 
-        player.on('timeupdate', (data) => {
-            const time = data.seconds;
-
-            // Reset logic for different phases
-            const setVisible = (showText, showButtons) => {
-                if (showText) {
-                    heroContent?.classList.add('v-visible');
-                    heroContent?.classList.remove('only-buttons');
-                } else if (showButtons) {
-                    heroContent?.classList.add('v-visible');
-                    heroContent?.classList.add('only-buttons');
-                } else {
-                    heroContent?.classList.remove('v-visible', 'only-buttons');
+        // Poll video time every 250ms
+        setInterval(() => {
+            player.getCurrentTime().then(time => {
+                isApiResponding = true; // API works
+                
+                let newPhase = 'none';
+                if (time >= 10 && time <= 18) {
+                    newPhase = 'all';
                 }
 
-                // CTA Buttons & Indicators
-                ctaElements.forEach(el => {
-                    if (showButtons) el.classList.add('v-visible');
-                    else el.classList.remove('v-visible');
-                });
-
-                // Cinema Button (follows text/intro phase)
-                if (showText) cinemaBtn?.classList.add('v-visible');
-                else cinemaBtn?.classList.remove('v-visible');
-            };
-
-            // Phase 1: 0s - 10s -> Hidden
-            if (time < 10) {
-                setVisible(false, false);
-            }
-            // Phase 2: 10s - 22s -> Fade In Everything
-            else if (time >= 10 && time < 22) {
-                setVisible(true, true);
-            }
-            // Phase 3: 22s - (End - 30s) -> Hidden
-            else if (time >= 22 && (duration === 0 || time < (duration - 30))) {
-                setVisible(false, false);
-            }
-            // Phase 4: (End - 30s) - End -> Buttons Only
-            else if (duration > 0 && time >= (duration - 30)) {
-                setVisible(false, true);
-            }
-        });
-
-        // Loop Reset: Detection of restart
-        player.on('play', () => {
-            player.getCurrentTime().then(t => {
-                if (t < 1) setVisible(false, false);
-            });
-        });
-    });
+                // Apply changes on transition
+                if (newPhase !== lastPhase) {
+                    lastPhase = newPhase;
+                    
+                    if (newPhase === 'all') {
+                        allHeroElements.forEach(el => {
+                            el.style.setProperty('opacity', '1', 'important');
+                            el.style.setProperty('visibility', 'visible', 'important');
+                            el.style.setProperty('pointer-events', 'auto', 'important');
+                            el.classList.add('hero-force-visible');
+                            el.classList.remove('hero-force-hidden');
+                        });
+                    } else {
+                        allHeroElements.forEach(el => {
+                            el.style.setProperty('opacity', '0', 'important');
+                            el.style.setProperty('visibility', 'hidden', 'important');
+                            el.style.setProperty('pointer-events', 'none', 'important');
+                            el.classList.add('hero-force-hidden');
+                            el.classList.remove('hero-force-visible');
+                        });
+                    }
+                }
+            }).catch(() => {});
+        }, 250);
+    }).catch(() => {});
 }
 
 // ================================
@@ -353,16 +371,19 @@ function initSoundToggle() {
 
         const unmuteIcon = btn.querySelector('.unmute-icon');
         const muteIcon = btn.querySelector('.mute-icon');
+        const unmuteText = btn.querySelector('.unmute-text');
 
         const updateUI = (isMuted) => {
             if (isMuted) {
                 btn.classList.remove('active');
                 if (unmuteIcon) unmuteIcon.style.display = 'none';
                 if (muteIcon) muteIcon.style.display = 'block';
+                if (unmuteText) unmuteText.style.display = 'block';
             } else {
                 btn.classList.add('active');
                 if (unmuteIcon) unmuteIcon.style.display = 'block';
                 if (muteIcon) muteIcon.style.display = 'none';
+                if (unmuteText) unmuteText.style.display = 'none';
             }
         };
 
