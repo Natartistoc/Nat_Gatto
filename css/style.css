@@ -603,13 +603,31 @@ img {
 
 /* Visibility Overrides for JavaScript Sequence */
 @keyframes NUCLEAR_FORCE_VISIBLE {
-    0% { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
-    100% { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+    0% {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+
+    100% {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
 }
 
 @keyframes NUCLEAR_FORCE_HIDDEN {
-    0% { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
-    100% { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+    0% {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    100% {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
 }
 
 body #demo-reel .hero-force-visible,
@@ -3973,8 +3991,8 @@ video.loaded {
 /* ================================
    Cinema Mode Button
    ================================ */
-/* 1. HIDE the button from Desktop and Tablets (larger than 767px) */
-@media screen and (min-width: 768px) {
+/* 1. HIDE the button from Desktop and Tablets (larger than 1024px) */
+@media screen and (min-width: 1025px) {
     .cinema-mode-btn {
         display: none !important;
         visibility: hidden !important;
@@ -3983,63 +4001,136 @@ video.loaded {
     }
 }
 
-/* 2. THE CHOSEN MOBILE DESIGN (Shown on Mobile up to 767px) */
-@media screen and (max-width: 767px) {
-    .cinema-mode-btn {
+/* 2. THE CHOSEN MOBILE & TABLET DESIGN (Shown up to 1024px) */
+@media screen and (max-width: 1024px) {
+    .cinema-mode-btn.glass-pill {
         /* Positioning: Center horizontally under video */
         display: flex !important;
         position: absolute !important;
-        bottom: -35px !important; /* Pushed precisely under the video frame */
+        bottom: -45px !important;
+        /* Pushed precisely under the video frame */
         left: 50% !important;
         transform: translateX(-50%) !important;
-        flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
+        gap: 8px !important;
 
-        /* Floating White Icon only */
-        background: none !important;
-        border: none !important;
-        padding: 0 !important;
-        color: #ffffff !important;
-        z-index: 99 !important; /* Below overlays but above bg */
-        transition: all 0.3s ease !important;
+        /* Glassmorphism Styling */
+        background: rgba(20, 20, 20, 0.4) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 30px !important;
+        padding: 8px 16px !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        z-index: 99 !important;
+        /* Below overlays but above bg */
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
         opacity: 1 !important;
         visibility: visible !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        cursor: pointer !important;
+        overflow: hidden !important;
     }
 
-    /* KILLS THE UNWANTED "CINEMA MODE" TEXT */
-    .cinema-mode-btn span {
-        display: none !important;
+    /* PROJECT PAGE FIX: Push button up slightly to avoid text overlap */
+    .hero-video-full-width .cinema-mode-btn.glass-pill {
+        bottom: 25px !important;
     }
 
-    /* KEEPS YOUR EXACT MOBILE ICON SIZE AND GLOW */
-    .cinema-mode-btn svg {
-        width: 28px !important;
-        height: 28px !important;
-        stroke: #ffffff !important;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) !important;
-        transition: filter 0.3s ease !important;
+    /* Subtle ambient glow behind the button */
+    .cinema-mode-btn.glass-pill::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 160, 0, 0.15) 0%, transparent 60%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: -1;
+        pointer-events: none;
     }
 
-    /* HOMEPAGE ORC POSITION: Standardizing for directly under the video */
-    #demo-reel .cinema-mode-btn {
-        bottom: -35px !important; /* Forces it below the iframe inside the wrapper */
-        transition: opacity 1s ease, transform 1s ease !important;
+    .glass-pill-content {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        position: relative !important;
+        z-index: 2 !important;
     }
 
-    /* Never disappearing: Removing hero-ui-hidden rule or overriding it */
-    #demo-reel .cinema-mode-btn.hero-ui-hidden {
+    /* Keep the text visible but elegant */
+    .cinema-mode-btn .cinema-text {
+        font-family: 'Roboto Condensed', sans-serif !important;
+        font-size: 0.85rem !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.05em !important;
+        text-transform: uppercase !important;
+        display: block !important;
+    }
+
+    /* Elegant new generic icon */
+    .cinema-mode-btn .cinema-icon {
+        width: 18px !important;
+        height: 18px !important;
+        stroke: currentColor !important;
+        transition: transform 0.3s ease !important;
+    }
+
+    /* HOMEPAGE POSITIONING */
+    #demo-reel .cinema-mode-btn.glass-pill {
+        bottom: 25px !important;
+        left: 50% !important;
+        right: auto !important;
+        margin: 0 !important;
+        transform: translateX(-50%) !important;
+        transition: opacity 1s ease, transform 1s ease, box-shadow 0.4s ease, border-color 0.4s ease !important;
+    }
+
+    /* Never disappearing */
+    #demo-reel .cinema-mode-btn.glass-pill.hero-ui-hidden {
         opacity: 1 !important;
         visibility: visible !important;
         pointer-events: auto !important;
         transform: translateX(-50%) !important;
     }
 
-    /* MOBILE SHINING ORANGE HALO EFFECT */
-    .cinema-mode-btn:active svg,
-    .cinema-mode-btn:hover svg {
-        animation: glow-spectrum-cycle 8s infinite linear;
-        filter: drop-shadow(0 0 15px var(--glow-color, rgba(255, 150, 0, 1.0))) drop-shadow(0 0 30px var(--glow-color, rgba(255, 180, 0, 1.0))) !important;
+    /* ACTIVE / HOVER STATE */
+    .cinema-mode-btn.glass-pill:active,
+    .cinema-mode-btn.glass-pill:hover,
+    .cinema-mode-btn.glass-pill.active {
+        background: rgba(30, 30, 30, 0.6) !important;
+        border-color: rgba(255, 160, 0, 0.5) !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 20px rgba(255, 160, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+        transform: translateX(-50%) translateY(-2px) !important;
+    }
+
+    .cinema-mode-btn.glass-pill:active::before,
+    .cinema-mode-btn.glass-pill:hover::before,
+    .cinema-mode-btn.glass-pill.active::before {
+        opacity: 1;
+        animation: rotate-glow 4s linear infinite;
+    }
+
+    .cinema-mode-btn.glass-pill:active .cinema-icon,
+    .cinema-mode-btn.glass-pill:hover .cinema-icon,
+    .cinema-mode-btn.glass-pill.active .cinema-icon {
+        transform: scale(1.1) !important;
+        stroke: #FFB347 !important;
+        filter: drop-shadow(0 0 5px rgba(255, 160, 0, 0.8)) !important;
+    }
+}
+
+@keyframes rotate-glow {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }
 
@@ -4331,7 +4422,8 @@ video.video-ready,
         z-index: 100 !important;
         pointer-events: none;
         display: block !important;
-        min-height: 300px !important; /* Retained height forcing to prevent container collapse */
+        min-height: 300px !important;
+        /* Retained height forcing to prevent container collapse */
     }
 
     .hero-vertical-group .container {
@@ -4340,7 +4432,8 @@ video.video-ready,
         max-width: none !important;
         margin: 0 !important;
         pointer-events: none !important;
-        min-height: 200px !important; /* Retained height forcing to prevent container collapse */
+        min-height: 200px !important;
+        /* Retained height forcing to prevent container collapse */
     }
 
     .hero-content {
@@ -4349,7 +4442,7 @@ video.video-ready,
         display: flex !important;
         flex-direction: column !important;
         align-items: flex-start !important;
-        
+
         /* Layout stabilization to prevent landscape container collapsing */
         z-index: 50 !important;
         min-height: 200px !important;
@@ -4561,6 +4654,10 @@ video.video-ready,
         margin-left: auto !important;
         margin-right: auto !important;
         max-width: 100% !important;
+    }
+
+    .footer-copyright p {
+        font-size: 0.55rem !important;
     }
 }
 
