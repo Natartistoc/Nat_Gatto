@@ -4792,3 +4792,16 @@ screen and (orientation: portrait) {
         /* This ensures the image fills the space without stretching */
     }
 }
+
+/* --- Justification du texte : Portrait Mobile & Tablette uniquement --- */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+
+    .project-description p,
+    .project-description .stage-item p {
+        text-align: justify !important;
+        hyphens: auto;
+        /* Ajoute des traits d'union si nécessaire pour éviter les grands espaces */
+        line-height: 1.6;
+        /* Améliore la lisibilité une fois justifié */
+    }
+}
