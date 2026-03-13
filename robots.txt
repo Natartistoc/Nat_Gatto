@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://natgatto.com/sitemap.xml
