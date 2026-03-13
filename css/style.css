@@ -1,6 +1,12 @@
+/* TEST DE CONNEXION */
+body {
+    background-color: red !important;
+}
+
+
 /* ================================
-   CSS Variables & Reset
-   ================================ */
+   CSS Variables & Reset
+   ================================ */
 :root {
     /* Colors - Dark Theme */
     --color-primary: #ffffff;
@@ -157,8 +163,8 @@ img {
 }
 
 /* ================================
-   Utility Classes
-   ================================ */
+   Utility Classes
+   ================================ */
 .container {
     max-width: 1800px;
     margin: 0 auto;
@@ -177,8 +183,8 @@ img {
 }
 
 /* ================================
-   Navigation
-   ================================ */
+   Navigation
+   ================================ */
 .navbar {
     position: fixed;
     top: 0;
@@ -306,8 +312,8 @@ img {
 }
 
 /* ================================
-   Buttons
-   ================================ */
+   Buttons
+   ================================ */
 .btn-primary,
 .btn-secondary,
 .btn-glass,
@@ -386,8 +392,8 @@ img {
 }
 
 /* ================================
-   Hero Section
-   ================================ */
+   Hero Section
+   ================================ */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -692,8 +698,8 @@ body #demo-reel .hero-content.hero-force-hidden {
 }
 
 /* ================================
-   Section Titles
-   ================================ */
+   Section Titles
+   ================================ */
 .section-title {
     font-family: 'Roboto Condensed', sans-serif;
     font-size: var(--font-size-3xl);
@@ -726,8 +732,8 @@ body #demo-reel .hero-content.hero-force-hidden {
 }
 
 /* ================================
-   About Section
-   ================================ */
+   About Section
+   ================================ */
 .about {
     padding: var(--spacing-xxl) 0;
     min-height: 100vh;
@@ -853,8 +859,8 @@ body #demo-reel .hero-content.hero-force-hidden {
 }
 
 /* ================================
-   Services Section
-   ================================ */
+   Services Section
+   ================================ */
 .services {
     padding: var(--spacing-xxl) 0;
     background-color: #000000;
@@ -1149,8 +1155,8 @@ body #demo-reel .hero-content.hero-force-hidden {
 }
 
 /* ================================
-   Partners Section
-   ================================ */
+   Partners Section
+   ================================ */
 .partners {
     padding: var(--spacing-xxl) 0;
     background-color: #000000;
@@ -1313,7 +1319,7 @@ body #demo-reel .hero-content.hero-force-hidden {
 
 
 /* Responsive Typography
-   ================================ */
+   ================================ */
 @media (max-width: 768px) {
     :root {
         --font-size-hero: clamp(2.5rem, 10vw, 4rem);
@@ -1329,8 +1335,8 @@ body #demo-reel .hero-content.hero-force-hidden {
 }
 
 /* ================================
-   Scroll Animations
-   ================================ */
+   Scroll Animations
+   ================================ */
 .fade-in {
     opacity: 0;
     transform: translateY(30px);
@@ -1343,8 +1349,8 @@ body #demo-reel .hero-content.hero-force-hidden {
 }
 
 /* ================================
-   Loading State
-   ================================ */
+   Loading State
+   ================================ */
 .loading {
     opacity: 0;
     transition: opacity 0.8s ease;
@@ -1356,8 +1362,8 @@ body:not(.loading) {
 }
 
 /* ================================
-   Workflow Section
-   ================================ */
+   Workflow Section
+   ================================ */
 .workflow-list {
     list-style: none;
     color: var(--color-text-light);
@@ -1370,8 +1376,8 @@ body:not(.loading) {
 }
 
 /* ================================
-   Contact Section
-   ================================ */
+   Contact Section
+   ================================ */
 .contact-container {
     display: flex;
     gap: 4rem;
@@ -1438,8 +1444,8 @@ body:not(.loading) {
 
 
 /* ================================
-   Project Detail Pages
-   ================================ */
+   Project Detail Pages
+   ================================ */
 .project-detail-page .navbar .nav-glass-container {
     justify-content: space-between;
 }
@@ -2452,8 +2458,8 @@ body:not(.loading) {
 }
 
 /* ================================
-   Project Detail Pages & Metadata
-   ================================ */
+   Project Detail Pages & Metadata
+   ================================ */
 .project-detail-page .navbar .nav-glass-container {
     justify-content: space-between;
 }
@@ -2652,8 +2658,8 @@ video.loaded {
 }
 
 /* ================================
-   Clients & Testimonials
-   ================================ */
+   Clients & Testimonials
+   ================================ */
 /* Premium Navigation STOP points */
 #projects-anchor,
 #illustration-visual-development,
@@ -2879,8 +2885,8 @@ video.loaded {
 }
 
 /* ================================
-   Skills Section
-   ================================ */
+   Skills Section
+   ================================ */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -2940,8 +2946,8 @@ video.loaded {
 }
 
 /* ================================
-   Back to Top Button
-   ================================ */
+   Back to Top Button
+   ================================ */
 .back-to-top-container {
     display: flex;
     justify-content: center;
@@ -3129,8 +3135,8 @@ video.loaded {
 }
 
 /* ================================
-   Fullscreen Cinematic Hero
-   ================================ */
+   Fullscreen Cinematic Hero
+   ================================ */
 .hero.hero-cinematic {
     padding: 0 !important;
     display: block !important;
@@ -3205,8 +3211,8 @@ video.loaded {
 /* Cleaned Header Logic Area */
 
 /* ================================
-   Unified Top Row Alignment
-   ================================ */
+   Unified Top Row Alignment
+   ================================ */
 :root {
     --nav-top-baseline: 60px;
     --grid-max-width: 1800px;
@@ -3271,8 +3277,8 @@ video.loaded {
 
 
 /* ==========================================================================
-   FINAL BRANDED HEADER SYSTEM (Restored Styles & Aligned)
-   ========================================================================== */
+   FINAL BRANDED HEADER SYSTEM (Restored Styles & Aligned)
+   ========================================================================== */
 
 .navbar.island-nav {
     position: fixed !important;
@@ -3989,8 +3995,8 @@ video.loaded {
 }
 
 /* ================================
-   Cinema Mode Button
-   ================================ */
+   Cinema Mode Button
+   ================================ */
 /* 1. HIDE the button from Desktop and Tablets (larger than 1024px) */
 @media screen and (min-width: 1025px) {
     .cinema-mode-btn {
@@ -4188,7 +4194,7 @@ video {
 }
 
 /* 2. Set Hero Video to 0 opacity initially (Preparing for JS fade-in)
-   EXCEPT for the homepage hero, which should be visible immediately */
+   EXCEPT for the homepage hero, which should be visible immediately */
 .global-bg-video,
 .hero-video-full-width video,
 .project-hero video {
@@ -4243,8 +4249,8 @@ video.video-ready {
 }
 
 /* ============================================================
-   Orc Warrior | Print - Cinematic Hero Mask
-   ============================================================ */
+   Orc Warrior | Print - Cinematic Hero Mask
+   ============================================================ */
 #orc-print-hero {
     /* The Transparency Mask (Fade-out bottom 25%) */
     -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
@@ -4264,8 +4270,8 @@ video.video-ready {
 }
 
 /* ============================================================
-   Skills Section - Complementary Skillset Note
-   ============================================================ */
+   Skills Section - Complementary Skillset Note
+   ============================================================ */
 .skills-complementary-note {
     font-style: italic;
     font-size: 0.95rem;
@@ -4367,9 +4373,9 @@ video.video-ready,
 
 
 /* ============================================================
-   UNIVERSAL LANDSCAPE LAYOUT (All Devices)
-   Matching Original Desktop Positioning (Left-Aligned)
-   ============================================================ */
+   UNIVERSAL LANDSCAPE LAYOUT (All Devices)
+   Matching Original Desktop Positioning (Left-Aligned)
+   ============================================================ */
 @media screen and (orientation: landscape) {
     .home-page .hero {
         position: relative !important;
@@ -4484,9 +4490,9 @@ video.video-ready,
 }
 
 /* ============================================================
-   UNIVERSAL PORTRAIT LAYOUT (All Devices)
-   Vertical & Horizontal Centering for Mobile & Tablet
-   ============================================================ */
+   UNIVERSAL PORTRAIT LAYOUT (All Devices)
+   Vertical & Horizontal Centering for Mobile & Tablet
+   ============================================================ */
 @media screen and (orientation: portrait) {
     .home-page .hero {
         display: flex !important;
@@ -4662,8 +4668,8 @@ video.video-ready,
 }
 
 /* ==========================================================================
-   Sound Toggle System: Dual Design (Circle Icon vs Rectangle Unmute)
-   ========================================================================== */
+   Sound Toggle System: Dual Design (Circle Icon vs Rectangle Unmute)
+   ========================================================================== */
 
 /* 1. Navbar sound button - Circle Icon Style (Standard) */
 .navbar .sound-toggle-btn .unmute-text {
@@ -4726,9 +4732,9 @@ screen and (orientation: portrait) {
 
 
 /* ============================================================
-   HARD-ALIGNMENT FIX (Narrow Portrait Viewports < 400px)
-   Final unification to match Cinematic Section (Screenshot 1)
-   ============================================================ */
+   HARD-ALIGNMENT FIX (Narrow Portrait Viewports < 400px)
+   Final unification to match Cinematic Section (Screenshot 1)
+   ============================================================ */
 @media screen and (max-width: 400px) and (orientation: portrait) {
 
     /* 1. Prevent root overflow and lock viewport */
@@ -5195,4 +5201,462 @@ screen and (width: 360px) and (height: 740px) and (orientation: portrait) {
         gap: 12px !important;
         width: 100% !important;
     }
+}
+
+/* --- Menu Mobile avec Vidéo (Portrait Uniquement) --- */
+@media screen and (orientation: portrait) {
+
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: none !important;
+        /* Supprime le fond noir */
+        z-index: 2000;
+        display: none;
+        /* Sera géré par ton JS (main.js) */
+        overflow: hidden;
+    }
+
+    .menu-bg-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Remplit l'écran sans déformer */
+        transform: translate(-50%, -50%);
+        z-index: -2;
+    }
+
+    .menu-video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        /* Voile pour rendre le texte lisible */
+        z-index: -1;
+    }
+
+    .menu-content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .menu-content a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.8rem;
+        letter-spacing: 0.3em;
+        /* Ton style cinématique */
+        text-transform: uppercase;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+}
+
+/* --- Correction Spécifique Nest Hub & Ecrans Larges Tactiles --- */
+@media screen and (max-width: 1280px) {
+
+    /* On s'assure que l'overlay est au-dessus de TOUT */
+    .menu-overlay {
+        z-index: 9999 !important;
+    }
+
+    /* On force le contenu du menu à être visible et au premier plan */
+    .menu-content {
+        position: relative !important;
+        z-index: 10000 !important;
+        display: flex !important;
+        /* Force l'affichage en colonne */
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* On s'assure que les liens ne sont pas masqués */
+    .mobile-link {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        /* Rend les liens cliquables */
+    }
+
+    /* On s'assure que le voile noir n'est pas devant le texte */
+    .menu-video-overlay {
+        z-index: -1 !important;
+    }
+
+    /* La vidéo doit rester tout au fond */
+    .menu-bg-video {
+        z-index: -2 !important;
+    }
+}
+
+/* 1. On s'assure que l'overlay du menu ne prend AUCUNE place dans le flux normal */
+.menu-overlay {
+    position: fixed !important;
+    /* Fixé par rapport à l'écran, pas à la page */
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 99999 !important;
+    /* Toujours au-dessus du Hero */
+    display: none;
+    /* Piloté par le JS */
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 2. On verrouille la vidéo de fond du menu pour qu'elle ne décale rien */
+.menu-bg-video {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: cover !important;
+    z-index: -1 !important;
+}
+
+/* 3. CRITIQUE : On force le Hero à reprendre sa place tout en haut */
+.home-page .hero {
+    position: relative !important;
+    margin-top: 0 !important;
+    top: 0 !important;
+    display: flex !important;
+    height: 100vh !important;
+    z-index: 5 !important;
+    /* Inférieur au menu, mais propre */
+}
+
+/* --- Force le Menu Mobile à rester en colonne centrée, même en paysage --- */
+@media screen and (max-width: 1280px) {
+
+    /* On verrouille l'overlay en plein écran total */
+    .menu-overlay {
+        display: none;
+        /* Piloté par JS */
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 99999 !important;
+        overflow: hidden !important;
+    }
+
+    /* On force le contenu à rester une colonne centrée (comme en portrait) */
+    .menu-content {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        height: 100% !important;
+        width: 100% !important;
+        gap: clamp(10px, 3vh, 25px) !important;
+        /* Espace adaptatif entre les liens */
+        padding: 20px !important;
+    }
+
+    /* On uniformise les liens pour tous les modes */
+    .menu-content a {
+        text-align: center !important;
+        width: auto !important;
+        display: block !important;
+        /* Tailles intelligentes pour iPhone vs iPad/Nest Hub */
+        font-size: clamp(1.1rem, 4vw, 2.2rem) !important;
+        letter-spacing: 0.35em !important;
+        margin: 0 !important;
+    }
+}
+
+/* Ajustement spécifique pour le mode Paysage (Landscape) */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+
+    /* Sur les téléphones très bas en paysage, on réduit un peu l'écart pour que tout rentre */
+    .menu-content {
+        gap: 8px !important;
+    }
+
+    .menu-content a {
+        font-size: 1rem !important;
+        letter-spacing: 0.25em !important;
+    }
+}
+
+/* --- Correction Spécifique iPad Pro, Surface Pro & Zenbook (Landscape) --- */
+@media screen and (min-width: 1025px) and (orientation: landscape) {
+
+    /* On force l'overlay mobile à s'appliquer même sur ces résolutions élevées */
+    /* Condition : seulement si le menu est ouvert (géré par ton JS) */
+    .menu-overlay {
+        display: none;
+        /* Reste caché par défaut */
+        position: fixed !important;
+        inset: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: black !important;
+        /* Sécurité */
+        z-index: 999999 !important;
+    }
+
+    /* Force le layout vertical type "Portrait" sur ces grands écrans */
+    .menu-content {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        height: 100% !important;
+        gap: 4vh !important;
+        /* Espacement aéré pour grands écrans */
+    }
+
+    .menu-content a {
+        font-size: 2.5rem !important;
+        /* On profite de la taille de l'écran Pro */
+        letter-spacing: 0.4em !important;
+        opacity: 0.9;
+        transition: all 0.3s ease;
+    }
+}
+
+/* ============================================================
+   FIX DÉFINITIF MENU MOBILE (PAGE ABOUT)
+   ============================================================ */
+
+/* On force le menu à être un calque plein écran par-dessus tout */
+.about-page #mobile-menu.menu-content-mobile {
+    display: none;
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.98) !important;
+    /* Fond noir profond */
+    z-index: 9999999 !important;
+
+    /* Centrage mathématique parfait */
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* On force l'affichage quand la classe .active est ajoutée par le JS */
+.about-page #mobile-menu.active {
+    display: flex !important;
+}
+
+.about-page .mobile-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.2rem !important;
+    /* Espacement standard entre les mots */
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.about-page .mobile-link {
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-size: 1.1rem !important;
+    /* Taille fine et élégante */
+    font-weight: 700 !important;
+    letter-spacing: 0.25em !important;
+    color: #FFFFFF !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    padding: 10px 0 !important;
+    display: block !important;
+}
+
+.about-page .mobile-link:active {
+    color: #FF9500 !important;
+}
+
+/* Force l'affichage du bouton retour sur la page About */
+.about-page .return-btn-container {
+    display: flex !important;
+    visibility: visible !important;
+}
+
+.about-page .return-btn {
+    display: flex !important;
+    visibility: visible !important;
+}
+
+/* Ajustement précis du bouton retour mobile sur la page About */
+@media (max-width: 1024px) {
+
+    /* Le bouton circulaire lui-même */
+    .about-page .return-btn {
+        width: 38px !important;
+        height: 38px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+
+        /* On garde le centrage principal... */
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+
+        /* ...mais on enlève le centrage horizontal strict de flex pour le décaler */
+        font-size: 0 !important;
+        /* Cache le texte */
+    }
+
+    .about-page .return-btn span {
+        display: none !important;
+    }
+
+    /* L'icône SVG à l'intérieur */
+    .about-page .return-btn svg {
+        margin: 0 !important;
+        width: 19px !important;
+        /* Taille légèrement ajustée pour plus de finesse */
+        height: 19px !important;
+
+        /* LE RÉGLAGE CLÉ : Décale l'icône vers la gauche */
+        transform: translateX(-1px) !important;
+
+        /* Couleur orange pour la cohérence */
+        color: #FF9500 !important;
+    }
+}
+
+/* FORCE LE DÉCALAGE DE LA FLÈCHE - VERSION ULTIME */
+@media (max-width: 1024px) {
+    .about-page .return-btn {
+        width: 38px !important;
+        height: 38px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        background-color: rgba(38, 38, 38, 0.9) !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .about-page .return-btn svg {
+        width: 18px !important;
+        height: 18px !important;
+        color: #FF9500 !important;
+
+        /* On utilise une marge négative pour forcer le décalage à gauche */
+        margin-left: -4px !important;
+        margin-right: 4px !important;
+
+        /* On neutralise tout le reste */
+        transform: none !important;
+        position: relative !important;
+        left: 0 !important;
+    }
+
+    .about-page .return-btn span {
+        display: none !important;
+    }
+}
+
+/* ============================================================
+   FORÇAGE MENU MOBILE : GLOW FOGGY & SCALE (VERSION ULTIME)
+   ============================================================ */
+
+/* On définit l'animation de brume orange */
+@keyframes foggyGlowMobile {
+    0% {
+        transform: scale(1);
+        color: #FFFFFF;
+        text-shadow: none;
+    }
+
+    50% {
+        transform: scale(1.25);
+        /* Grossissement massif */
+        color: #FF9500;
+        text-shadow:
+            0 0 10px #FF9500,
+            0 0 30px #FF9500,
+            0 0 60px rgba(255, 149, 0, 0.8),
+            0 0 100px rgba(255, 149, 0, 0.4);
+    }
+
+    100% {
+        transform: scale(1.2);
+        color: #FF9500;
+        text-shadow: 0 0 20px #FF9500;
+    }
+}
+
+/* On applique l'effet sur TOUS les liens du menu mobile de la page About */
+.about-page #mobile-menu .mobile-nav .mobile-link {
+    display: block !important;
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-size: 1.2rem !important;
+    color: #FFFFFF !important;
+    text-transform: uppercase !important;
+    padding: 15px 0 !important;
+    transition: all 0.3s ease !important;
+    -webkit-tap-highlight-color: transparent !important;
+    /* Supprime le voile gris d'iOS */
+}
+
+/* AU SURVOL (Ordinateur / Tablette) */
+.about-page #mobile-menu .mobile-nav .mobile-link:hover {
+    color: #FF9500 !important;
+    transform: scale(1.1) !important;
+    text-shadow: 0 0 20px rgba(255, 149, 0, 0.8) !important;
+}
+
+/* AU CLIC (Mobile / Doigt) - On force l'animation */
+.about-page #mobile-menu .mobile-nav .mobile-link:active {
+    animation: foggyGlowMobile 0.5s forwards !important;
+    -webkit-animation: foggyGlowMobile 0.5s forwards !important;
+}
+
+/* ============================================================
+   MENU MOBILE PORTRAIT : GLOW FOGGY & ZOOM (FORCE MAX)
+   ============================================================ */
+
+/* On cible très précisément pour passer au-dessus de tout le reste */
+.about-page #mobile-menu .mobile-nav .mobile-link {
+    display: block !important;
+    font-family: 'Roboto Condensed', sans-serif !important;
+    font-size: 1.2rem !important;
+    color: #FFFFFF !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    text-decoration: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    /* Supprime le carré gris iOS */
+}
+
+/* L'EFFET AU SURVOL (Mouse Hover) ET AU CLIC (Touch Active) */
+.about-page #mobile-menu .mobile-nav .mobile-link:hover,
+.about-page #mobile-menu .mobile-nav .mobile-link:active {
+    color: #FF9500 !important;
+
+    /* 1. LE ZOOM : On passe à 1.25x la taille */
+    transform: scale(1.25) !important;
+
+    /* 2. LE DROP SHADOW (La brume foggy orange) */
+    /* On utilise filter: drop-shadow pour une diffusion plus "baveuse" et organique */
+    filter: drop-shadow(0 0 10px #FF9500) drop-shadow(0 0 30px rgba(255, 149, 0, 0.8)) drop-shadow(0 0 60px rgba(255, 149, 0, 0.4)) !important;
+
+    /* 3. LE TEXT SHADOW (Pour que les lettres elles-mêmes brillent) */
+    text-shadow: 0 0 10px #FF9500 !important;
 }

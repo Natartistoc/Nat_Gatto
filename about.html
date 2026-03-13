@@ -8,15 +8,46 @@
     <link rel="icon" type="image/png" href="images/favicon.png">
     <meta name="description" content="About Nat Gatto, Senior 3D Artist & Art Director.">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Roboto+Condensed:wght@300;400;700&display=swap"
         rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css?v=15.0">
+
+    <style>
+        /* 1. État normal du bouton Return */
+        .return-btn {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            color: white !important;
+            text-decoration: none !important;
+        }
+
+        /* 2. L'EFFET ORANGE FOGGY AU SURVOL (MOUSE HOVER) */
+        .return-btn:hover {
+            color: #FF9500 !important;
+            /* Texte en Orange */
+            transform: scale(1.05) !important;
+            /* Grossit légèrement */
+
+            /* L'EFFET DE BRUME (Le Foggy Glow) */
+            /* On utilise filter pour que l'aura bave autour de l'icône ET du texte */
+            filter: drop-shadow(0 0 8px #FF9500) drop-shadow(0 0 20px rgba(255, 149, 0, 0.8)) !important;
+        }
+
+        /* Fait briller la flèche SVG en orange au survol */
+        .return-btn:hover svg {
+            stroke: #FF9500 !important;
+        }
+
+        /* Fait briller le texte avec un halo interne */
+        .return-btn:hover span {
+            text-shadow: 0 0 10px #FF9500 !important;
+        }
+    </style>
 </head>
 
 <body id="top" class="about-page">
@@ -29,25 +60,29 @@
 
     <nav class="navbar island-nav">
         <div class="container">
-            <div class="sound-control-container">
-                <button class="sound-toggle-btn" aria-label="Toggle Sound">
-                    <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
-                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
+            <div class="return-btn-container">
+                <a href="index.html" class="return-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
                     </svg>
-                    <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                        <line x1="23" y1="9" x2="17" y2="15"></line>
-                        <line x1="17" y1="9" x2="23" y2="15"></line>
-                    </svg>
-                </button>
+                    <span>Return to Portfolio</span>
+                </a>
+
+                <div class="sound-control-container">
+                    <button class="sound-toggle-btn" aria-label="Toggle Sound">
+                        <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
+
             <a href="index.html" class="logo">
                 <img src="images/logo.png" alt="Nat Gatto Logo">
             </a>
+
             <div class="island-links">
                 <a href="index.html#demo-reel">DEMO REEL</a>
                 <a href="index.html#cinematic">SELECTED WORKS</a>
@@ -56,16 +91,13 @@
                 <a href="about.html">ABOUT</a>
                 <a href="index.html#contact">CONTACT</a>
             </div>
+
             <div class="island-cta">
                 <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank"
-                    class="btn-primary">Happy to chat on WhatsApp</a>
+                    class="btn-primary">Happy to chat</a>
             </div>
-            <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                <span></span><span></span><span></span>
-            </button>
         </div>
     </nav>
-
     <!-- Navigation Overlay -->
 
 

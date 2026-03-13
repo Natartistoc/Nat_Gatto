@@ -19,6 +19,35 @@
     <!--Styles-->
     <link rel="stylesheet" href="css/style.css?v=141.0">
     <script src="https://player.vimeo.com/api/player.js"></script>
+    <style>
+        /* 1. On prépare les liens du menu mobile */
+        #mobile-menu .mobile-link,
+        .menu-content .mobile-link {
+            color: #FFFFFF !important;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+            display: block !important;
+            text-decoration: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        /* 2. L'EFFET ORANGE + GLOW (Hover & Active) */
+        #mobile-menu .mobile-link:hover,
+        #mobile-menu .mobile-link:active,
+        .menu-content .mobile-link:hover,
+        .menu-content .mobile-link:active {
+            color: #FF9500 !important;
+            /* Orange Nat Gatto */
+            transform: scale(1.25) !important;
+            /* Zoom */
+
+            /* L'EFFET FOGGY (Brume) */
+            /* On combine text-shadow pour les lettres et filter pour la brume diffuse */
+            text-shadow: 0 0 10px #FF9500, 0 0 20px #FF9500 !important;
+            filter: drop-shadow(0 0 15px #FF9500) drop-shadow(0 0 40px rgba(255, 149, 0, 0.6)) !important;
+
+            letter-spacing: 0.1em;
+        }
+    </style>
 </head>
 
 <body id="top" class="home-page">
@@ -76,7 +105,22 @@
     </nav>
 
     <!-- Navigation Overlay -->
+    <div id="mobile-menu" class="menu-overlay">
+        <video autoplay muted loop playsinline class="menu-bg-video">
+            <source src="https://nat-gatto-demo.b-cdn.net/1.mp4" type="video/mp4">
+        </video>
 
+        <div class="menu-video-overlay"></div>
+
+        <div class="menu-content">
+            <a href="#demo-reel" class="mobile-link">DEMO REEL</a>
+            <a href="#cinematic" class="mobile-link">SELECTED WORKS</a>
+            <a href="#illustration-visual-development" class="mobile-link">ILLUSTRATION</a>
+            <a href="#clients" class="mobile-link">CLIENTS</a>
+            <a href="about.html" class="mobile-link">ABOUT</a>
+            <a href="#contact" class="mobile-link">CONTACT</a>
+        </div>
+    </div>
 
 
 
@@ -88,16 +132,19 @@
                 src="https://player.vimeo.com/video/1171925181?autoplay=1&loop=1&muted=1&quality=1080p&api=1&playsinline=1&background=1"
                 frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
                 title="Hero Video"></iframe>
-        <!-- Premium Glassmorphism Cinema Mode Button -->
-        <button class="cinema-mode-btn glass-pill" aria-label="Enter Cinema Mode">
-            <div class="glass-pill-bg"></div>
-            <div class="glass-pill-content">
-                <svg class="cinema-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                </svg>
-                <span class="cinema-text">Cinema</span>
-            </div>
-        </button>
+            <!-- Premium Glassmorphism Cinema Mode Button -->
+            <button class="cinema-mode-btn glass-pill" aria-label="Enter Cinema Mode">
+                <div class="glass-pill-bg"></div>
+                <div class="glass-pill-content">
+                    <svg class="cinema-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                        </path>
+                    </svg>
+                    <span class="cinema-text">Cinema</span>
+                </div>
+            </button>
         </div>
 
         <div class="hero-overlay"></div>

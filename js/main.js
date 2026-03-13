@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initVideoPreviews();
     initCinemaMode();
     forcePlayAllVideos(); // Renamed and improved from forcePlayGlobalVideo
-    
+
     // Now totally independent of GSAP
     console.log("🚀 Starting Hero Logic...");
     initHeroAnimations();
@@ -105,7 +105,7 @@ function initHeroAnimations() {
     const player = new Vimeo.Player(vimeoIframe);
     const titleElements = heroContent ? Array.from(heroContent.querySelectorAll('.cinematic-title, .cinematic-subtitle, .hero-subtitle')) : [];
     const allHeroElements = [...titleElements, ...Array.from(ctaElements), cinemaBtn].filter(Boolean);
-    
+
     // Initialize elements to be hidden immediately
     allHeroElements.forEach(el => {
         el.style.setProperty('transition', 'opacity 1s ease, visibility 1s ease', 'important');
@@ -138,7 +138,7 @@ function initHeroAnimations() {
         setInterval(() => {
             player.getCurrentTime().then(time => {
                 isApiResponding = true; // API works
-                
+
                 let newPhase = 'none';
                 if (time >= 10 && time <= 18) {
                     newPhase = 'all';
@@ -147,7 +147,7 @@ function initHeroAnimations() {
                 // Apply changes on transition
                 if (newPhase !== lastPhase) {
                     lastPhase = newPhase;
-                    
+
                     if (newPhase === 'all') {
                         allHeroElements.forEach(el => {
                             el.style.setProperty('opacity', '1', 'important');
@@ -166,9 +166,9 @@ function initHeroAnimations() {
                         });
                     }
                 }
-            }).catch(() => {});
+            }).catch(() => { });
         }, 250);
-    }).catch(() => {});
+    }).catch(() => { });
 }
 
 // ================================
@@ -320,30 +320,65 @@ function initSmoothScroll() {
     });
 }
 
-// ================================
-// Mobile Menu Toggle
-// ================================
+// ============================================================
+// Mobile Menu Toggle (Version Multi-Pages & Vidéo Fix)
+// ============================================================
 function initMobileMenu() {
     const menuToggle = document.querySelector('.mobile-menu-toggle');
-    const islandLinks = document.querySelector('.island-links');
+    // On cherche l'overlay soit par son ID, soit par sa classe (pour About)
+    const menuOverlay = document.getElementById('mobile-menu') || document.querySelector('.menu-content');
+    const menuLinks = document.querySelectorAll('.mobile-link');
 
-    if (menuToggle && islandLinks) {
+    if (menuToggle && menuOverlay) {
         menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            islandLinks.classList.toggle('active');
+            const isActive = menuToggle.classList.toggle('active');
 
-            // Note: Hamburger animation handled in CSS via .active state
+            if (isActive) {
+                // Ouverture
+                menuOverlay.style.display = 'block';
+                document.body.classList.add('mobile-menu-active'); // Pour le CSS Glow
+                setTimeout(() => {
+                    menuOverlay.style.opacity = '1';
+                }, 10);
+                document.body.style.overflow = 'hidden';
+                menuOverlay.style.zIndex = "1000000"; // Passe devant la vidéo 1.mp4
+            } else {
+                // Fermeture
+                menuOverlay.style.opacity = '0';
+                document.body.classList.remove('mobile-menu-active');
+                setTimeout(() => {
+                    menuOverlay.style.display = 'none';
+                }, 400);
+                document.body.style.overflow = '';
+            }
         });
 
-        const links = islandLinks.querySelectorAll('a');
-        links.forEach(link => {
+        // Fermeture automatique quand on clique sur un lien
+        menuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('active');
-                islandLinks.classList.remove('active');
+                menuOverlay.style.opacity = '0';
+                document.body.classList.remove('mobile-menu-active');
+                setTimeout(() => {
+                    menuOverlay.style.display = 'none';
+                }, 400);
+                document.body.style.overflow = '';
             });
         });
     }
 }
+
+// Fermer automatiquement le menu au clic sur un lien
+menuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        menuOverlay.style.opacity = '0';
+        setTimeout(() => {
+            menuOverlay.style.display = 'none';
+        }, 400);
+        document.body.style.overflow = '';
+    });
+});
 
 
 
