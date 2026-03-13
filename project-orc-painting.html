@@ -13,10 +13,72 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=30.0">
-    <!-- CSS Optimized for Hero and Responsiveness -->
+
     <style>
-        .project-hero-full-width img {
-            transition: transform 0.8s ease-out;
+        /* --- 1. BARRE DE NAVIGATION ET BOUTON RETOUR --- */
+        .return-btn {
+            display: flex !important;
+            align-items: center !important;
+            color: #ff7b00 !important;
+            /* Couleur orange */
+            text-decoration: none !important;
+            gap: 10px;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+
+        .return-btn:hover {
+            transform: translateX(-5px);
+        }
+
+        /* --- 2. EFFET DE FONDU IMAGE HERO --- */
+        .hero-smooth-mask {
+            -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%) !important;
+            mask-image: linear-gradient(to bottom, black 75%, transparent 100%) !important;
+        }
+
+        /* --- 3. BARRE ORANGE (CENTRAGE FORCÉ) --- */
+        .premium-divider {
+            display: block !important;
+            width: 100% !important;
+            max-width: 1000px !important;
+            height: 1px !important;
+            margin: 40px auto 60px auto !important;
+            /* Centrage automatique */
+            background: linear-gradient(90deg, transparent, #ff7b00, transparent) !important;
+            border: none !important;
+        }
+
+        /* --- 4. CADRE ET IMAGES DE PROCESS (COINS ARRONDIS) --- */
+        .drawing-sequence {
+            position: relative !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 auto !important;
+            aspect-ratio: 16/9;
+            border-radius: 40x !important;
+            /* Angles arrondis du cadre */
+            overflow: hidden !important;
+            /* Coupe l'image pour épouser les coins */
+            background: #000;
+            left: 0 !important;
+        }
+
+        .drawing-sequence img {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            border-radius: 40px !important;
+            /* Angles arrondis de l'image */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .drawing-sequence img.active {
+            opacity: 1 !important;
         }
 
         @media (max-width: 768px) {
@@ -29,14 +91,10 @@
             }
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
 </head>
 
-<body id="top" class="project-detail-no-navbar">
+<body id="top" class="project-detail">
     <video class="global-bg-video" autoplay loop muted playsinline>
-        <source src="https://nat-gatto-demo.b-cdn.net/1-tablet.mp4" type="video/mp4" media="(max-width: 1024px)">
         <source src="https://nat-gatto-demo.b-cdn.net/1.mp4?v=1.0" type="video/mp4">
     </video>
     <div class="global-overlay"></div>
@@ -44,24 +102,8 @@
     <nav class="navbar island-nav">
         <div class="container">
             <div class="return-btn-container">
-                <div class="sound-control-container">
-                    <button class="sound-toggle-btn" aria-label="Toggle Sound">
-                        <svg class="unmute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" class="sound-wave"></path>
-                            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-wave"></path>
-                        </svg>
-                        <svg class="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-                            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                            <line x1="23" y1="9" x2="17" y2="15"></line>
-                            <line x1="17" y1="9" x2="23" y2="15"></line>
-                        </svg>
-                    </button>
-                </div>
                 <a href="index.html#projects" class="return-btn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff7b00" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12"></line>
                         <polyline points="12 19 5 12 12 5"></polyline>
@@ -69,131 +111,57 @@
                     Return to Portfolio
                 </a>
             </div>
-            <div class="island-cta">
-                <a href="https://api.whatsapp.com/send?l=fr&phone=0033665151439" target="_blank"
-                    class="btn-primary">Happy to chat on WhatsApp</a>
-            </div>
         </div>
     </nav>
 
-    <!-- Navigation Overlay -->
-
-
-    <!-- Navigation Overlay -->
-
-
-
-    <!--ReturnButton-->
-
-
-    <!--Logotopright-->
     <section class="project-hero-full-width hero-smooth-mask"
-        style="height: 100vh; width: 100%; position: relative; overflow: hidden; background: transparent;">
+        style="height: 100vh; position: relative; overflow: hidden;">
         <img src="https://nat-gatto-demo.b-cdn.net/images/projects/orcpainting/orcpainting-render14.webp"
-            alt="Orc Warrior | Painting Final Render" style="width: 100%; height: 100%; object-fit: cover;">
+            alt="Orc Warrior" style="width: 100%; height: 100%; object-fit: cover;">
     </section>
 
-    <!-- Project Header -->
-    <section class="project-header" style="padding: 60px 0 20px; text-align: center; position: relative; z-index: 5;">
+    <section class="project-header" style="padding: 60px 0 20px; text-align: center;">
         <div class="container">
-            <h2 class="section-title"
-                style="margin-bottom: 15px; letter-spacing: 0.12em; font-size: 3.2rem; font-family: 'Roboto Condensed', sans-serif;">
-                Orc Warrior | Painting</h2>
-            <p class="project-subtitle"
-                style="color:var(--accent-orange, #ff7b00); font-family: 'Roboto Condensed', sans-serif; font-size: 1.4rem; font-weight: 500; line-height: 1.4; max-width: 1100px; margin: 0 auto; letter-spacing: 0.05em; text-transform: uppercase;">
-                Visual Development &bull; Digital Painting &bull; Concept Illustration
-            </p>
+            <h2 class="section-title">Orc Warrior | Painting</h2>
+            <p class="project-subtitle">Visual Development &bull; Concept Illustration</p>
         </div>
     </section>
 
-    <div class="premium-divider" style="margin-top: 40px; margin-bottom: 60px;"></div>
+    <div class="premium-divider"></div>
 
     <section class="project-content">
-        <div class="drawing-sequence">
-            <img src="images/projects/orcpainting/orcpainting-render01.jpg" alt="Drawing Process 1">
-            <img src="images/projects/orcpainting/orcpainting-render02.jpg" alt="Drawing Process 2">
-            <img src="images/projects/orcpainting/orcpainting-render03.jpg" alt="Drawing Process 3">
-            <img src="images/projects/orcpainting/orcpainting-render04.jpg" alt="Drawing Process 4">
-            <img src="images/projects/orcpainting/orcpainting-render05.jpg" alt="Drawing Process 5">
-            <img src="images/projects/orcpainting/orcpainting-render06.jpg" alt="Drawing Process 6">
-            <img src="images/projects/orcpainting/orcpainting-render07.jpg" alt="Drawing Process 7">
-            <img src="images/projects/orcpainting/orcpainting-render08.jpg" alt="Drawing Process 8">
-            <img src="images/projects/orcpainting/orcpainting-render09.jpg" alt="Drawing Process 9">
-            <img src="images/projects/orcpainting/orcpainting-render10.jpg" alt="Drawing Process 10">
-            <img src="images/projects/orcpainting/orcpainting-render11.jpg" alt="Drawing Process 11">
-            <img src="images/projects/orcpainting/orcpainting-render12.jpg" alt="Drawing Process 12">
-            <img src="images/projects/orcpainting/orcpainting-render13.jpg" alt="Orc Warrior | Painting Final Render">
-        </div>
-    </section>
-
-    <!--ProjectDescription-->
-    <section class="project-info" style="padding-top: 0; margin-top: -60px;">
         <div class="container">
-            <div class="project-grid"
-                style="display: grid; grid-template-columns: 1.8fr 1fr; gap: 60px; align-items: start;">
-                <div class="project-description reveal-item">
-                    <h2 class="section-title">The Project</h2>
-                    <p style="color: rgba(255, 255, 255, 0.75);">This project showcases the digital painting and visual
-                        development phase of the Orc Warrior. The focus was on capturing the raw power and character
-                        essence through dynamic brushwork, material rendering, and strong silhouette design. The
-                        transition from 2D concept to final 3D production started here, establishing the visual language
-                        and anatomy that would later be translated into sculpting and texturing.</p>
-                </div>
-                <div class="project-meta glass-card reveal-item"
-                    style="border-color: rgba(255, 123, 0, 0.15); box-shadow: 0 30px 60px rgba(0,0,0,0.5); height:100%; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:40px; border-radius: 20px;">
-                    <div class="meta-item" style="text-align:left; width:100%; margin-bottom: 25px;">
-                        <span class="meta-label" style="display:block; margin-bottom:10px;">Role:</span>
-                        <span class="meta-value">Concept Artist &bull; Illustrator</span>
-                    </div>
-                    <div class="meta-item" style="text-align:left; width:100%;">
-                        <span class="meta-label" style="display:block; margin-bottom:15px;">Software:</span>
-                        <div class="software-meta"
-                            style="display:flex; gap:15px; flex-wrap:wrap; justify-content:flex-start;">
-                            <div class="software-icon" title="Adobe Photoshop">
-                                <img src="images/software/Ps-icon.png" alt="Format-Photoshop">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="drawing-sequence">
+                <img src="images/projects/orcpainting/orcpainting-render01.jpg" class="active">
+                <img src="images/projects/orcpainting/orcpainting-render02.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render03.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render04.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render05.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render06.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render07.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render08.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render09.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render10.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render11.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render12.jpg">
+                <img src="images/projects/orcpainting/orcpainting-render13.jpg">
             </div>
         </div>
     </section>
-    <footer class="footer">
-        <div class="container footer-row-master">
-            <div class="footer-copyright">
-                <p>&copy; 2026 Nat Gatto. All rights reserved.</p>
-            </div>
 
-            <div class="back-to-top-container" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <div class="island-logo footer-logo-corner">
-                    <img src="images/logo.png" alt="Nat Gatto Logo">
-                </div>
-                <span class="back-to-top-label">Back to Top</span>
-            </div>
-        </div>
-    </footer>
-    <script src="js/main.js?v=25.0"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            if (typeof gsap !== 'undefined') {
-                gsap.registerPlugin(ScrollTrigger);
-                gsap.timeline({ defaults: { ease: "power4.out", duration: 1.2 } })
-                    .from('.project-hero-full-width img', { scale: 1.1, filter: 'blur(5px)', duration: 2.5 })
-                    .from('.project-header', { opacity: 0, y: 30 }, "-=1.8");
-
-                gsap.utils.toArray('.reveal-item').forEach((item) => {
-                    gsap.from(item, {
-                        scrollTrigger: { trigger: item, start: "top 90%" },
-                        opacity: 0,
-                        y: 30,
-                        duration: 1,
-                        ease: "power3.out"
-                    });
-                });
+            const images = document.querySelectorAll('.drawing-sequence img');
+            let currentIndex = 0;
+            if (images.length > 0) {
+                setInterval(() => {
+                    images[currentIndex].classList.remove('active');
+                    currentIndex = (currentIndex + 1) % images.length;
+                    images[currentIndex].classList.add('active');
+                }, 2000);
             }
         });
     </script>
 </body>
 
 </html>
-

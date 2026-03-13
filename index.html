@@ -47,6 +47,40 @@
 
             letter-spacing: 0.1em;
         }
+
+        /* --- 2. VIDEO HERO (Correction Finale Mobile) --- */
+        @media (max-width: 768px) or (orientation: portrait) {
+
+            /* On force le conteneur à garder une taille stable pour ne pas pousser le texte */
+            .hero-video-container {
+                position: relative;
+                width: 100%;
+                height: 56.25vw;
+                /* Ratio 16:9 pour que l'Orc ne soit pas déformé */
+                overflow: visible !important;
+                margin-bottom: 20px;
+            }
+
+            /* On applique le masque de transparence UNIQUEMENT sur la vidéo Vimeo */
+            /* L'ID #hero-vimeo-player est celui que tu as déjà dans ton HTML */
+            #hero-vimeo-player {
+                -webkit-mask-image: linear-gradient(to bottom,
+                        rgba(0, 0, 0, 1) 50%,
+                        /* <--- MODIFIE CE % POUR L'INTENSITÉ */
+                        rgba(0, 0, 0, 0) 100%);
+                mask-image: linear-gradient(to bottom,
+                        rgba(0, 0, 0, 1) 90%,
+                        rgba(0, 0, 0, 0) 100%);
+            }
+
+            /* On s'assure que ton texte "NAT GATTO" reste bien visible et à sa place */
+            .hero-content,
+            .hero-text-container {
+                position: relative;
+                z-index: 10;
+                margin-top: 0;
+            }
+        }
     </style>
 </head>
 
