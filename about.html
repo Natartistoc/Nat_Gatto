@@ -47,10 +47,27 @@
         .return-btn:hover span {
             text-shadow: 0 0 10px #FF9500 !important;
         }
+
+        /* --- AJOUTE CECI À LA SUITE --- */
+
+        /* Force l'affichage correct des chiffres pour l'animation */
+        .counter {
+            display: inline-block !important;
+            min-width: 1ch;
+            /* Réserve l'espace pour éviter les sauts de texte */
+            font-variant-numeric: tabular-nums;
+            /* Aligne bien les chiffres */
+        }
+
+        /* Optionnel : petite transition fluide quand le chiffre change */
+        .meta-value {
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 
 <body id="top" class="about-page">
+    <div class="reading-progress-bar"></div>
     <!-- Global Background Video & Overlay -->
     <video class="global-bg-video" autoplay loop muted playsinline>
         <source src="https://nat-gatto-demo.b-cdn.net/1-tablet.mp4?v=1.0" type="video/mp4" media="(max-width: 1024px)">
@@ -123,6 +140,26 @@
                         (3D printing, prototyping, molding, manufacturing).</p>
                     <p>I focus on delivering visually strong, readable and emotionally engaging visuals, and I am
                         currently open to remote or in-house Senior 3D Artist opportunities.</p>
+
+                    <div class="about-socials">
+                        <p>FOLLOW MY WORK:</p>
+
+                        <div class="social-icons-row">
+                            <a href="https://www.artstation.com/natgatto" target="_blank" rel="noopener"><img
+                                    src="https://nat-gatto-demo.b-cdn.net/images/software/Artstation-icon.webp"
+                                    alt="Artstation"></a>
+                            <a href="https://www.instagram.com/natgatto.com_creative.digital" target="_blank"
+                                rel="noopener"><img src="https://nat-gatto-demo.b-cdn.net/images/software/Insta.webp"
+                                    alt="Instagram"></a>
+                            <a href="https://www.linkedin.com/in/nathaliegatto" target="_blank" rel="noopener"><img
+                                    src="https://nat-gatto-demo.b-cdn.net/images/software/Linkedin.webp"
+                                    alt="LinkedIn"></a>
+                        </div>
+
+                        <a href="images/CV_NatGatto_Senior-3D-Artist.pdf" class="btn-cv-pill" download>
+                            Download CV
+                        </a>
+                    </div>
                 </div>
 
                 <div class="about-meta-sidebar glass-card">
@@ -156,8 +193,8 @@
             </div>
         </div>
     </footer>
-
-    <script src="js/main.js?v=15.0"></script>
+    <script src="js/main.js?v=99.0"></script>
+</body>
 </body>
 
 </html>

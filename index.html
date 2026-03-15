@@ -20,31 +20,26 @@
     <link rel="stylesheet" href="css/style.css?v=141.0">
     <script src="https://player.vimeo.com/api/player.js"></script>
     <style>
-        /* 1. On prépare les liens du menu mobile */
+        /* 1. ÉTAT PAR DÉFAUT : TOUT EN BLANC (Correction) */
         #mobile-menu .mobile-link,
         .menu-content .mobile-link {
             color: #FFFFFF !important;
+            text-shadow: none !important;
+            filter: none !important;
+            transform: scale(1) !important;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
             display: block !important;
             text-decoration: none !important;
             -webkit-tap-highlight-color: transparent !important;
         }
 
-        /* 2. L'EFFET ORANGE + GLOW (Hover & Active) */
+        /* 2. ÉTAT AU SURVOL : ORANGE + GLOW */
         #mobile-menu .mobile-link:hover,
-        #mobile-menu .mobile-link:active,
-        .menu-content .mobile-link:hover,
-        .menu-content .mobile-link:active {
+        .menu-content .mobile-link:hover {
             color: #FF9500 !important;
-            /* Orange Nat Gatto */
             transform: scale(1.25) !important;
-            /* Zoom */
-
-            /* L'EFFET FOGGY (Brume) */
-            /* On combine text-shadow pour les lettres et filter pour la brume diffuse */
             text-shadow: 0 0 10px #FF9500, 0 0 20px #FF9500 !important;
             filter: drop-shadow(0 0 15px #FF9500) drop-shadow(0 0 40px rgba(255, 149, 0, 0.6)) !important;
-
             letter-spacing: 0.1em;
         }
 
@@ -85,6 +80,7 @@
 </head>
 
 <body id="top" class="home-page">
+    <div class="reading-progress-bar"></div>
     <!--Global Background Video & Overlay-->
     <video class="global-bg-video" autoplay loop muted playsinline webkit-playsinline preload="auto">
         <source src="https://nat-gatto-demo.b-cdn.net/1-tablet.mp4?v=1.0" type="video/mp4" media="(max-width: 1024px)">

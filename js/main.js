@@ -368,19 +368,6 @@ function initMobileMenu() {
     }
 }
 
-// Fermer automatiquement le menu au clic sur un lien
-menuLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        menuOverlay.style.opacity = '0';
-        setTimeout(() => {
-            menuOverlay.style.display = 'none';
-        }, 400);
-        document.body.style.overflow = '';
-    });
-});
-
-
 
 // ================================
 // Sound Toggle for Videos
@@ -451,7 +438,7 @@ function initSoundToggle() {
 }
 
 // ================================
-// Counter Animation for Stats
+// Counter Animation for Stats (CORRIGÉ)
 // ================================
 function animateCounter(element, target, duration = 2000) {
     const start = 0;
@@ -473,7 +460,8 @@ const statsObserver = new IntersectionObserver(
     (entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                const statNumbers = entry.target.querySelectorAll('.stat-number');
+                // On cible .stat-number (index) ET .counter (About)
+                const statNumbers = entry.target.querySelectorAll('.stat-number, .counter');
                 statNumbers.forEach((stat) => {
                     const number = parseInt(stat.textContent);
                     if (!isNaN(number)) animateCounter(stat, number);
@@ -482,13 +470,13 @@ const statsObserver = new IntersectionObserver(
             }
         });
     },
-    { threshold: 0.2 }
+    { threshold: 0.1 }
 );
 
-const statsSection = document.querySelector('.about-stats');
-if (statsSection) {
-    statsObserver.observe(statsSection);
-}
+// On observe les deux types de conteneurs (Index et About)
+document.querySelectorAll('.about-stats, .about-meta-sidebar').forEach(section => {
+    statsObserver.observe(section);
+});
 
 // ================================
 // Magnetic Button Effect
@@ -745,3 +733,16 @@ console.log('🚀 Nat Gatto Portfolio - Optimized & Responsive');
     // Safety net: periodic check every 2s
     setInterval(ensurePlay, 2000);
 })();
+
+// ================================
+// Barre de progression de lecture (À COLLER ICI)
+// ================================
+window.addEventListener('scroll', () => {
+    const progressBar = document.querySelector('.reading-progress-bar');
+    if (progressBar) {
+        const windowScroll = document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (windowScroll / height) * 100;
+        progressBar.style.width = scrolled + "%";
+    }
+});

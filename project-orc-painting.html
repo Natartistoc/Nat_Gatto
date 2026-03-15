@@ -94,6 +94,7 @@
 </head>
 
 <body id="top" class="project-detail">
+    <div class="reading-progress-bar"></div>
     <video class="global-bg-video" autoplay loop muted playsinline>
         <source src="https://nat-gatto-demo.b-cdn.net/1.mp4?v=1.0" type="video/mp4">
     </video>
@@ -148,20 +149,53 @@
             </div>
         </div>
     </section>
+    <section class="project-info" style="padding-top: 60px; padding-bottom: 60px;">
+        <div class="container">
+            <div class="project-grid" style="align-items: stretch; display: flex; gap: 30px;">
+                <div class="project-description" style="flex: 1.5;">
+                    <h2 class="section-title">The Project</h2>
+                    <p style="color: rgba(255, 255, 255, 0.75);">This digital painting focuses on the fierce,
+                        battle-hardened aesthetic of an original Orc, heavily inspired by the iconic warriors of the
+                        World of Warcraft universe. Every detail—from the raw power of the anatomy to the weathered
+                        textures of the armor—was designed as a technical blueprint for the digital sculpture featured
+                        on this site. This comprehensive 2D-to-3D workflow was developed specifically for the creation
+                        of a 1/6 scale premium collectible figure.</p>
+                </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const images = document.querySelectorAll('.drawing-sequence img');
-            let currentIndex = 0;
-            if (images.length > 0) {
-                setInterval(() => {
-                    images[currentIndex].classList.remove('active');
-                    currentIndex = (currentIndex + 1) % images.length;
-                    images[currentIndex].classList.add('active');
-                }, 2000);
-            }
-        });
-    </script>
+    </section>
+    <footer class="footer">
+        <div class="container footer-row-master">
+            <div class="footer-copyright">
+                <p>&copy; 2026 Nat Gatto. All rights reserved.</p>
+            </div>
+
+            <div class="back-to-top-container" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="island-logo footer-logo-corner">
+                    <img src="images/logo.png" alt="Nat Gatto Logo">
+                </div>
+                <span class="back-to-top-label">Back to Top</span>
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js?v=25.0"></script>
+</body>
+
+</html>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('.drawing-sequence img');
+        let currentIndex = 0;
+        if (images.length > 0) {
+            setInterval(() => {
+                images[currentIndex].classList.remove('active');
+                currentIndex = (currentIndex + 1) % images.length;
+                images[currentIndex].classList.add('active');
+            }, 2000);
+        }
+    });
+</script>
 </body>
 
 </html>
