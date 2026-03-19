@@ -4,14 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>CV Nathalie Gatto | Senior Art Director</title>
+    <title>Nathalie Gatto | Senior Art Director</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --orange: #ff9900;
-            --dark-bg: #111111;
+            --dark-bg: #0a0a0a;
+            --card-bg: #111111;
             --text-main: #eeeeee;
             --text-dim: #aaaaaa;
+            --sidebar-bg: rgba(255, 255, 255, 0.03);
         }
 
         body {
@@ -20,7 +22,7 @@
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
         #video-bg {
@@ -31,89 +33,153 @@
             height: 100%;
             object-fit: cover;
             z-index: -1;
-            opacity: 0.18;
+            opacity: 0.25;
+            /* Vidéo plus visible */
             filter: blur(8px);
         }
 
         .cv-wrapper {
-            max-width: 1000px;
-            margin: 20px auto;
-            background: rgba(15, 15, 15, 0.97);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 1400px;
+            margin: 0 auto;
+            /* Collé en haut */
+            background: var(--card-bg);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- LE HEADER FIXÉ --- */
+        /* --- HEADER TRIPTYQUE --- */
+        .main-header {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-bottom: 3px solid var(--orange);
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            /* Garde le texte en bas */
+        }
+
+        .triptych-banner {
+            width: 100%;
+            line-height: 0;
+            /* Tue l'espace blanc/noir sous l'image */
+        }
+
+        .triptych-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* Force l'image à être un bloc solide */
+            margin: 0;
+            padding: 0;
+            /* Si l'image est trop large, elle sera contenue dans le header */
+            max-width: 100%;
+        }
+
+        .identity-block {
+            position: absolute;
+            /* On place le texte PAR-DESSUS l'image */
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 60px;
+            z-index: 2;
+            /* Voile noir dégradé réduit (0.5) pour voir ta vidéo/bannière */
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+        }
+
+        .header-name {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 10px;
+            margin: 0;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .header-job-title .header-job-title {
+            color: var(--orange);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        /* --- GRILLE CONTENU --- */
+        .cv-grid {
             display: grid;
-            grid-template-columns: 280px 1fr;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            grid-template-columns: 320px 1fr 300px;
         }
 
         .sidebar {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 40px 25px;
+            background: var(--sidebar-bg);
+            padding: 40px 30px;
             border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .sidebar h3 {
-            color: var(--orange);
+        /* Titres Sidebar : Petits et Orange */
+        .section-title {
+            font-size: 0.75rem;
             text-transform: uppercase;
-            font-size: 0.85rem;
             letter-spacing: 2px;
-            margin-top: 30px;
-            border-bottom: 1px solid rgba(255, 153, 0, 0.3);
+            margin: 30px 0 12px 0;
+            color: var(--orange);
+            border-bottom: 1px solid rgba(255, 153, 0, 0.2);
+            display: block;
             padding-bottom: 5px;
-            margin-bottom: 15px;
+            font-weight: 700;
         }
 
-        .skill-tag {
-            display: inline-block;
-            font-size: 0.7rem;
-            padding: 4px 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin: 3px 0;
-            border-radius: 2px;
-            text-transform: uppercase;
+        /* Titres Main Content : Gros et Blancs */
+        .main-content .section-title {
+            font-size: 1.25rem;
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 800;
+            margin-top: 40px;
         }
 
         .contact-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 18px;
+            margin-bottom: 30px;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 0.8rem;
-        }
-
-        .contact-item a {
-            color: inherit;
+            font-size: 0.85rem;
+            color: var(--text-main);
             text-decoration: none;
         }
 
-        .contact-icon {
-            width: 16px;
-            height: 16px;
+        .icon-svg {
+            width: 20px;
+            height: 20px;
             color: var(--orange);
             flex-shrink: 0;
         }
 
+        .icon-img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
         .main-content {
-            padding: 40px 45px;
+            padding: 40px;
         }
 
-        header h1 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            letter-spacing: 5px;
-            margin: 0;
-        }
-
-        .job-title {
-            color: var(--orange);
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-            font-size: 1.1rem;
+        .right-col {
+            padding: 40px 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .executive-summary {
@@ -122,26 +188,19 @@
             padding: 20px;
             font-size: 0.95rem;
             margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 35px 0 15px 0;
-            color: var(--text-main);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: block;
+            color: #ddd;
+            line-height: 1.6;
         }
 
         .exp-item {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .exp-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
+            margin-bottom: 5px;
         }
 
         .company {
@@ -151,152 +210,132 @@
         }
 
         .date {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-dim);
             font-weight: 700;
         }
 
         .project-title {
             font-weight: 700;
-            margin-top: 5px;
+            color: #fff;
             display: block;
-            color: var(--text-main);
+            margin-bottom: 5px;
         }
 
         ul {
+            list-style: none;
+            padding-left: 0;
             margin: 8px 0;
+        }
+
+        li {
+            position: relative;
             padding-left: 18px;
             font-size: 0.9rem;
             color: var(--text-dim);
+            margin-bottom: 6px;
         }
 
-        .details {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            margin-top: 5px;
+        li::before {
+            content: "•";
+            color: var(--orange);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .skill-tag {
             display: block;
+            /* Un tag par ligne */
+            width: fit-content;
+            /* Le rectangle colle parfaitement au texte */
+            padding: 6px 14px;
+            /* Un peu plus d'air à l'intérieur */
+            margin: 6px 0;
+            /* Espacement entre les lignes de tags */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+            font-size: 0.7rem;
+            /* Taille raffinée */
+            text-transform: uppercase;
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.03);
+
+            /* --- RÉGLAGE DE L'APPROCHE (Letter-spacing) --- */
+            letter-spacing: 1.5px;
+            /* Augmente la distance entre les lettres */
+            font-weight: 500;
+            /* Un poil plus épais pour compenser l'espacement */
+
+            white-space: nowrap;
+        }
+
+
+        /* --- LE BOUTON (VERSION DESKTOP CENTRÉE) --- */
+        .download-btn-container {
+            width: 100%;
+            padding: 60px 0;
+            text-align: center;
+            /* Centre le bouton */
         }
 
         .download-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
             background: var(--orange);
             color: #000;
-            padding: 12px 20px;
-            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 30px;
             font-weight: 800;
-            border-radius: 5px;
-            font-size: 0.75rem;
-            z-index: 1000;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            transition: 0.3s;
         }
 
-        /* --- CONFIGURATION PRINT POUR PDF AÉRÉ SUR 1 PAGE --- */
-        @media print {
-            @page {
-                margin: 0;
-                size: A4;
-            }
+        .download-btn:hover {
+            background: #fff;
+            transform: translateY(-5px);
+        }
 
-            #video-bg,
+        /* --- AJOUTE CE BLOC JUSTE EN DESSOUS --- */
+        @media (max-width: 900px) {
             .download-btn {
-                display: none;
-            }
+                bottom: 20px !important;
+                /* On le place à 20px du BAS */
+                left: 20px !important;
+                /* On le place à 20px de la GAUCHE */
+                top: auto !important;
+                /* On annule le positionnement du haut */
+                right: auto !important;
+                /* On annule le positionnement de droite */
+                background: none;
+                /* On enlève le fond orange plein */
+                border: 2px solid var(--orange);
+                /* On met juste le cadre orange */
+                color: var(--orange);
+                /* L'icône devient orange */
+                padding: 10px;
+                /* Carré parfait pour l'icône */
+                border-radius: 8px;
+                /* Coins arrondis comme ton image exemple */
 
-            body {
-                background: white;
-                color: black;
-                line-height: 1.4;
-                font-size: 9pt;
-            }
-
-            .cv-wrapper {
-                background: white;
-                color: black;
                 box-shadow: none;
-                border: none;
-                max-width: 100%;
-                margin: 0;
-                grid-template-columns: 240px 1fr;
-                display: grid !important;
-                height: 297mm;
-                /* Force la hauteur A4 */
-                box-sizing: border-box;
-                padding-top: 1.5cm;
-                /* Air en haut */
-                padding-bottom: 1.5cm;
-                /* Air en bas */
+                /* Plus discret sur mobile */
+
             }
 
-            .sidebar {
-                background: #f8f8f8;
-                padding: 30px 20px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
+            .btn-text {
+                display: none !important;
+                /* Cache le texte "DOWNLOAD PDF" */
             }
 
-            .main-content {
-                padding: 0 45px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                /* Distribue l'espace verticalement */
-            }
-
-            header h1 {
-                font-size: 1.9rem;
-                letter-spacing: 3px;
-            }
-
-            .job-title {
-                font-size: 11pt;
-                color: #cc7a00;
-                margin-bottom: 15px;
-            }
-
-            .executive-summary {
-                background: #fffaf2;
-                border-left: 3px solid #cc7a00;
-                padding: 15px;
-                margin-bottom: 20px;
-                font-size: 9pt;
-            }
-
-            /* Gère l'espacement des titres pour aérer la verticale */
-            .section-title {
-                margin-top: 25px;
-                margin-bottom: 12px;
-                font-size: 10pt;
-                color: #666;
-                border-bottom: 1px solid #ddd;
-            }
-
-            .exp-item {
-                margin-bottom: 18px;
-            }
-
-            .company {
-                font-size: 10pt;
-                color: #cc7a00;
-            }
-
-            .date {
-                font-size: 8pt;
-                color: #666;
-            }
-
-            ul,
-            .details,
-            .sidebar p {
-                font-size: 8.5pt;
-                color: #333;
-            }
-
-            .skill-tag {
-                border: 1px solid #ccc;
-                font-size: 7pt;
-                padding: 2px 5px;
+            .download-btn svg {
+                width: 18px !important;
+                /* On agrandit un peu l'icône seule */
+                height: 18px !important;
             }
         }
     </style>
@@ -304,123 +343,200 @@
 
 <body>
 
-    <button class="download-btn"
-        onclick="window.open('https://nat-gatto-demo.b-cdn.net/images/CV_NathalieGatto_SeniorArtDirector.pdf', '_blank')">
-        GET PDF VERSION
-    </button>
 
-    <video autoplay muted loop playsinline id="video-bg">
-        <source src="https://nat-gatto-demo.b-cdn.net/1.mp4" type="video/mp4">
-    </video>
+    <body>
+        <video autoplay muted loop playsinline id="video-bg">
+            <source src="https://nat-gatto-demo.b-cdn.net/1.mp4" type="video/mp4">
+        </video>
 
-    <div class="cv-wrapper">
-        <aside class="sidebar">
-            <div>
-                <h3>Contact</h3>
-                <div class="contact-list">
-                    <div class="contact-item"><span>France</span></div>
-                    <div class="contact-item"><span>+33 6 65 15 14 39</span></div>
-                    <div class="contact-item"><span>web@natgatto.com</span></div>
-                    <div class="contact-item"><a href="https://artstation.com/natgatto"
-                            target="_blank">artstation.com/natgatto</a></div>
-                    <div class="contact-item"><a href="https://linkedin.com/in/natgatto"
-                            target="_blank">linkedin.com/in/natgatto</a></div>
+        <div class="cv-wrapper">
+
+            <header class="main-header">
+                <div class="triptych-banner">
+                    <img src="https://nat-gatto-demo.b-cdn.net/images/BanniereCV-NATGATTO.webp" alt="Portfolio Header">
                 </div>
-
-                <h3>Direction</h3>
-                <div class="skill-tag">Art Direction</div>
-                <div class="skill-tag">Team Leadership</div>
-                <div class="skill-tag">IP Management</div>
-                <div class="skill-tag">AI Workflows</div>
-
-                <h3>3D Tools</h3>
-                <div class="skill-tag">ZBrush (Expert)</div>
-                <div class="skill-tag">Unreal Engine 5</div>
-                <div class="skill-tag">Unity</div>
-                <div class="skill-tag">Blender / Maya</div>
-                <div class="skill-tag">Substance 3D</div>
-
-                <h3>Industry</h3>
-                <div class="skill-tag">Board Games & Toys</div>
-                <div class="skill-tag">Video Games</div>
-                <div class="skill-tag">Cinematic Art</div>
-                <div class="skill-tag">Manufacturing</div>
-            </div>
-
-            <div>
-                <h3>Education</h3>
-                <p><strong>Master M2 Digital Dir.</strong><br>SUPINFOCOM RUBIKA</p>
-                <p><strong>National Art Diploma</strong><br>ESAC (DNAT)</p>
-            </div>
-        </aside>
-
-        <main class="main-content">
-            <header>
-                <h1>NATHALIE GATTO</h1>
-                <div class="job-title">Senior Art Director | 3D Character & Cinematic Expert</div>
+                <div class="identity-block">
+                    <h1 class="header-name">NATHALIE GATTO</h1>
+                    <div class="header-job-title">Senior Art Director | 3D Character & Cinematic Expert</div>
+                </div>
             </header>
 
-            <section class="executive-summary">
-                Senior Art Director with over 15 years of leadership in the entertainment industry. Expert in managing
-                global IPs (Star Wars, TMNT, Disney, SEGA), from initial concept to industrial manufacturing and
-                cinematic delivery. Pioneer in digital-to-physical workflows and real-time pipelines (UE5).
-            </section>
+            <div class="cv-grid">
 
-            <h2 class="section-title">Recent Successes (2022-2025)</h2>
-            <div class="exp-item">
-                <div class="exp-header"><span class="company">ASMODEE – ZYGOMATIC</span><span class="date">2022 –
-                        2025</span></div>
-                <ul>
-                    <li><strong>Star Wars Super Teams (2025):</strong> Directed and produced the official cinematic
-                        teaser (Unreal Engine 5).</li>
-                    <li><strong>TMNT Super Teams (In dev.):</strong> Lead Character Designer & Sculptor. Created the
-                        full miniature line (Validated by IP owners).</li>
-                    <li><strong>Sonic Super Teams:</strong> Design and sculpture of official game miniatures.</li>
-                </ul>
+                <aside class="sidebar">
+                    <h2 class="section-title">Contact</h2>
+                    <div class="contact-list">
+
+                        <a href="https://natgatto.com" class="contact-item" target="_blank">
+                            <svg class="icon-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                            </svg>
+                            <span>natgatto.com</span>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/nathaliegatto/" class="contact-item" target="_blank">
+                            <img src="https://nat-gatto-demo.b-cdn.net/images/software/Linkedin.webp" class="icon-img">
+                            <span>linkedin.com/in/nathaliegatto</span>
+                        </a>
+                        <a href="https://artstation.com/natgatto" class="contact-item" target="_blank">
+                            <img src="https://nat-gatto-demo.b-cdn.net/images/software/Artstation-icon.webp"
+                                class="icon-img">
+                            <span>artstation.com/natgatto</span>
+                        </a>
+
+                        <div class="contact-item">
+                            <svg class="icon-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                            </svg>
+                            <span>web@natgatto.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <svg class="icon-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                            </svg>
+                            <span>+33 6 65 15 14 39</span>
+                        </div>
+
+                        <h2 class="section-title">Direction</h2>
+                        <span class="skill-tag">Art Direction</span>
+                        <span class="skill-tag">Team Leadership</span>
+                        <span class="skill-tag">IP Management</span>
+                        <span class="skill-tag">AI Workflows</span>
+
+                        <h2 class="section-title">Education</h2>
+                        <div style="font-size: 0.8rem; color: var(--text-dim);">
+                            <p><strong>Master M2 Digital Direction</strong><br>SUPINFOCOM RUBIKA</p>
+                            <p><strong>National Art Diploma</strong><br>ESAC (DNAT)</p>
+                        </div>
+                </aside>
+
+                <main class="main-content">
+                    <section class="executive-summary">
+                        Senior Art Director with over 15 years of leadership in the entertainment industry. Expert in
+                        managing global IPs (Star Wars, Disney, SEGA) from initial concept to industrial manufacturing
+                        and
+                        cinematic delivery. Specialist in digital-to-physical workflows since 2013 (ZBrush to
+                        manufacturing), with extensive experience in real-time pipelines and Unreal Engine 5.
+                    </section>
+
+                    <h2 class="section-title">Recent Successes (2022-2025)</h2>
+                    <div class="exp-item">
+                        <div class="exp-header"><span class="company">ASMODEE | ZYGOMATIC</span><span class="date">2022
+                                →
+                                2025</span></div>
+                        <ul>
+                            <li><strong>Star Wars Super Teams (2025):</strong> Directed and produced the official
+                                cinematic
+                                teaser using Unreal Engine 5.</li>
+                            <li><strong>TMNT Super Teams (In dev.):</strong> Lead Character Designer & Sculptor. Created
+                                the
+                                full miniature line (Validated by IP owners).</li>
+                            <li><strong>Sonic Super Teams:</strong> Design and sculpture of official game miniatures.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h2 class="section-title">Professional Experience</h2>
+                    <div class="exp-item">
+                        <div class="exp-header"><span class="company">ZOR ALIVE CIE</span><span class="date">2013 →
+                                2024</span></div>
+                        <span class="project-title">3D Technical & Art Direction</span>
+                        <ul>
+                            <li><strong>Planet of the Apes (Disney/Fox):</strong> Designed and sculpted the entire
+                                collection of 60+ miniatures. Managed the full pipeline from digital sculpts to
+                                industrial
+                                manufacturing. All assets officially validated by 20th Century Fox / Disney (Zero
+                                rejection
+                                rate).</li>
+                            <li><strong>Z First Impact:</strong> Full miniature range production and 3D printing
+                                standards.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="exp-item">
+                        <div class="exp-header"><span class="company">CHEZ EDDY</span><span class="date">2012</span>
+                        </div>
+                        <span class="project-title">Senior ZBrush Character Artist</span>
+                        <ul>
+                            <li><strong>Silent Hill Revelation 3D (Movie):</strong> Sculpting and texturing of "Zombie
+                                Nurse" for the End Title.</li>
+                        </ul>
+                    </div>
+
+                    <div class="exp-item">
+                        <div class="exp-header"><span class="company">INDEPENDENCE PROD</span><span class="date">2009 →
+                                2010</span></div>
+                        <span class="project-title">Senior 3D Game Character Artist</span>
+                        <ul>
+                            <li><strong>Alice in Wonderland (Disney):</strong> Lead sculpting and modeling of iconic
+                                characters for the official video game adaptation of Tim Burton’s film (Wii/PC). Ensured
+                                strict artistic and technical compliance with Disney’s standards and Burton’s unique
+                                visual
+                                style.</li>
+                        </ul>
+                    </div>
+
+                    <div class="exp-item">
+                        <div class="exp-header"><span class="company">KUJU ENTERTAINMENT (UK)</span><span
+                                class="date">2006
+                                → 2009</span></div>
+                        <ul>
+                            <li><strong>Senior 3D Generalist:</strong> Console productions (Sony EyeToy, Sing It,
+                                Grease).
+                            </li>
+                        </ul>
+                    </div>
+                </main>
+
+                <aside class="right-col">
+                    <h2 class="section-title">3D Tools</h2>
+                    <div class="skill-tag">ZBrush (Expert)</div>
+                    <div class="skill-tag">Unreal Engine 5</div>
+                    <div class="skill-tag">Unity</div>
+                    <div class="skill-tag">Blender / Maya</div>
+                    <div class="skill-tag">Substance 3D</div>
+
+                    <h2 class="section-title">Industry</h2>
+                    <div class="skill-tag">Board Games & Toys</div>
+                    <div class="skill-tag">Video Games</div>
+                    <div class="skill-tag">Cinematic Art</div>
+                    <div class="skill-tag">Manufacturing</div>
+
+                    <h2 class="section-title">Mentorship</h2>
+                    <div style="font-size: 0.8rem; color: var(--text-dim);">
+                        <div class="exp-item">
+                            <div class="exp-header"><span class="company" style="font-size:0.9rem;">ESRA</span><span
+                                    class="date">2014 → Present</span></div>
+                            <p style="margin:5px 0;">Animation film supervision. <strong>Instructor:</strong> Art
+                                Direction,
+                                Anatomy, PBR & Real-time Pipelines.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="section-title">Key Achievement</h2>
+                    <div
+                        style="font-size: 0.8rem; color: var(--text-dim); background: rgba(255,153,0,0.08); padding: 12px; border-radius: 4px; border-left: 2px solid var(--orange);">
+                        <strong>Johnny Hallyday Tour:</strong> Digital stage design for the "Flashback Tour". Developed
+                        custom 3D character assets optimized for massive LED screen displays.
+                    </div>
+                </aside>
+            </div>
+            <div class="download-btn-container">
+                <a href="https://nat-gatto-demo.b-cdn.net/images/CV_NathalieGatto_SeniorArtDirector.pdf" target="_blank"
+                    class="download-btn">
+                    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    <span class="btn-text">Download PDF Version</span>
+                </a>
             </div>
 
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="exp-item">
-                <div class="exp-header"><span class="company">ZOR ALIVE CIE</span><span class="date">2013 – 2024</span>
-                </div>
-                <span class="project-title">3D Technical & Art Direction</span>
-                <ul>
-                    <li><strong>Planet of the Apes (Disney/Fox):</strong> Designed and sculpted the entire collection of
-                        60+ miniatures. Managed the full pipeline from digital sculpts to industrial manufacturing. All
-                        assets officially validated by <strong>20th Century Fox / Disney</strong> (Zero rejection rate).
-                    </li>
-                    <li><strong>Z First Impact:</strong> Full miniature range production and 3D printing standards.</li>
-                </ul>
-            </div>
-
-            <div class="exp-item">
-                <div class="exp-header"><span class="company">CHEZ EDDY</span><span class="date">2012</span></div>
-                <p class="details"><strong>Silent Hill Revelation 3D (Movie):</strong> Sculpting and texturing of
-                    "Zombie Nurse" for the End Title (Senior ZBrush Artist).</p>
-            </div>
-
-            <div class="exp-item">
-                <div class="exp-header"><span class="company">KUJU ENTERTAINMENT (UK)</span><span class="date">2006 –
-                        2009</span></div>
-                <p class="details"><strong>Senior 3D Generalist:</strong> Console productions (Sony EyeToy, Sing It,
-                    Grease).</p>
-            </div>
-
-            <div class="exp-item">
-                <div class="exp-header"><span class="company">ARTRACK STUDIO</span><span class="date">2005</span></div>
-                <p class="details"><strong>Johnny Hallyday - Flashback Tour:</strong> Digital Stage Design Pioneer.
-                    Developed 3D characters for the first giant LED concert screens.</p>
-            </div>
-
-            <h2 class="section-title">Academic Leadership & Mentorship</h2>
-            <div class="exp-item">
-                <div class="exp-header"><span class="company">ESRA / E-TRIBART</span><span class="date">2014 –
-                        Present</span></div>
-                <p class="details">Animation film supervision. <strong>Instructor:</strong> Art Direction, Morphology,
-                    ZBrush, Drawing & Painting, Substance 3D, Anatomy, PBR & Real-time Pipelines.</p>
-            </div>
-        </main>
-    </div>
-</body>
+        </div>
+    </body>
 
 </html>
