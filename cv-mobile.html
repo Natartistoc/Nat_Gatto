@@ -28,47 +28,70 @@
             line-height: 1.5;
         }
 
-        /* BANNIÈRE MOBILE */
+        /* BANNIÈRE MOBILE FULL WIDTH */
         .mobile-header {
-            width: 100%;
-            height: 220px;
+            width: 100vw;
+            /* Prend 100% de la largeur de l'écran */
+            margin-left: -20px;
+            /* Annule le padding du container (à ajuster selon ton padding actuel) */
+            height: 250px;
+            /* Un peu plus haut pour plus d'impact */
             position: relative;
             background: #000;
             overflow: hidden;
-            border-bottom: 3px solid var(--orange);
+            border-bottom: 2px solid var(--orange);
         }
 
         .mobile-header img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
+            object-position: center 20%;
+            /* Permet de remonter un peu l'image si ton visage est trop bas */
+            filter: brightness(0.8);
+            /* Rend l'image légèrement plus sombre pour faire ressortir le nom */
         }
 
+        /* BLOC IDENTITÉ (CORRECTION ALIGNEMENT) */
         .identity-block {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 20px;
-            background: linear-gradient(to top, rgba(10, 10, 10, 1) 0%, transparent 100%);
+            /* AJOUTE OU MODIFIE CES VALEURS : */
+            padding-top: 30px;
+            /* Plus d'espace en haut pour le dégradé */
+            padding-left: 40px;
+            /* <--- C'EST ICI LE SECRET POUR LE DÉCALAGE GAUCHE */
+            padding-right: 20px;
+            /* Marge de sécurité à droite */
+            padding-bottom: 20px;
+            /* Espace en bas pour le titre */
+
+            /* On garde le dégradé pour la lisibilité */
+            background: linear-gradient(to top, rgba(10, 10, 10, 1) 15%, transparent 100%);
+            box-sizing: border-box;
+            /* Important pour que le padding n'élargisse pas le bloc */
         }
 
         .name {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 4px;
+            font-size: 1.4rem;
+            /* Un peu réduit pour éviter que ça coupe sur les petits écrans */
+            font-weight: 900;
+            letter-spacing: 3px;
             margin: 0;
+            color: #ffffff;
             text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .job-title {
             color: var(--orange);
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            margin-top: 5px;
-            letter-spacing: 1px;
+            margin-top: 3px;
+            letter-spacing: 2px;
         }
 
         /* CONTENEUR UNIQUE */
