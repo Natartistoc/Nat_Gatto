@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nathalie Gatto | Senior Art Director</title>
+
+    <script>
+        if (window.innerWidth <= 900) {
+            window.location.href = "cv-mobile.html";
+        }
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -34,27 +41,21 @@
             object-fit: cover;
             z-index: -1;
             opacity: 0.25;
-            /* Vidéo plus visible */
             filter: blur(8px);
         }
 
         .cv-wrapper {
             width: 100%;
-            /* S'adapte à la largeur de l'écran par défaut */
             max-width: 1400px;
-            /* Mais ne dépasse jamais 1400px sur grand écran */
             margin: 0 auto;
             background: var(--card-bg);
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.05);
-
-            /* --- AJOUT POUR LE ZOOM/DEZOOM --- */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-
 
         .main-header {
             height: 200px !important;
@@ -62,7 +63,6 @@
             align-items: flex-end;
             position: relative;
             background: #000;
-            /* Fond noir de secours */
         }
 
         .triptych-banner {
@@ -77,19 +77,16 @@
             width: 100% !important;
             height: 100% !important;
             object-fit: cover !important;
-            /* Force l'image à remplir tout le cadre */
             object-position: right;
         }
 
         .identity-block {
             position: absolute;
-            /* On place le texte PAR-DESSUS l'image */
             bottom: 0;
             left: 0;
             width: 100%;
             padding: 40px 60px;
             z-index: 2;
-            /* Voile noir dégradé réduit (0.5) pour voir ta vidéo/bannière */
             background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
         }
 
@@ -102,7 +99,8 @@
             text-transform: uppercase;
         }
 
-        .header-job-title .header-job-title {
+        /* Correction de la répétition du sélecteur */
+        .header-job-title {
             color: var(--orange);
             font-weight: 700;
             letter-spacing: 2px;
@@ -111,7 +109,6 @@
             text-transform: uppercase;
         }
 
-        /* --- GRILLE CONTENU --- */
         .cv-grid {
             display: grid;
             grid-template-columns: 320px 1fr 300px;
@@ -123,7 +120,6 @@
             border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Titres Sidebar : Petits et Orange */
         .section-title {
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -136,7 +132,6 @@
             font-weight: 700;
         }
 
-        /* Titres Main Content : Gros et Blancs */
         .main-content .section-title {
             font-size: 1.25rem;
             color: #ffffff;
@@ -249,31 +244,20 @@
 
         .skill-tag {
             display: block;
-            /* Un tag par ligne */
             width: fit-content;
-            /* Le rectangle colle parfaitement au texte */
             padding: 6px 14px;
-            /* Un peu plus d'air à l'intérieur */
             margin: 6px 0;
-            /* Espacement entre les lignes de tags */
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 2px;
             font-size: 0.7rem;
-            /* Taille raffinée */
             text-transform: uppercase;
             color: var(--text-main);
             background: rgba(255, 255, 255, 0.03);
-
-            /* --- RÉGLAGE DE L'APPROCHE (Letter-spacing) --- */
             letter-spacing: 1.5px;
-            /* Augmente la distance entre les lettres */
             font-weight: 500;
-            /* Un poil plus épais pour compenser l'espacement */
-
             white-space: nowrap;
         }
 
-        /* --- LE BOUTON (VERSION DESKTOP CENTRÉE) --- */
         .download-btn-container {
             width: 100%;
             padding: 60px 0;
@@ -288,7 +272,6 @@
             color: #000;
             padding: 15px 30px;
             border-radius: 30px;
-            /* Style "Pilule" très élégant */
             font-weight: 800;
             text-decoration: none;
             text-transform: uppercase;
@@ -302,19 +285,14 @@
             background: #fff;
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(255, 153, 0, 0.2);
-            /* Ombre légère au survol */
         }
 
-        /* --- CONFIGURATION MOBILE UNIQUE (< 900px) --- */
         @media (max-width: 900px) {
-
-            /* 1. Empilement des colonnes */
             .cv-grid {
                 display: flex;
                 flex-direction: column;
             }
 
-            /* 2. Redimensionnement intelligent du Header */
             .main-header {
                 height: 200px !important;
                 display: flex;
@@ -322,7 +300,6 @@
                 position: relative;
             }
 
-            /* 3. Recadrage de la bannière */
             .triptych-banner img {
                 height: 100% !important;
                 width: 100% !important;
@@ -330,7 +307,6 @@
                 object-position: center;
             }
 
-            /* 4. Ajustement du texte et des blocs */
             .identity-block {
                 padding: 20px !important;
                 background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent) !important;
@@ -352,7 +328,6 @@
                 padding: 25px !important;
             }
 
-            /* 5. Bouton mobile flottant (Icon Only) */
             .download-btn {
                 position: fixed !important;
                 bottom: 25px !important;
@@ -366,18 +341,15 @@
                 justify-content: center !important;
                 align-items: center !important;
                 background: rgba(10, 10, 10, 0.95) !important;
-                /* Plus opaque sur mobile */
                 border: 2px solid var(--orange) !important;
                 color: var(--orange) !important;
                 border-radius: 12px !important;
-                /* Un peu plus arrondi pour le mobile */
                 z-index: 9999;
                 box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
             }
 
             .btn-text {
                 display: none !important;
-                /* On cache le texte */
             }
 
             .download-btn svg {
@@ -388,7 +360,8 @@
     </style>
 </head>
 
-<body> <video autoplay muted loop playsinline id="video-bg">
+<body>
+    <video autoplay muted loop playsinline id="video-bg">
         <source src="https://nat-gatto-demo.b-cdn.net/1.mp4" type="video/mp4">
     </video>
 
@@ -401,9 +374,11 @@
             <div class="identity-block">
                 <h1 class="header-name">NATHALIE GATTO</h1>
                 <div class="header-job-title" style="color: var(--orange);">
-                    Senior Art Director | 3D Character & Cinematic Expert
+                    Senior 3D Artist | Art Director
                 </div>
+            </div>
         </header>
+
         <div class="cv-grid">
 
             <aside class="sidebar">
@@ -449,11 +424,32 @@
                     <span class="skill-tag">IP Management</span>
                     <span class="skill-tag">AI Workflows</span>
 
+                    <h2 class="section-title" style="color: #e0e0e0; margin-top: 30px;">Programming Notions</h2>
+                    <div
+                        style="background: rgba(255,153,0,0.03); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,153,0,0.1);">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <span style="color: #e0e0e0; font-size: 0.8rem; font-weight: 700;">HTML5 / CSS3</span>
+                                <span style="color: #888888; font-size: 0.7rem;">Web layout & UI styling</span>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <span style="color: #e0e0e0; font-size: 0.8rem; font-weight: 700;">Technical Art</span>
+                                <span style="color: #888888; font-size: 0.7rem;">Shader graphs & Node logic</span>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
                     <h2 class="section-title">Education</h2>
                     <div style="font-size: 0.8rem; color: var(--text-dim);">
                         <p><strong>Master M2 Digital Direction</strong><br>SUPINFOCOM RUBIKA</p>
                         <p><strong>National Art Diploma</strong><br>ESAC (DNAT)</p>
                     </div>
+                </div>
             </aside>
 
             <main class="main-content">
@@ -467,16 +463,15 @@
 
                 <h2 class="section-title">Recent Successes (2022-2025)</h2>
                 <div class="exp-item">
-                    <div class="exp-header"><span class="company">ASMODEE | ZYGOMATIC</span><span class="date">2022
-                            →
-                            2025</span></div>
+                    <div class="exp-header">
+                        <span class="company">ASMODEE | ZYGOMATIC</span>
+                        <span class="date">2022 → 2025</span>
+                    </div>
                     <ul>
                         <li><strong>Star Wars Super Teams (2025):</strong> Directed and produced the official
-                            cinematic
-                            teaser using Unreal Engine 5.</li>
+                            cinematic teaser using Unreal Engine 5.</li>
                         <li><strong>TMNT Super Teams (In dev.):</strong> Lead Character Designer & Sculptor. Created
-                            the
-                            full miniature line (Validated by IP owners).</li>
+                            the full miniature line (Validated by IP owners).</li>
                         <li><strong>Sonic Super Teams:</strong> Design and sculpture of official game miniatures.
                         </li>
                     </ul>
@@ -484,16 +479,16 @@
 
                 <h2 class="section-title">Professional Experience</h2>
                 <div class="exp-item">
-                    <div class="exp-header"><span class="company">ZOR ALIVE CIE</span><span class="date">2013 →
-                            2024</span></div>
+                    <div class="exp-header">
+                        <span class="company">ZOR ALIVE CIE</span>
+                        <span class="date">2013 → 2024</span>
+                    </div>
                     <span class="project-title">3D Technical & Art Direction</span>
                     <ul>
                         <li><strong>Planet of the Apes (Disney/Fox):</strong> Designed and sculpted the entire
                             collection of 60+ miniatures. Managed the full pipeline from digital sculpts to
-                            industrial
-                            manufacturing. All assets officially validated by 20th Century Fox / Disney (Zero
-                            rejection
-                            rate).</li>
+                            industrial manufacturing. All assets officially validated by 20th Century Fox / Disney (Zero
+                            rejection rate).</li>
                         <li><strong>Z First Impact:</strong> Full miniature range production and 3D printing
                             standards.
                         </li>
@@ -501,7 +496,9 @@
                 </div>
 
                 <div class="exp-item">
-                    <div class="exp-header"><span class="company">CHEZ EDDY</span><span class="date">2012</span>
+                    <div class="exp-header">
+                        <span class="company">CHEZ EDDY</span>
+                        <span class="date">2012</span>
                     </div>
                     <span class="project-title">Senior ZBrush Character Artist</span>
                     <ul>
@@ -511,24 +508,31 @@
                 </div>
 
                 <div class="exp-item">
-                    <div class="exp-header"><span class="company">INDEPENDENCE PROD</span><span class="date">2009 →
-                            2010</span></div>
+                    <div class="exp-header">
+                        <span class="company">INDEPENDENCE PROD</span>
+                        <span class="date">2009 → 2010</span>
+                    </div>
                     <span class="project-title">Senior 3D Game Character Artist</span>
                     <ul>
                         <li><strong>Alice in Wonderland (Disney):</strong> Lead sculpting and modeling of iconic
                             characters for the official video game adaptation of Tim Burton’s film (Wii/PC). Ensured
                             strict artistic and technical compliance with Disney’s standards and Burton’s unique
-                            visual
-                            style.</li>
+                            visual style.</li>
                     </ul>
                 </div>
-
                 <div class="exp-item">
-                    <div class="exp-header"><span class="company">KUJU ENTERTAINMENT (UK)</span><span class="date">2006
-                            → 2009</span></div>
-                    <ul>
-                        <li><strong>Senior 3D Generalist:</strong> Console productions (Sony EyeToy, Sing It,
-                            Grease).
+                    <div class="exp-header">
+                        <span class="company">KUJU ENTERTAINMENT (UK)</span>
+                        <span class="date">2006 → 2009</span>
+                    </div>
+
+                    <span class="project-title">Senior 3D Generalist</span>
+
+                    <ul style="list-style: none; padding-left: 0; margin-top: 5px;">
+                        <li
+                            style="position: relative; padding-left: 18px; font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">
+                            <span style="color: var(--orange); position: absolute; left: 0; font-weight: bold;">•</span>
+                            <strong>Console productions:</strong> Sony EyeToy, Sing It, Grease.
                         </li>
                     </ul>
                 </div>
@@ -548,17 +552,40 @@
                 <div class="skill-tag">Cinematic Art</div>
                 <div class="skill-tag">Manufacturing</div>
 
-                <h2 class="section-title">Mentorship</h2>
-                <div style="font-size: 0.8rem; color: var(--text-dim);">
-                    <div class="exp-item">
-                        <div class="exp-header"><span class="company" style="font-size:0.9rem;">ESRA</span><span
-                                class="date">2014 → Now</span></div>
-                        <p style="margin:5px 0;">Animation film supervision. <strong>Instructor:</strong> Art
-                            Direction,
-                            Anatomy, PBR & Real-time Pipelines.</p>
-                    </div>
-                </div>
+                <h2 class="section-title" style="color: #e0e0e0;">Academic Leadership & Mentorship</h2>
 
+                <div class="exp-item">
+                    <div class="exp-header">
+                        <span class="company" style="font-size:0.9rem;">ESRA</span>
+                        <span class="date">2014 → Now</span>
+                    </div>
+
+                    <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
+
+                        <li
+                            style="position: relative; padding-left: 18px; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 15px; line-height: 1.6;">
+                            <span style="color: #888888; position: absolute; left: 0; font-weight: bold;">•</span>
+                            <strong style="color: #e0e0e0;">Animation film supervision:</strong><br>
+                            Overseeing Art Direction, 3D pipeline validation, and creative mentorship across the entire
+                            3-year curriculum.
+                        </li>
+
+                        <li
+                            style="position: relative; padding-left: 18px; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 15px; line-height: 1.6;">
+                            <span style="color: #888888; position: absolute; left: 0; font-weight: bold;">•</span>
+                            <strong style="color: #e0e0e0;">Professor:</strong><br>
+                            Art Direction, Drawing Fundamentals (Anatomy, Perspective & Color Theory).
+                        </li>
+
+                        <li
+                            style="position: relative; padding-left: 18px; font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;">
+                            <span style="color: #888888; position: absolute; left: 0; font-weight: bold;">•</span>
+                            <strong style="color: #e0e0e0;">Instructor:</strong><br>
+                            Digital Sculpting (ZBrush Expert), PBR & Real-time Pipelines.
+                        </li>
+
+                    </ul>
+                </div>
                 <h2 class="section-title">Key Achievement</h2>
                 <div
                     style="font-size: 0.8rem; color: var(--text-dim); background: rgba(255,153,0,0.08); padding: 12px; border-radius: 4px; border-left: 2px solid var(--orange);">
@@ -567,6 +594,7 @@
                 </div>
             </aside>
         </div>
+
         <div class="download-btn-container">
             <a href="https://nat-gatto-demo.b-cdn.net/images/CV_NathalieGatto_SeniorArtDirector.pdf" target="_blank"
                 class="download-btn">
@@ -577,11 +605,7 @@
                 <span class="btn-text">Download PDF Version</span>
             </a>
         </div>
-
     </div>
-
-
-
 </body>
 
 </html>
