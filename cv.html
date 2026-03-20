@@ -338,6 +338,77 @@
                 height: 18px !important;
             }
         }
+
+        /* --- CONFIGURATION MOBILE (Écrans de moins de 900px) --- */
+        @media (max-width: 900px) {
+
+            /* 1. On empile les colonnes au lieu de les aligner */
+            .cv-grid {
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* 2. On ajuste le Header pour mobile */
+            .main-header {
+                height: 180px;
+                /* Moins haut sur mobile */
+            }
+
+            .header-name {
+                font-size: 1.6rem;
+                /* Texte plus petit pour ne pas déborder */
+                letter-spacing: 4px;
+            }
+
+            /* 3. On enlève les bordures de séparation qui deviennent inutiles */
+            .sidebar,
+            .right-col {
+                border: none;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            /* 4. Le bouton mobile : Icône flottante en bas à GAUCHE */
+            .download-btn {
+                position: fixed !important;
+                bottom: 20px !important;
+                left: 20px !important;
+                top: auto !important;
+                right: auto !important;
+                width: 50px !important;
+                height: 50px !important;
+                padding: 0 !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                background: rgba(10, 10, 10, 0.9) !important;
+                border: 2px solid var(--orange) !important;
+                color: var(--orange) !important;
+                border-radius: 8px !important;
+                z-index: 9999;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            }
+
+            /* On cache le texte du bouton sur mobile */
+            .btn-text {
+                display: none !important;
+            }
+
+            .download-btn svg {
+                width: 24px !important;
+                height: 24px !important;
+            }
+
+            /* 5. Ajustement des images de la bannière */
+            .triptych-banner img {
+                height: 100%;
+                object-fit: cover;
+            }
+        }
     </style>
 </head>
 
@@ -537,6 +608,9 @@
             </div>
 
         </div>
+
+
+
     </body>
 
 </html>
